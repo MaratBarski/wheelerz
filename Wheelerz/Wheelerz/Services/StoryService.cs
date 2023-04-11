@@ -71,12 +71,20 @@ namespace Wheelerz.Services
         {
             return Task.Run(() =>
             {
-                var res = _data.Stories.Where(x => x.storyType == type)
-                .Where(x => q == "" || x.name == null || x.name.Contains(q))
-                .OrderByDescending(x => x.estimation)
+                var res = _data.Stories
+                .Where(x => x.storyType == type)
+                .Where(x => q == "" ||
+                (
+                       (x.name != null && x.name.Contains(q)))
+                    || (x.title != null && x.title.Contains(q))
+                    || (x.country != null && x.country.Contains(q))
+                    || (x.city != null && x.city.Contains(q))
+                )
+                .OrderByDescending(x => x.estimation).ThenByDescending(x => x.endDate)
+                .Include(x => x.user)
+                .Include(x => x.storyPhotos)
                 .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
                 .Include(x => x.accessibility).ThenInclude(x => x.files)
-                .Include(x => x.storyPhotos)
                 .ToList();
 
                 res.ForEach(x =>
@@ -85,8 +93,13 @@ namespace Wheelerz.Services
                     {
                         x.user.password = null;
                         x.user.key = null;
+                        x.user.stories = null;
+                        x.user.role = 0;
+                        x.user.mobilities = null;
+                        x.user.chairInfo = null;    
+                        x.user.chairOptions = null;
                     }
-                    if(x.storyPhotos != null && x.storyPhotos.Count> 0)
+                    if (x.storyPhotos != null && x.storyPhotos.Count > 0)
                         x.storyPhotos = new List<StoryPhoto> { x.storyPhotos[0] };
                 });
 

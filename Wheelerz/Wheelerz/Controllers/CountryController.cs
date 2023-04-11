@@ -27,5 +27,11 @@ namespace Wheelerz.Controllers
             return _countryService.GetStates(countryId);
         }
 
+        [HttpPost]
+        public void AddAll(List<Country> c)
+        {
+            _countryService.AddAll(c);
+        }
+
     }
 }

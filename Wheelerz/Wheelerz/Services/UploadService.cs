@@ -45,7 +45,10 @@ namespace Wheelerz.Services
 
         public string GetFileText(string image)
         {
-            using (StreamReader sr = new StreamReader(Path.Combine(GetUploadDir(), image)))
+            var filePath = Path.Combine(GetUploadDir(), image);
+            if (!System.IO.File.Exists(filePath)) return "";
+
+            using (StreamReader sr = new StreamReader(filePath))
             {
                 return sr.ReadToEnd();
             }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Wheelerz.Models
 {
@@ -36,6 +37,7 @@ namespace Wheelerz.Models
         public string email { get; set; } = string.Empty;
 
         [Column("password")]
+        [JsonIgnore]
         public string? password { get; set; } = string.Empty;
 
         [Column("key")]

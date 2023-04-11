@@ -12,6 +12,8 @@ namespace Wheelerz.Models
 
         [Required]
         public string? name { get; set; }
+
+        public List<State>? states { get; set; }
     }
 
     public class State

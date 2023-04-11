@@ -41,6 +41,9 @@ namespace Wheelerz.Models
         [Column("endDate")]
         public DateTime endDate { get; set; }
 
+        [Column("dateAdd")]
+        public DateTime dateAdd { get; set; }
+
         public List<Accessibility>? accessibility { get; set; }
 
         public User? user { get; set; }

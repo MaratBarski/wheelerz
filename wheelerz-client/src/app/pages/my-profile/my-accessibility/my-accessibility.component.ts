@@ -56,11 +56,11 @@ export class MyAccessibilityComponent {
         this.selectedTypes = new Set<string>(res.mobilities.map(x => x.name))
         this.chairInfo = {
           ...this.chairInfo,
-          width: res.chairInfo.width,
-          length: res.chairInfo.length,
-          seatHeight: res.chairInfo.seatHeight
+          width: res.chairInfo?.width ||0,
+          length: res.chairInfo?.length || 0,
+          seatHeight: res.chairInfo?.seatHeight || 0
         }
-        this.selectedCm = res.chairInfo.messure
+        this.selectedCm = res.chairInfo?.messure ||  this.selectedCm
         this.chairOptions = this.chairOptions.map(x => ({
           ...x,
           selectedKey: res.chairOptions.find(y => y.key === x.name)?.value || x.selectedKey

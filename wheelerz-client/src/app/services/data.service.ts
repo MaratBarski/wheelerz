@@ -6,14 +6,14 @@ import { SERVER_URL } from '../consts'
 import { Story } from '../models/story'
 import { User } from '../models/user'
 import { FileImage } from '../models/fileImage'
-import { MobilityDto, MobilityType, UserMobility } from '../models/user-accessibility'
+import { MobilityDto, UserMobility } from '../models/user-accessibility'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCoutries(): Observable<Country[]> {
     return this.http.get<Country[]>(`${SERVER_URL}/country/countries`)
@@ -65,5 +65,25 @@ export class DataService {
 
   getUserMobility(): Observable<MobilityDto> {
     return this.get<MobilityDto>('User/mobility')
+  }
+
+  addCountries(): void {
+    this.http.get('./assets/data/countries.json')
+      .subscribe((res: any) => {
+        const countries = res.map((x: any) => {
+          return {
+            name: x.country,
+            states: x.cities.map((y: any) => {
+              return {
+                name: y
+              }
+            })
+          }
+        })
+        
+        this.post('Country', countries).subscribe(()=>{
+          alert('end')
+        })
+      })
   }
 }
