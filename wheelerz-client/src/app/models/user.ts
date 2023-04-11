@@ -1,4 +1,5 @@
 import { Country, State } from "./country"
+import { Story } from "./story"
 import { MobilityType } from "./user-accessibility"
 
 export interface User {
@@ -20,6 +21,7 @@ export interface User {
     phone?: string
     mobilities?: MobilityType[]
     noWalk?: number
+    stories?: Story[]
     chairInfo?: {
         seatHeight: number
         width: number

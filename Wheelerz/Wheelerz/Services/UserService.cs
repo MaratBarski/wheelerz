@@ -53,7 +53,16 @@ namespace Wheelerz.Services
                                     name = s.name,
                                     storyType = s.storyType,
                                     storyPhotos = s.storyPhotos,
-                                    accessibility = s.accessibility
+                                    accessibility = s.accessibility,
+                                    estimation = s.estimation, 
+                                    city = s.city,
+                                    country = s.country,
+                                    startDate = s.startDate,
+                                    endDate = s.endDate,
+                                    user = new User()
+                                    {
+                                        avatar = user.avatar
+                                    }
                                 }).ToList();
                 user.mobilities = _data.UserMobilities.Where(x => x.userId == id).ToList();
                 user.chairInfo = _data.ChairInfos.FirstOrDefault(x => x.userId == id);

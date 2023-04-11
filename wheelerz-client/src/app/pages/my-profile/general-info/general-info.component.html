@@ -1,3 +1,8 @@
 <ng-container *ngIf="user$|async as user">
     <app-top-profile [isEditable]="isEditable" [user]="user"></app-top-profile>
+    <div>
+        <div routerLink="/my-profile/story/{{s.id}}" *ngFor="let s of user.stories">
+            <app-story-card [story]="s"></app-story-card>
+        </div>
+    </div>
 </ng-container>

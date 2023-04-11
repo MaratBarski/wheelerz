@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Wheelerz.Helpers;
 using Wheelerz.Models;
 
 #pragma warning disable CS8620
+#pragma warning disable CS8603
+
 namespace Wheelerz.Services
 {
     public interface IStoryService
     {
         Task<Story> Add(Story story);
         Task<List<Story>> GetAll();
-        Task<List<Story>> GetStories(string q, int type);
+        Task<List<Story>> GetStories(string q, int type, int userId = 0);
+        Story GetStoryById(int id);
+        Task Update(Story story);
     }
     public class StoryService : IStoryService
     {
@@ -25,6 +28,7 @@ namespace Wheelerz.Services
         {
             return Task.Run(() =>
             {
+                story.dateAdd = DateTime.Now;
                 story.key = Guid.NewGuid().ToString();
                 story.storyPhotos = new List<StoryPhoto>();
                 story.accessibility?.ForEach((acc) =>
@@ -59,6 +63,24 @@ namespace Wheelerz.Services
             });
         }
 
+        public Task Update(Story story)
+        {
+            return Task.Run(() =>
+            {
+                var s = _data.Stories.FirstOrDefault(x => x.id == story.id);
+                if (s == null) return;
+                s.accessibility = story.accessibility;
+                s.comments = story.comments;
+                s.name = story.name;
+                s.startDate = story.startDate;  
+                s.title = story.title;
+                s.cityId = story.cityId;
+                s.countryId = story.countryId;  
+                s.estimation = story.estimation;
+                _data.SaveChanges();
+            });
+        }
+
         public Task<List<Story>> GetAll()
         {
             return Task.Run(() =>
@@ -67,21 +89,24 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task<List<Story>> GetStories(string q, int type)
+        public Task<List<Story>> GetStories(string q, int type, int userId = 0)
         {
             return Task.Run(() =>
             {
                 var res = _data.Stories
                 .Where(x => x.storyType == type)
+                .Where(x => userId == 0 || x.userId == userId)
                 .Where(x => q == "" ||
                 (
                        (x.name != null && x.name.Contains(q)))
                     || (x.title != null && x.title.Contains(q))
-                    || (x.country != null && x.country.Contains(q))
-                    || (x.city != null && x.city.Contains(q))
+                    || (x.country != null && x.country.name != null && x.country.name.Contains(q))
+                    || (x.city != null && x.city.name != null && x.city.name.Contains(q))
                 )
                 .OrderByDescending(x => x.estimation).ThenByDescending(x => x.endDate)
                 .Include(x => x.user)
+                .Include(x => x.city)
+                .Include(x => x.country)
                 .Include(x => x.storyPhotos)
                 .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
                 .Include(x => x.accessibility).ThenInclude(x => x.files)
@@ -96,7 +121,7 @@ namespace Wheelerz.Services
                         x.user.stories = null;
                         x.user.role = 0;
                         x.user.mobilities = null;
-                        x.user.chairInfo = null;    
+                        x.user.chairInfo = null;
                         x.user.chairOptions = null;
                     }
                     if (x.storyPhotos != null && x.storyPhotos.Count > 0)
@@ -105,6 +130,16 @@ namespace Wheelerz.Services
 
                 return res;
             });
+        }
+
+        public Story GetStoryById(int id)
+        {
+            var story = _data.Stories
+                .Include(x => x.storyPhotos)
+                .Include(x => x.accessibility)
+                .Include(x => x.user)
+                .Where(x => x.id == id).FirstOrDefault();
+            return story;
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿go
 drop table users
 go
-drop table countries
-go
+--drop table countries
+--go
+--drop table states
+--go
 drop table stories
 go
 drop table links
@@ -22,22 +24,21 @@ go
 drop table chairInfos
 go
 
-create table countries(
-	id int not null identity(1,1) PRIMARY KEY,
-	[name] varchar(100) not null,
-	deleted int not null default(0)
-)
-go
-drop table states
-go
-create table states(
-	id int not null identity(1,1),
-	countryId int not null,
-	[name] varchar(100) not null,
-	deleted int not null default(0)
-)
+--create table countries(
+--	id int not null identity(1,1) PRIMARY KEY,
+--	[name] varchar(100) not null,
+--	deleted int not null default(0)
+--)
+--go
 
-go
+--create table states(
+--	id int not null identity(1,1),
+--	countryId int not null,
+--	[name] varchar(100) not null,
+--	deleted int not null default(0)
+--)
+--go
+
 create table users(
 	id int not null identity(1,1),
 	[firstName] nvarchar(200) not null,
@@ -62,16 +63,16 @@ create table stories(
 	id int not null identity(1,1),
 	userId int not null default(0),
 	[key] varchar(50) not null,
-	[dateAdd] datetime not null default(getdate()),
 	storyType int not null,
 	[name] nvarchar(200) not null,
 	[title] nvarchar(200) not null,
-	city nvarchar(200),
-    country nvarchar(100),
+	cityId int not null default(0),
+    countryId int not null default(0),
     estimation int,
     comments nvarchar(1000),
-    startDate Date,
-    endDate Date
+    startDate datetime not null default(getdate()),
+    endDate datetime  not null default(getdate()),
+	[dateAdd] datetime not null default(getdate()),
 )
 go
 create table storyPhotos(
@@ -143,14 +144,3 @@ create table chairInfos(
 	seatHeight float not null,
 	[messure] varchar(20) not null
 )
-
-go
-insert into countries([name])values('Israel')
-insert into countries([name])values('USA')
-insert into states(countryId,[name])values(1,'Darom')
-insert into states(countryId,[name])values(1,'Zafon')
-insert into states(countryId,[name])values(1,'Mirkaz')
-insert into states(countryId,[name])values(2,'Mayami')
-insert into states(countryId,[name])values(2,'Texas')
-insert into states(countryId,[name])values(2,'Alabama')
-insert into states(countryId,[name])values(2,'Vasington')

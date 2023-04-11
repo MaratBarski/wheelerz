@@ -17,14 +17,14 @@ namespace Wheelerz.Models
         [Column("name")]
         public string? name { get; set; }
 
-        [Column("city")]
-        public string? city { get; set; }
+        [Column("countryId")]
+        public int countryId { get; set;}
+
+        [Column("cityId")]
+        public int cityId { get; set; }
 
         [Column("title")]
         public string? title { get; set; }
-
-        [Column("country")]
-        public string? country { get; set; }
 
         [Column("estimation")]
         public int estimation { get; set; }
@@ -49,6 +49,8 @@ namespace Wheelerz.Models
         public User? user { get; set; }
 
         public List<StoryPhoto>? storyPhotos { get; set; }
+        public State? city { get; set; }
+        public Country? country { get; set; }
 
         [NotMapped]
         public List<FileImage>? photos { get; set; }

@@ -50,7 +50,7 @@
                     {{'required'|translate}}</div>
             </app-input-line>
         </div>
-        <div>
+        <div style="width: 300px;">
             <app-input-line name="state">
                 <select class="main-input" formControlName="stateId">
                     <option [value]="c.id" *ngFor="let c of states$|async">{{c.name}}</option>

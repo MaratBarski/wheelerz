@@ -1,17 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { CommonModule, KeyValue } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { TranslatePipe } from 'src/app/pipes/translate.pipe';
-import { User } from 'src/app/models/user';
-import { InputLineComponent } from '../input-line/input-line.component';
-import { Observable, map, tap } from 'rxjs';
-import { State } from 'src/app/models/country';
-import { DataService } from 'src/app/services/data.service';
-import { SEXES } from 'src/app/consts';
-import { RadioComponent } from '../radio/radio.component';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core'
+import { CommonModule, KeyValue } from '@angular/common'
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms'
+import { TranslatePipe } from 'src/app/pipes/translate.pipe'
+import { User } from 'src/app/models/user'
+import { InputLineComponent } from '../input-line/input-line.component'
+import { Observable, map, tap } from 'rxjs'
+import { State } from 'src/app/models/country'
+import { DataService } from 'src/app/services/data.service'
+import { SEXES } from 'src/app/consts'
+import { RadioComponent } from '../radio/radio.component'
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { CountryStateSelectorComponent } from '../country-state-selector/country-state-selector.component'
 
 @Component({
   selector: 'app-user-form',
@@ -23,14 +24,15 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     InputLineComponent,
     RadioComponent,
     NgxIntlTelInputModule,
-    TooltipModule
+    TooltipModule,
+    CountryStateSelectorComponent
   ],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserFormComponent implements OnInit {
-  sexes = SEXES;
+  sexes = SEXES
 
   dataService = inject(DataService)
   cd = inject(ChangeDetectorRef)
@@ -41,15 +43,15 @@ export class UserFormComponent implements OnInit {
     stateId: 0
   };
 
-  separateDialCode = true;
-  SearchCountryField = SearchCountryField;
-  CountryISO = CountryISO;
-  PhoneNumberFormat = PhoneNumberFormat;
+  separateDialCode = true
+  SearchCountryField = SearchCountryField
+  CountryISO = CountryISO
+  PhoneNumberFormat = PhoneNumberFormat
 
   preferredCountries: CountryISO[] = [
     CountryISO.Israel,
     CountryISO.UnitedStates
-  ];
+  ]
 
   get isValid(): boolean {
     return this.form.valid && this.isPasswordEq && this.isCountrySelected && this.isStateSelected
@@ -79,8 +81,8 @@ export class UserFormComponent implements OnInit {
     return this.form.get('phone')?.value?.number
   }
 
-  countries$ = this.dataService.getCoutries().pipe(map(res => ([{ name: 'Select Country', id: 0 }, ...res])));
-  states$?: Observable<State[]>;
+  countries$ = this.dataService.getCoutries().pipe(map(res => ([{ name: 'Select Country', id: 0 }, ...res])))
+  states$?: Observable<State[]>
 
   form: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -96,12 +98,12 @@ export class UserFormComponent implements OnInit {
   })
 
   updateSex(sex: KeyValue<any, any>): void {
-    this.form.get('sex')?.setValue(sex.key);
+    this.form.get('sex')?.setValue(sex.key)
   }
 
   ngOnInit(): void {
     this.form.patchValue(this.user)
-    this.loadStates();
+    this.loadStates()
   }
 
   next(): void {

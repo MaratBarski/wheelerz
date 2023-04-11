@@ -13,7 +13,7 @@ import { MobilityDto, UserMobility } from '../models/user-accessibility'
 })
 export class DataService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCoutries(): Observable<Country[]> {
     return this.http.get<Country[]>(`${SERVER_URL}/country/countries`)
@@ -67,6 +67,14 @@ export class DataService {
     return this.get<MobilityDto>('User/mobility')
   }
 
+  getStoryById(id: number): Observable<Story> {
+    return this.get<Story>(`Story/${id}`)
+  }
+
+  updateStory(story: Story): Observable<any> {
+    return this.put('story', story)
+  }
+
   addCountries(): void {
     this.http.get('./assets/data/countries.json')
       .subscribe((res: any) => {
@@ -80,8 +88,8 @@ export class DataService {
             })
           }
         })
-        
-        this.post('Country', countries).subscribe(()=>{
+
+        this.post('Country', countries).subscribe(() => {
           alert('end')
         })
       })

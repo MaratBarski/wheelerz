@@ -6,11 +6,13 @@ import { Observable } from 'rxjs'
 import { User } from 'src/app/models/user'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { TopProfileComponent } from 'src/app/components/top-profile/top-profile.component'
+import { StoryCardComponent } from 'src/app/components/story-card/story-card.component'
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-general-info',
   standalone: true,
-  imports: [CommonModule, AvatarComponent, TranslatePipe, TopProfileComponent],
+  imports: [CommonModule, AvatarComponent, TranslatePipe, TopProfileComponent, StoryCardComponent, RouterModule],
   templateUrl: './general-info.component.html',
   styleUrls: ['./general-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

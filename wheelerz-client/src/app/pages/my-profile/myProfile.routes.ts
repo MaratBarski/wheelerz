@@ -13,5 +13,9 @@ export const MY_PROFILE_ROUTES: Routes = [
     {
         path: 'accessibility',
         loadComponent: () => import('./my-accessibility/my-accessibility.component').then(c => c.MyAccessibilityComponent)
+    },
+    {
+        path: 'story/:id',
+        loadComponent: () => import('./story-edit/story-edit.component').then(c => c.StoryEditComponent)
     }
 ];

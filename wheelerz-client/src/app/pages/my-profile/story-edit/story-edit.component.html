@@ -1,0 +1,3 @@
+<ng-container *ngIf="story$|async as story">
+    <app-user-input-form formTitle="edit_story" [story]="story" (onPublish)="onPublish($event)"></app-user-input-form>
+</ng-container>

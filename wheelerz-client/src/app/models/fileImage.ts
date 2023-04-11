@@ -1,6 +1,8 @@
 export interface FileImage {
-    small: string
-    big: string
+    small?: string
+    big?: string
+    id?: number
+    fileName?: string
 }
 export interface StoryPhoto {
     id?: number
