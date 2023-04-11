@@ -3,6 +3,7 @@ using Wheelerz.Models;
 
 #pragma warning disable CS8620
 #pragma warning disable CS8603
+#pragma warning disable CS8604
 
 namespace Wheelerz.Services
 {
@@ -67,8 +68,35 @@ namespace Wheelerz.Services
         {
             return Task.Run(() =>
             {
-                var s = _data.Stories.FirstOrDefault(x => x.id == story.id);
+                var s = _data.Stories.Include(x=>x.storyPhotos).FirstOrDefault(x => x.id == story.id);
+
                 if (s == null) return;
+
+                if (story.photos == null) story.photos = new List<FileImage>();
+                if (s.storyPhotos == null) s.storyPhotos = new List<StoryPhoto>();
+
+                s.storyPhotos.ForEach((photo) =>
+                {
+                    if (!story.photos.Any(x => x.id == photo.id))
+                    {
+                        _data.StoryPhotos.Remove(photo);
+                        _uploadService.DeleteFile(photo.fileName);
+                    }
+                });
+
+                story.photos.ForEach((photo) =>
+                {
+                    if (photo.id != 0) return;
+
+                    var fileName = _uploadService.SaveFile(photo);
+
+                    s.storyPhotos.Add(new StoryPhoto
+                    {
+                        fileName = fileName,
+                        small = photo.small,
+                    });
+                });
+
                 s.accessibility = story.accessibility;
                 s.comments = story.comments;
                 s.name = story.name;
@@ -77,6 +105,7 @@ namespace Wheelerz.Services
                 s.cityId = story.cityId;
                 s.countryId = story.countryId;  
                 s.estimation = story.estimation;
+
                 _data.SaveChanges();
             });
         }

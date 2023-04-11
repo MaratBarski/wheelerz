@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { AvatarComponent } from '../avatar/avatar.component'
@@ -15,4 +15,5 @@ import { User } from 'src/app/models/user'
 export class TopProfileComponent {
   @Input() user!: User
   @Input() isEditable = false
+  @Output() onAvatarChanged = new EventEmitter<string>()
 }

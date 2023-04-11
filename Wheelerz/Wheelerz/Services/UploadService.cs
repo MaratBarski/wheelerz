@@ -17,6 +17,7 @@ namespace Wheelerz.Services
     {
         public void DeleteFile(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName)) return;
             try
             {
                 File.Delete(Path.Combine(GetUploadDir(), fileName));

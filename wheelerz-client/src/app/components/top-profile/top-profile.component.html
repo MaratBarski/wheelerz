@@ -9,7 +9,7 @@
     </div>
     <div class="avatar">
         <div>
-            <app-avatar [isEditable]="isEditable" [avatar]="user.avatar"></app-avatar>
+            <app-avatar (onChange)="onAvatarChanged.emit($event)" [isEditable]="isEditable" [avatar]="user.avatar"></app-avatar>
         </div>
         <div class="acc">
             <div class="mob flex" *ngIf="user.mobilities">

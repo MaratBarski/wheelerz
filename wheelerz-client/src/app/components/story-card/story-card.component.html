@@ -1,14 +1,19 @@
-<div class="card">
-    <div class="main-flex">
-        <div class="image">
-            <app-avatar [avatar]="story?.user?.avatar"></app-avatar>
+<div class="cnt">
+    <div *ngIf="editable">
+        <a routerLink="/my-profile/story/{{story.id}}">{{'edit'|translate}}</a>
+    </div>
+    <div class="card">
+        <div class="main-flex">
+            <div *ngIf="isShowAvatar" class="image">
+                <app-avatar [avatar]="story?.user?.avatar"></app-avatar>
+            </div>
+            <div>
+                <div>{{story}}</div>
+                <div></div>
+            </div>
         </div>
         <div>
-            <div>{{story|json}}</div>
-            <div></div>
+            <app-stars [estimation]="story.estimation || 0"></app-stars>
         </div>
-    </div>
-    <div>
-        <app-stars [estimation]="story.estimation || 0"></app-stars>
     </div>
 </div>

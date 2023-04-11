@@ -21,4 +21,6 @@ export class GeneralInfoComponent {
   dataService = inject(DataService)
   user$: Observable<User> = this.dataService.getMyProfile()
   isEditable = true
+  onAvatarChanged(avatar: string): void {
+  }
 }

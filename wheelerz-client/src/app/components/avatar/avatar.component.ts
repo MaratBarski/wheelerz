@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ImageService } from 'src/app/services/image.service'
 import { DataService } from 'src/app/services/data.service'
@@ -21,6 +21,7 @@ export class AvatarComponent implements OnInit {
   changeDetectorRef = inject(ChangeDetectorRef)
   @Input() avatar?: string
   @Input() isEditable = false
+  @Output() onChange = new EventEmitter<string>()
 
   openFile(): void {
     this.fileUpload.nativeElement.click()
@@ -42,5 +43,6 @@ export class AvatarComponent implements OnInit {
 
     this.fileUpload.nativeElement.value = ''
     this.changeDetectorRef.markForCheck()
+    this.onChange.emit(this.avatar)
   }
 }
