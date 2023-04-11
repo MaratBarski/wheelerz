@@ -1,0 +1,33 @@
+.upload{
+    display: table;
+    background-color: #733381;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.images {
+    display: flex;
+}
+.image {
+    margin: 6px;
+}
+.delete {
+    position: absolute;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    margin-top: -10px;
+    margin-left: 70px;
+    padding: 0 !important;
+    cursor: pointer;
+}
+.delete img{
+    width: 100%;
+    height: 100%;
+}
+.cnt{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

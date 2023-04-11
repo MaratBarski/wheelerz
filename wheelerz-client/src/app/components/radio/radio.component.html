@@ -1,0 +1,5 @@
+<div class="radio">
+    <div [class.selected]="v===selectedValue || v.key === selectedKey" (click)="select(v)" *ngFor="let v of values">
+        {{v.value|translate}}
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.radio {
+    display: inline-flex;
+    border: 2px solid #ad4b9c;
+    border-radius: 10px;
+}
+.radio div {
+    padding: 10px;
+    cursor: pointer;
+}
+.selected{
+    cursor: default !important;
+    background-color: #ad4b9c;
+    color: #fff;
+}

@@ -1,0 +1,10 @@
+<div style="display: inline-block;">
+    <div class="extimations">
+        <ng-container *ngFor="let e of estimations;let i = index">
+            <div (click)="estimation=e;change.emit(e)" [class.selected]="e===estimation" class="estimation">
+                {{e}}
+            </div>
+            <div *ngIf="i < estimations.length-1" class="separator"></div>
+        </ng-container>
+    </div>
+</div>

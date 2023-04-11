@@ -1,0 +1,173 @@
+$md-drppicker-color: inherit !default;
+$md-drppicker-bg-color: #fff !default;
+
+$md-drppicker-cell-color: $md-drppicker-color !default;
+$md-drppicker-cell-border-color: transparent !default;
+$md-drppicker-cell-bg-color: $md-drppicker-bg-color !default;
+
+$md-drppicker-cell-hover-color: $md-drppicker-color !default;
+$md-drppicker-cell-hover-border-color: $md-drppicker-cell-border-color !default;
+$md-drppicker-cell-hover-bg-color: #eee !default;
+
+$md-drppicker-in-range-color: #000 !default;
+$md-drppicker-in-range-border-color: transparent !default;
+$md-drppicker-in-range-bg-color: #dde2e4 !default;
+
+$md-drppicker-active-color: #fff !default;
+$md-drppicker-active-bg-color: #3f51b5 !default;
+$md-drppicker-active-border-color: transparent !default;
+
+$md-drppicker-unselected-color: #999 !default;
+$md-drppicker-unselected-border-color: transparent !default;
+$md-drppicker-unselected-bg-color: #fff !default;
+
+$md-drppicker-width: 278px !default;
+$md-drppicker-width-double: auto !default;
+$md-drppicker-border-color: #ccc !default;
+
+$md-drppicker-calendar-margin: 4px !default;
+$md-drppicker-calendar-bg-color: $md-drppicker-bg-color !default;
+
+$md-drppicker-calendar-border-size: 1px !default;
+$md-drppicker-calendar-border-color: $md-drppicker-bg-color !default;
+$md-drppicker-calendar-border-radius: 4px !default;
+
+$md-drppicker-cell-size: 20px !default;
+$md-drppicker-cell-width: $md-drppicker-cell-size !default;
+$md-drppicker-cell-height: $md-drppicker-cell-size !default;
+
+$md-drppicker-cell-border-radius: $md-drppicker-calendar-border-radius !default;
+$md-drppicker-cell-border-size: 1px !default;
+
+$md-drppicker-control-height: 30px !default;
+$md-drppicker-control-line-height: $md-drppicker-control-height !default;
+$md-drppicker-control-color: #555 !default;
+
+$md-drppicker-control-border-size: 1px !default;
+$md-drppicker-control-border-color: #ccc !default;
+$md-drppicker-control-border-radius: 4px !default;
+
+$md-drppicker-control-active-border-size: 1px !default;
+$md-drppicker-control-active-border-color: #08c !default;
+$md-drppicker-control-active-border-radius: $md-drppicker-control-border-radius !default;
+
+$md-drppicker-control-disabled-color: #ccc !default;
+$select-border: 1px solid #f2f2f2 !default;
+$select-background: rgba(255, 255, 255, 0.9) !default;
+$select-padding: 5px !default;
+$select-radius: 2px !default;
+$input-height: 3rem !default;
+
+$start-end-bgcolor: #6574c4;
+$start-end-color: #ffffff;
+$range-bgcolor: #e4e8e9;
+$range-bgcolor-hover: #eeeeee;
+$date-border-size: 0px;
+
+.d-picker {
+    .date {
+        text-align: center;
+        width: 34px;
+        height: 34px;
+    }
+    .enable {
+        cursor: pointer;
+    }
+    .enable div {
+        padding: 6px;
+        border-radius: 100px;
+        border-top: $date-border-size dotted transparent;
+        border-bottom: $date-border-size dotted transparent;
+    }
+    .enable div:not(.d-selected):hover {
+        background-color: $range-bgcolor-hover;
+        border-radius: 100px !important;
+        color: #000;
+    }
+    .d-selected {
+        background-color: $md-drppicker-control-active-border-color;
+        color: #fff;
+    }
+    .d-inrange-over {
+        background-color: $range-bgcolor-hover;
+        border-radius: 0px 0px 0px 0px !important;
+        border-color: $md-drppicker-control-active-border-color !important;
+    }
+    .d-inrange {
+        background-color: $range-bgcolor;
+        border-radius: 0px 0px 0px 0px !important;
+    }
+    .d-next-month {
+        opacity: 0.5;
+    }
+    .d-start-date,
+    .d-end-date {
+        background-color: $start-end-bgcolor !important;
+        color: $start-end-color !important;
+    }
+    .d-start-date {
+        border-radius: 100px 0px 0px 100px !important;
+    }
+    .d-end-date {
+        border-radius: 0px 100px 100px 0px !important;
+    }
+    .d-start-end {
+        border-radius: 0px 0px 0px 0px !important;
+    }
+    .d-month {
+        text-align: center;
+    }
+    th {
+        color: $md-drppicker-control-color;
+    }
+    td,
+    th {
+        text-align: center;
+        width: $md-drppicker-cell-width;
+        height: $md-drppicker-cell-height;
+        border-radius: $md-drppicker-cell-border-radius;
+        border: $md-drppicker-cell-border-size solid $md-drppicker-cell-border-color;
+        white-space: nowrap;
+        height: 2em;
+        width: 2em;
+    }
+    .d-prev {
+        display: block;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K");
+        background-repeat: no-repeat;
+        background-size: 0.5em;
+        background-position: center;
+        opacity: 0.8;
+        transition: background-color 0.2s ease;
+        border-radius: 2em;
+        &:hover {
+            margin: 0;
+        }
+    }
+    .d-next {
+        transform: rotate(180deg);
+        display: block;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K");
+        background-repeat: no-repeat;
+        background-size: 0.5em;
+        background-position: center;
+        opacity: 0.8;
+        transition: background-color 0.2s ease;
+        border-radius: 2em;
+        &:hover {
+            margin: 0;
+            transform: rotate(180deg);
+        }
+    }
+    .d-next:hover,
+    .d-prev:hover {
+        background-color: $md-drppicker-cell-hover-bg-color;
+        border-color: $md-drppicker-cell-hover-border-color;
+        color: $md-drppicker-cell-hover-color;
+        background-repeat: no-repeat;
+        background-size: 0.5em;
+    }
+    .d-hidden {
+        visibility: hidden;
+    }
+}

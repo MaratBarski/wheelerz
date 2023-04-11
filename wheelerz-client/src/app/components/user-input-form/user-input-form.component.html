@@ -1,0 +1,33 @@
+<div [class]="css" [formGroup]="form">
+    <div class="form-name">{{formTitle|translate}}</div>
+    <div class="cnt">
+        <div class="input-line">
+            <app-input-line name="city"><input formControlName="city" class="main-input" type="text"> </app-input-line>
+            <app-input-line name="country"><input formControlName="country" class="main-input" type="text">
+            </app-input-line>
+            <app-input-line *ngIf="isShowName" name="hotel_name"><input formControlName="name" class="main-input"
+                    type="text">
+            </app-input-line>
+            <div class="main-flex">
+                <app-input-line name="arrival"><input formControlName="startDate" class="main-input" type="date">
+                </app-input-line>
+                <app-input-line name="departure"><input formControlName="endDate" class="main-input" type="date">
+                </app-input-line>
+            </div>
+        </div>
+        <div class="form-input">
+            <div class="form-title">{{'rank_your_experience'|translate}}</div>
+            <div>
+                <app-estimation-line (change)="changeEstimation($event)"
+                    [estimation]="estimation"></app-estimation-line>
+            </div>
+        </div>
+        <div class="form-input">
+            <app-input-comment (onImageUpdates)="onImageUpdates($event)" [form]="form"></app-input-comment>
+        </div>
+        <div class="buttons">
+            <button (click)="cancel()" class="btn-cancel">{{'cancel'|translate}}</button>
+            <button [disabled]="!isValid" class="btn-save" (click)="publish()">{{'publish'|translate}}</button>
+        </div>
+    </div>
+</div>

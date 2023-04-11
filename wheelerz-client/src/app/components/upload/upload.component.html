@@ -1,0 +1,14 @@
+<div class="cnt">
+    <div (click)="openAttachment()" class="upload">
+        <img src="./assets/img/camera-white.svg">
+    </div>
+    <div class="images" *ngIf="files">
+        <div class="image" *ngFor="let a of files;let i = index">
+            <div (click)="deleteImage(a)" class="delete">
+                <img src="./assets/img/delete.svg">
+            </div>
+            <img style="width: 80px;" [src]="a.small">
+        </div>
+    </div>
+</div>
+<input type="file" multiple (change)="changeFile($event)" style="display: none;" #file>

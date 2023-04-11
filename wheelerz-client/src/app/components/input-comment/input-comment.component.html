@@ -1,0 +1,31 @@
+<div [formGroup]="form">
+    <div class="main">
+        <div class="comments">
+            <div><input [placeholder]="titlePlaceholder|translate" class="title" type="text" formControlName="title">
+            </div>
+            <div>
+                <div #div style="height: 400px;display: none;" contenteditable="true">
+                    0123<b>123213213</b>123
+                </div>
+                <textarea [placeholder]="commentPlaceholder|translate" class="area"
+                    formControlName="comments"></textarea>
+            </div>
+        </div>
+        <div class="footer">
+            <img (click)="openAttachment()" src="./assets/img/camera-white.svg">
+            <img src="./assets/img/video-white.svg">
+            <img src="./assets/img/link-white.svg">
+            <img (click)="setBold()" src="./assets/img/bold-white.svg">
+            <img src="./assets/img/italics-white.svg">
+        </div>
+    </div>
+    <div class="images" *ngIf="files">
+        <div class="image" *ngFor="let a of files;let i = index">
+            <div (click)="deleteImage(a)" class="delete">
+                <img src="./assets/img/delete.svg">
+            </div>
+            <img style="width: 80px;" [src]="a.small">
+        </div>
+    </div>
+    <input type="file" multiple (change)="changeFile($event)" #file style="display: none;">
+</div>

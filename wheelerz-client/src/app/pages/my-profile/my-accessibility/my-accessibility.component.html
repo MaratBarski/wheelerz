@@ -1,0 +1,33 @@
+<div class="cnt" *ngIf="userMobility$|async as userMobility">
+    <div class="wzrd">
+        <div [class.unvisible]="!noWalk || !step">
+            <img class="pointer prev-btn" (click)="next(-1)" src="./assets/img/prev.svg">
+        </div>
+        <div class="cntr">
+            <div [class.no-display]="isHideMobType">
+                <div class="main-center">{{'mobility_type'|translate}}</div>
+                <app-mobility-type (onNowalk)="onNowalk($event)" [mobilitySet]="selectedTypes"
+                    (onChange)="onChangeMobilityType($event)" [types]="userMobility.types"></app-mobility-type>
+            </div>
+            <div [class.no-display]="isHideChairOptions">
+                <app-chair-options [currentIndex]="currentIndex" [chairOptions]="chairOptions"></app-chair-options>
+                <div class="progress">
+                    <app-progress-bar [total]="chairOptions.length+1" [current]="currentIndex"></app-progress-bar>
+                </div>
+            </div>
+            <div [class.no-display]="!isChairInfo">
+                <app-chair-info [selectedKey]="selectedCm" (onChangeCm)="onChangeCm($event)"
+                    [chairInfo]="chairInfo"></app-chair-info>
+            </div>
+        </div>
+        <div>
+            <img [class.unvisible]="!noWalk || nextDisable" class="pointer next-btn" (click)="next(1)"
+                src="./assets/img/next.svg">
+            <button [class.unvisible]="!noWalk || !nextDisable" class="main-btn"
+                (click)="save()">{{'done'|translate}}</button>
+        </div>
+    </div>
+    <div class="save" *ngIf="!noWalk">
+        <button class="main-btn" (click)="save()">{{'done'|translate}}</button>
+    </div>
+</div>

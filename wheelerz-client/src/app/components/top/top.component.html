@@ -1,0 +1,31 @@
+<div class="top">
+    <div>
+        <a routerLink="/">
+            <img src="./assets/img/logo-white.svg">
+        </a>
+    </div>
+    <div class="top-link">
+        <div *ngIf="userService.isLogedIn">
+            <img  routerLink="/" class="pointer" src="./assets/img/chat.svg">
+        </div>
+        <div class="mn" *ngIf="userService.isLogedIn">
+            <img class="pointer" (click)="open(0,$event)" src="./assets/img/profile.svg">
+            <div [class.show]="isShow(0)" class="top-menu">
+                <div class="pointer" routerLink="/my-profile">{{'my_profile'|translate}}</div>
+                <div class="pointer" routerLink="/my-profile/accessibility">{{'edit_accessibility_details'|translate}}</div>                
+                <div class="pointer" (click)="logout()">{{'logout'|translate}}</div>
+            </div>
+        </div>
+        <div *ngIf="!userService.isLogedIn">
+            <button class="pointer" *ngIf="isLogin" class="login-b" routerLink="/login">{{'sign_in'|translate}}</button>
+            <button class="pointer" *ngIf="!isLogin" class="login-b" routerLink="/registration">{{'sign_up'|translate}}</button>
+        </div>
+        <div class="mn">
+            <img class="pointer" (click)="open(1,$event)" src="./assets/img/langs.svg">
+            <div [class.show]="isShow(1)" class="top-menu">
+                <div class="pointer ltr" (click)="setLeng('en')">English</div>
+                <div class="pointer rtl" (click)="setLeng('he')">עִברִית</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+﻿go
+drop table users
+go
+drop table countries
+go
+drop table stories
+go
+drop table links
+go
+drop table accessibilityFiles
+go
+drop table accessibilities
+go
+drop table accessibilityItems
+go
+drop table storyPhotos
+go
+drop table userMobilities
+go
+drop table chairOptions
+go
+drop table chairInfos
+go
+
+create table countries(
+	id int not null identity(1,1) PRIMARY KEY,
+	[name] varchar(100) not null,
+	deleted int not null default(0)
+)
+go
+drop table states
+go
+create table states(
+	id int not null identity(1,1),
+	countryId int not null,
+	[name] varchar(100) not null,
+	deleted int not null default(0)
+)
+
+go
+create table users(
+	id int not null identity(1,1),
+	[firstName] nvarchar(200) not null,
+	[lastName] nvarchar(200) not null,
+	[birthDay] date not null default(getdate()),
+	[registrDate] date not null default(getdate()),
+	[role] int not null default(0),
+	[deleted] int not null default(0),
+	[key] varchar(50) not null,
+	[dateAdd] datetime not null default(getdate()),
+	[phone] varchar(50) not null,
+	email nvarchar(200) not null,
+	[password] nvarchar(200) not null,
+	sex int not null default(0),
+	countryId int not null,
+	[stateId] int not null,
+	avatar text null,
+	noWalk int not null default 0
+)
+go
+create table stories(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	[key] varchar(50) not null,
+	[dateAdd] datetime not null default(getdate()),
+	storyType int not null,
+	[name] nvarchar(200) not null,
+	[title] nvarchar(200) not null,
+	city nvarchar(200),
+    country nvarchar(100),
+    estimation int,
+    comments nvarchar(1000),
+    startDate Date,
+    endDate Date
+)
+go
+create table storyPhotos(
+	id int not null identity(1,1),
+	storyId int not null,
+	small text,
+	[fileName] varchar(100) not null,
+	[dateAdd] datetime not null default(getdate()),
+)
+go
+create table links(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	storyId int not null,
+	[key] varchar(50) not null,
+	[name] nvarchar(100) not null,
+	[url] varchar(500) not null,
+	[dateAdd] datetime not null default(getdate()),
+)
+go
+create table accessibilityFiles(
+	id int not null identity(1,1),
+	accessibilityId int not null,
+	userId int not null default(0),
+	[fileName] varchar(100) not null,
+	small text,
+	[dateAdd] datetime not null default(getdate()),
+)
+go
+create table accessibilities(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	storyId int not null,
+	[key] varchar(50) not null,
+	[name] nvarchar(200) not null,
+	comments nvarchar(1000),
+	[dateAdd] datetime not null default(getdate()),
+)
+go
+create table accessibilityItems(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	accessibilityId int not null,
+	[key] varchar(50) not null,
+	[name] nvarchar(200) not null,
+	selectedKey varchar(100) not null,
+	selectedValue varchar(100) not null,
+	[dateAdd] datetime not null default(getdate()),
+)
+go
+create table userMobilities(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	[name] varchar(100) not null
+)
+go
+create table chairOptions(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	[key] varchar(100) not null,
+	[value] varchar(100)not null
+)
+go
+create table chairInfos(
+	id int not null identity(1,1),
+	userId int not null default(0),
+	width float not null,
+	[length] float not null,
+	seatHeight float not null,
+	[messure] varchar(20) not null
+)
+
+go
+insert into countries([name])values('Israel')
+insert into countries([name])values('USA')
+insert into states(countryId,[name])values(1,'Darom')
+insert into states(countryId,[name])values(1,'Zafon')
+insert into states(countryId,[name])values(1,'Mirkaz')
+insert into states(countryId,[name])values(2,'Mayami')
+insert into states(countryId,[name])values(2,'Texas')
+insert into states(countryId,[name])values(2,'Alabama')
+insert into states(countryId,[name])values(2,'Vasington')

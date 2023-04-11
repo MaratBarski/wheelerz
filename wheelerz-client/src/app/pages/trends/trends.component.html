@@ -1,0 +1,10 @@
+<div class="cnt">
+    <app-search-box (onSearch)="search($event)"></app-search-box>
+    <ng-container *ngIf="stories$|async as stories">
+        <ng-container *ngFor="let story of stories">
+            <div class="story">
+                <app-story-card [story]="story"></app-story-card>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

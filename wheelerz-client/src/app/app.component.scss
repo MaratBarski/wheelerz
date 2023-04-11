@@ -1,0 +1,17 @@
+.main {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+.loading{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #FACBC2;
+    opacity: .8;
+    font-size: 4rem;
+    z-index: 9999;
+}
+.center{
+    background-color: white;
+}

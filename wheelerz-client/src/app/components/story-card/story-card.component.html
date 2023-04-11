@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="main-flex">
+        <div class="image">
+            <app-avatar [avatar]="story?.user?.avatar"></app-avatar>
+        </div>
+        <div>
+            <div>{{story.name}}</div>
+            <div></div>
+        </div>
+    </div>
+    <div>
+        <app-stars [estimation]="story.estimation || 0"></app-stars>
+    </div>
+</div>

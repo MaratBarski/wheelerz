@@ -1,0 +1,12 @@
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+}
+.nav-bar a{
+    font-size: 20px;
+    text-decoration: none;
+}
+.active-link{
+   font-weight: bold;
+   text-decoration: underline !important;
+}

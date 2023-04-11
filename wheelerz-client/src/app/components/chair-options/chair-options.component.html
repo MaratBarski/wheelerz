@@ -1,0 +1,7 @@
+<div class="cnt" *ngIf="currentIndex >= 0 && currentIndex < (chairOptions?.length || 0)">
+    <div class="title">{{currentOption.name|translate}}</div>
+    <div class="img"><img src="./assets/img/{{currentOption.name}}.svg"></div>
+    <div class="radio">
+        <app-radio (change)="change($event)" [selectedKey]="currentOption.selectedKey" [values]="currentOption.values"></app-radio>
+    </div>
+</div>

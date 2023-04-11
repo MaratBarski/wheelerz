@@ -1,0 +1,36 @@
+.form-name {
+    font-size: 2rem;
+    margin-top: 20px;
+}
+.form-title {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+.form-input {
+    margin: 20px 0px 20px 0px;
+}
+.input-line {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.buttons{
+    display: flex;
+    justify-content: end;
+}
+.btn-save{
+    margin-left: 4px;
+}
+.story{
+    background-color: #fff;
+}
+.syory .cnt,
+.hotel .cnt{
+    padding: 12px;
+    margin-top: 12px;
+}
+.hotel .cnt{
+    background-color: #F1EAF2;
+    border-radius: 10px;
+}

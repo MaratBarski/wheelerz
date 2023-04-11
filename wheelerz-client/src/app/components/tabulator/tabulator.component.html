@@ -1,0 +1,16 @@
+<div style="display: block;">
+    <div class="bar">
+        <ng-container *ngFor="let t of tabs;let i = index">
+            <div class="item">
+                <a [routerLinkActive]="['active-link']" [routerLink]="t.link">
+                    <div style="margin-right: 20px;">{{t.name|translate}}</div>
+                    <div>
+                        <img *ngIf="isActive(t.link)" src="./assets/img/{{t.image}}-white.svg">
+                        <img *ngIf="!isActive(t.link)" src="./assets/img/{{t.image}}-pink.svg">
+                    </div>
+                </a>
+            </div>
+            <div *ngIf="i < tabs.length-1" class="separator"></div>
+        </ng-container>
+    </div>
+</div>

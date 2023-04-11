@@ -1,0 +1,19 @@
+.card {
+    box-shadow: 4px 4px #888888;
+    height: 220px;
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
+}
+.image{
+    padding: 4px;
+    border-radius: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline;
+}
+

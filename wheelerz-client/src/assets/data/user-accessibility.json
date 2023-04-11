@@ -1,0 +1,89 @@
+{
+    "types": [
+        {
+            "name": "wheelchair",
+            "noWalk": true
+        },
+        {
+            "name": "walker"
+        },
+        {
+            "name": "crutch"
+        },
+        {
+            "name": "scooter"
+        }
+    ],
+    "chairOptions": [
+        {
+            "name": "type_of_wheelchair",
+            "selectedKey": "motorized",
+            "values": [
+                {
+                    "key": "motorized",
+                    "value": "motorized"
+                },
+                {
+                    "key": "manual",
+                    "value": "manual"
+                }
+            ]
+        },
+        {
+            "name": "assistance",
+            "selectedKey": "yes",
+            "values": [
+                {
+                    "key": "yes",
+                    "value": "yes"
+                },
+                {
+                    "key": "no",
+                    "value": "no"
+                }
+            ]
+        },
+        {
+            "name": "can_you_walk",
+            "selectedKey": "yes",
+            "values": [
+                {
+                    "key": "yes",
+                    "value": "yes"
+                },
+                {
+                    "key": "no",
+                    "value": "no"
+                }
+            ]
+        },
+        {
+            "name": "private_bath_chair",
+            "selectedKey": "yes",
+            "values": [
+                {
+                    "key": "yes",
+                    "value": "yes"
+                },
+                {
+                    "key": "no",
+                    "value": "no"
+                }
+            ]
+        },
+        {
+            "name": "contact_travelers",
+            "selectedKey": "yes",
+            "values": [
+                {
+                    "key": "yes",
+                    "value": "yes"
+                },
+                {
+                    "key": "no",
+                    "value": "no"
+                }
+            ]
+        }
+    ]
+}

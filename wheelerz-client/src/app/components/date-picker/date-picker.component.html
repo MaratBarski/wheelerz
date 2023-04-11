@@ -1,0 +1,25 @@
+<table class="d-picker">
+    <tr>
+        <th class="d-prev enable" [class.d-hidden]="!(isFirstRange || isNoRange)" (click)="nextMonth(-1)">
+        </th>
+        <th colspan="5" class="d-month">
+            {{months[currentMonth].name}}&nbsp;{{currentYear}}
+        </th>
+        <th class="d-next enable" [class.d-hidden]="!(isSecondRange || isNoRange)" (click)="nextMonth(1)">
+        </th>
+    </tr>
+    <tr>
+        <th *ngFor="let wd of weekdays">
+            {{wd.name}}
+        </th>
+    </tr>
+    <tr *ngFor="let date of dates;let row = index;">
+        <td class="date enable" (click)="selectDate(d,row)" *ngFor="let d of date">
+            <div [class.d-start-end]="isStartAndEnd(d)" [class.d-start-date]="isStart(d)" [class.d-end-date]="isEnd(d)"
+                [class.d-next-month]="isNextMonth(d)" [class.d-inrange]="isInRange(d)"
+                [class.d-inrange-over]="isInRangeOver(d)" [class.d-selected]="isSelected(d)">
+                {{d|date:dayFormat}}
+            </div>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,29 @@
+.cnt{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.selected{
+    background-color: #ad4b9c !important;
+    color: white;
+}
+.img{
+    height: 340px;
+}
+.item{
+    border: 2px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 210px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px 20px 10px 20px;
+}
+.item img{
+    max-width: 200px;
+}
+.selected-cnt{
+    border-color: #ad4b9c;
+}

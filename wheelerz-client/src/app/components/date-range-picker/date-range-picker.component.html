@@ -1,0 +1,32 @@
+<div class="d-main">
+    <div class="d-container">
+        <app-date-range-selector #selector [selector]="selectorId" (rangeSelect)="rangeSelect($event)"
+            [selectors]="selectors">
+        </app-date-range-selector>
+        <app-date-picker #firstPicker [range]="0" [dateRange]="dateRange"
+            (mouseDateOverUpdate)="mouseDateOverUpdate($event)" [selectedDate]="firstSelectedDate"
+            (monthSelected)="firstMonthSelected($event)" (dateSelected)="firstDateSelected($event)">
+        </app-date-picker>
+        <app-date-picker #secondPicker [range]="1" (mouseDateOver)="secondMouseDateOver($event)" [dateRange]="dateRange"
+            [selectedDate]="secondSelectedDate" (monthSelected)="secondMonthSelected($event)"
+            (dateSelected)="secondDateSelected($event)">
+        </app-date-picker>
+        <div class="d-time">
+            <div class="d-time-title d-time-text">Time</div>
+            <div class="d-time-selector">
+                <div class="d-time-text">From:&nbsp;</div>
+                <app-time-selector (timeChange)="timeChange($event,'startDate')" [hour]="startHour"
+                    [minute]="startMinute" [second]="startSecond"></app-time-selector>
+                <div class="d-time-text">To:&nbsp;</div>
+                <app-time-selector (timeChange)="timeChange($event,'endDate')" [hour]="endHour" [minute]="endMinute"
+                    [second]="endSecond"></app-time-selector>
+            </div>
+        </div>
+    </div>
+    <div class="d-bottom">
+        <button (click)="apply()">Apply</button>
+    </div>
+</div>
+
+{{dateRange.startDate|date:'dd/MM/yyyy HH:mm:ss'}} -
+{{dateRange.endDate|date:'dd/MM/yyyy HH:mm:ss'}}

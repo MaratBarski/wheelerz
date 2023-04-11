@@ -1,0 +1,55 @@
+.top {
+    height: 80px;
+    background-color: #733381;
+    top: 0;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.top-link {
+    align-items: center;
+    display: flex;
+}
+.mn{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.top-menu {
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    border-radius: 4px;
+    box-shadow: 4px 4px #888888;
+    display: none;
+    margin-top: 30px;
+    min-width: 200px;
+}
+.show {
+    display: flex;
+    flex-direction: column;
+}
+.top-menu div:hover{
+    background-color: #ccc;
+}
+.top-menu div {
+    padding: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 1.2rem;
+}
+.login-b {
+    border-radius: 10px;
+    border-color: white;
+    border-width: 2px;
+    cursor: pointer;
+    color: white;
+    background-color: #733381;
+    font-size: 1rem;
+    padding: 8px 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}

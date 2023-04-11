@@ -1,0 +1,53 @@
+<div class="cnt">
+    <div class="title">
+        <div class="name">
+            {{user.firstName}}&nbsp;{{user.lastName}}
+        </div>
+        <div class="country">
+            {{user.state?.name}},&nbsp;{{user.country?.name}}
+        </div>
+    </div>
+    <div class="avatar">
+        <div>
+            <app-avatar [isEditable]="isEditable" [avatar]="user.avatar"></app-avatar>
+        </div>
+        <div class="acc">
+            <div class="mob flex" *ngIf="user.mobilities">
+                <div class="flex mob-item" *ngFor="let m of user.mobilities">
+                    <div class="mob-img">
+                        <img src="./assets/img/{{m.name}}small.svg">
+                    </div>
+                    <div class="mob-name">
+                        {{m.name|translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="mob flex" *ngIf="user.chairInfo && user.noWalk">
+                <div class="flex mob-item" *ngIf="user.chairInfo.length > 0">
+                    <div class="mob-img">
+                        <img src="./assets/img/chair_length.svg">
+                    </div>
+                    <div class="mob-name">
+                        {{'chair_length'|translate}}:&nbsp;{{user.chairInfo.length}}&nbsp;{{user.chairInfo.messure|translate}}
+                    </div>
+                </div>
+                <div class="flex mob-item" *ngIf="user.chairInfo.width > 0">
+                    <div class="mob-img">
+                        <img src="./assets/img/chair_width.svg">
+                    </div>
+                    <div class="mob-name">
+                        {{'chair_width'|translate}}:&nbsp;{{user.chairInfo.width}}&nbsp;{{user.chairInfo.messure|translate}}
+                    </div>
+                </div>
+                <div class="flex mob-item" *ngIf="user.chairInfo.seatHeight > 0">
+                    <div class="mob-img">
+                        <img src="./assets/img/chair_height.svg">
+                    </div>
+                    <div class="mob-name">
+                        {{'seat_height'|translate}}:&nbsp;{{user.chairInfo.seatHeight}}&nbsp;{{user.chairInfo.messure|translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

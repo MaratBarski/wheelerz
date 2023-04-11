@@ -1,0 +1,30 @@
+$selected-color: #733381;
+$border-radius: 10px;
+$border-width: 1px;
+$height: 30px;
+
+.extimations {
+    display: flex;
+    border-radius: $border-radius $border-radius $border-radius $border-radius;
+    border: $border-width solid $selected-color;
+    overflow: hidden;
+}
+.estimation {
+    cursor: pointer;
+    width: 50px;
+    height: $height;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-collapse: collapse;
+}
+.selected {
+    background-color: $selected-color !important;
+    cursor: default;
+    color: #fff;
+}
+.separator {
+    background-color: $selected-color;
+    width: 1px;
+    height: $height;
+}
