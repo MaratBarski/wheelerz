@@ -2,17 +2,19 @@
     <div class="form-name">{{formTitle|translate}}</div>
     <div class="cnt">
         <div class="input-line">
-            <!-- <app-input-line name="city"><input formControlName="city" class="main-input" type="text"> </app-input-line>
-            <app-input-line name="country"><input formControlName="country" class="main-input" type="text"></app-input-line> -->
             <app-country-state-selector [selectedCountry]="story.countryId || 0" [selectedCity]="story.cityId || 0"
                 (onCountry)="onCountry($event)" (onCity)="onCity($event)"></app-country-state-selector>
             <app-input-line *ngIf="isShowName" name="hotel_name"><input formControlName="name" class="main-input"
                     type="text">
             </app-input-line>
             <div class="main-flex">
-                <app-input-line name="arrival"><input formControlName="startDate" class="main-input" type="date">
+                <app-input-line name="arrival">
+                    <app-date-selector (dateSelected)="startDateSelected($event)"
+                        [selectedDate]="story.startDate"></app-date-selector>
                 </app-input-line>
-                <app-input-line name="departure"><input formControlName="endDate" class="main-input" type="date">
+                <app-input-line name="departure">
+                    <app-date-selector (dateSelected)="endDateSelected($event)"
+                        [selectedDate]="story.endDate"></app-date-selector>
                 </app-input-line>
             </div>
         </div>
@@ -24,7 +26,8 @@
             </div>
         </div>
         <div class="form-input">
-            <app-input-comment [files]="files" (onImageUpdates)="onImageUpdates($event)" [form]="form"></app-input-comment>
+            <app-input-comment [files]="files" (onImageUpdates)="onImageUpdates($event)"
+                [form]="form"></app-input-comment>
         </div>
         <div class="buttons">
             <button (click)="cancel()" class="btn-cancel">{{'cancel'|translate}}</button>

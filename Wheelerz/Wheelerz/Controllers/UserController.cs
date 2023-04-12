@@ -17,7 +17,7 @@ namespace Wheelerz.Controllers
         private readonly IUserService _userService;
         public UserController(IUserService userService)
         {
-            this._userService = userService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -29,21 +29,21 @@ namespace Wheelerz.Controllers
         [HttpGet("my-profile")]
         public async Task<User> GetProfile()
         {
-            return await _userService.GetUserProfileAsyns((HttpContext.Items["login"] as User).id);
+            return await _userService.GetUserProfileAsyns(_userService.CurrenUser.id);
         }
 
         [HttpPost("avatar")]
         public string ChangeAvatar(FileImage file)
         {
-            return _userService.ChangeAvatar(file, (HttpContext.Items["login"] as User).id);
+            return _userService.ChangeAvatar(file, _userService.CurrenUser.id);
         }
 
         [HttpPost("mobility")]
         public async Task UpdateMobility(MobilityDto mobility)
         {
-            await _userService.UpdateMobilityAsync((HttpContext.Items["login"] as User).id, mobility.mobilities);
-            await _userService.UpdateChairOptionsAsync((HttpContext.Items["login"] as User).id, mobility.chairOptions);
-            await _userService.UpdateChairInfoAsync((HttpContext.Items["login"] as User).id, mobility.chairInfo);
+            await _userService.UpdateMobilityAsync(_userService.CurrenUser.id, mobility.mobilities);
+            await _userService.UpdateChairOptionsAsync(_userService.CurrenUser.id, mobility.chairOptions);
+            await _userService.UpdateChairInfoAsync(_userService.CurrenUser.id, mobility.chairInfo);
         }
 
         [HttpGet("mobility")]
@@ -51,11 +51,23 @@ namespace Wheelerz.Controllers
         {
             var res = new MobilityDto()
             {
-                mobilities = _userService.GetMobilities((HttpContext.Items["login"] as User).id),
-                chairInfo = _userService.GetChairInfo((HttpContext.Items["login"] as User).id),
-                chairOptions = _userService.GetChairOptions((HttpContext.Items["login"] as User).id),
+                mobilities = _userService.GetMobilities(_userService.CurrenUser.id),
+                chairInfo = _userService.GetChairInfo(_userService.CurrenUser.id),
+                chairOptions = _userService.GetChairOptions(_userService.CurrenUser.id),
             };
             return res;
+        }
+
+        [HttpGet("info")]
+        public User GetInfo()
+        {
+            return _userService.GetUserInfo(_userService.CurrenUser.id);
+        }
+
+        [HttpPut]
+        public void Update(RegistrRequest user)
+        {
+            _userService.UpdateUserInfo(_userService.CurrenUser.id, user);
         }
     }
 }

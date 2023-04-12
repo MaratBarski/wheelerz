@@ -16,5 +16,27 @@
     border-radius: 100px;
     margin-left: 10px;
     margin-right: 10px;
-    display: inline;
+}
+.edit {
+    display: flex;
+    justify-content: end;
+}
+.edit-btn,
+.delete-btn {
+    cursor: pointer;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+.title {
+    font-size: 1.6rem;
+}
+.date {
+    margin-top: 6px;
+    font-size: 1rem;
+}
+.info {
+    display: block;
+}
+.name {
+    margin-top: 20px;
 }

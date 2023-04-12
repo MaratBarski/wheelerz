@@ -1,0 +1,8 @@
+<div>
+    <div (click)="openPopup($event)" class="inp">
+        &nbsp;{{selectedDate|date:'dd/MM/yyyy'}}&nbsp;
+    </div>
+    <div [class.show]="isShow" class="date">
+        <app-date-picker (dateSelected)="selectDate($event)" [selectedDate]="selectedDate"></app-date-picker>
+    </div>
+</div>

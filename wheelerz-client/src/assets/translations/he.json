@@ -119,5 +119,9 @@
     "required": "Required",
     "seat_height": "Seat Height",
     "width": "width",
-    "length": "length"
+    "length": "length",
+    "edit_profile": "Edit profile",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save"
 }

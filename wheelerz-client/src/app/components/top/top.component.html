@@ -12,6 +12,7 @@
             <img class="pointer" (click)="open(0,$event)" src="./assets/img/profile.svg">
             <div [class.show]="isShow(0)" class="top-menu">
                 <div class="pointer" routerLink="/my-profile">{{'my_profile'|translate}}</div>
+                <div class="pointer" routerLink="/my-profile/edit-profile">{{'edit_profile'|translate}}</div>                
                 <div class="pointer" routerLink="/my-profile/accessibility">{{'edit_accessibility_details'|translate}}</div>                
                 <div class="pointer" (click)="logout()">{{'logout'|translate}}</div>
             </div>

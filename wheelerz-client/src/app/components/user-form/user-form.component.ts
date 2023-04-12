@@ -13,6 +13,8 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { CountryStateSelectorComponent } from '../country-state-selector/country-state-selector.component'
+import { DateSelectorComponent } from '../date-selector/date-selector.component'
+import { DateTimeService } from 'src/app/services/date-time.service'
 
 @Component({
   selector: 'app-user-form',
@@ -25,7 +27,8 @@ import { CountryStateSelectorComponent } from '../country-state-selector/country
     RadioComponent,
     NgxIntlTelInputModule,
     TooltipModule,
-    CountryStateSelectorComponent
+    CountryStateSelectorComponent,
+    DateSelectorComponent
   ],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
@@ -35,6 +38,7 @@ export class UserFormComponent implements OnInit {
   sexes = SEXES
 
   dataService = inject(DataService)
+  dateTimeService = inject(DateTimeService)
   cd = inject(ChangeDetectorRef)
 
   @Output() onSave = new EventEmitter<User>();
@@ -42,11 +46,13 @@ export class UserFormComponent implements OnInit {
     countryId: 0,
     stateId: 0
   };
+  @Input() btnText = 'next'
 
   separateDialCode = true
   SearchCountryField = SearchCountryField
   CountryISO = CountryISO
   PhoneNumberFormat = PhoneNumberFormat
+  isFirstTimeLoaded = true
 
   preferredCountries: CountryISO[] = [
     CountryISO.Israel,
@@ -90,7 +96,6 @@ export class UserFormComponent implements OnInit {
     email: new FormControl('', [Validators.required]),
     countryId: new FormControl('', [Validators.required]),
     stateId: new FormControl('', [Validators.required]),
-    birthDay: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
@@ -99,6 +104,7 @@ export class UserFormComponent implements OnInit {
 
   updateSex(sex: KeyValue<any, any>): void {
     this.form.get('sex')?.setValue(sex.key)
+    this.user.sex = sex.key
   }
 
   ngOnInit(): void {
@@ -107,7 +113,7 @@ export class UserFormComponent implements OnInit {
   }
 
   next(): void {
-    const user = { ...this.form.getRawValue(), phone: this.phone }
+    const user = { ...this.user, ...this.form.getRawValue(), phone: this.phone }
     this.onSave.next(user)
   }
 
@@ -118,7 +124,17 @@ export class UserFormComponent implements OnInit {
         else this.form.get('stateId')?.enable()
       }),
       map(res => ([{ name: 'Select State', id: 0, countryId: 0 }, ...res])),
+      tap(() => {
+        if (!this.isFirstTimeLoaded) return
+        this.isFirstTimeLoaded = false
+        this.form.patchValue(this.user)
+      })
     )
     this.form.controls['stateId'].patchValue(0)
+  }
+
+  birthdayChanged(date: Date): void {
+    this.user.birthDay = date
+    this.user.birthDayDisplay = this.dateTimeService.dateToString(date)
   }
 }

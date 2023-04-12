@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wheelerz.Helpers;
 using Wheelerz.Models;
 
 #pragma warning disable CS8601 
 #pragma warning disable CS8603
 #pragma warning disable CS8602
+#pragma warning disable CS8604
 
 namespace Wheelerz.Services
 {
@@ -18,15 +20,22 @@ namespace Wheelerz.Services
         Task UpdateChairOptionsAsync(int userId, List<ChairOption> options);
         ChairInfo GetChairInfo(int id);
         List<ChairOption> GetChairOptions(int id);
+        User GetUserInfo(int id);
+        void UpdateUserInfo(int id, RegistrRequest user);
+        User CurrenUser { get; }
     }
     public class UserService : IUserService
     {
         private readonly DataContext _data;
         private readonly IUploadService _uploadService;
-        public UserService(DataContext data, IUploadService uploadService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public User CurrenUser => _httpContextAccessor.HttpContext.Items["login"] as User;
+        public UserService(DataContext data, IUploadService uploadService, IHttpContextAccessor httpContextAccessor)
         {
             _data = data;
             _uploadService = uploadService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Task<List<User>> GetUsers()
@@ -46,11 +55,12 @@ namespace Wheelerz.Services
                 .Include(x => x.state)
                 .FirstOrDefault(x => x.id == id);
                 user.stories = (from s in _data.Stories
-                                where s.userId == id
+                                where s.userId == id && s.deleted == 0
                                 select new Story
                                 {
                                     id = s.id,
                                     name = s.name,
+                                    title = s.title,
                                     storyType = s.storyType,
                                     storyPhotos = s.storyPhotos,
                                     accessibility = s.accessibility,
@@ -59,6 +69,7 @@ namespace Wheelerz.Services
                                     country = s.country,
                                     startDate = s.startDate,
                                     endDate = s.endDate,
+                                    dateAdd = s.dateAdd,
                                     user = new User()
                                     {
                                         avatar = user.avatar
@@ -141,6 +152,31 @@ namespace Wheelerz.Services
         public List<ChairOption> GetChairOptions(int userId)
         {
             return _data.ChairOptions.Where(x=>x.userId == userId).ToList();
+        }
+
+        public User GetUserInfo(int id)
+        {
+            var user = _data.Users.FirstOrDefault(x => x.id == id);
+            return user;
+        }
+
+        public void UpdateUserInfo(int id, RegistrRequest user)
+        {
+            var u = _data.Users.FirstOrDefault(u => u.id == id);
+            if (u == null) return;
+            if (_data.Users.Any(x => x.email == user.email && x.id != id)) return;
+
+            u.stateId = user.stateId;
+            u.countryId = user.countryId;
+            u.sex = user.sex;
+            u.firstName = user.firstName;
+            u.lastName = user.lastName;
+            u.email = user.email;
+            u.phone = user.phone;
+            u.birthDay = Util.ParseDate(user.birthDayDisplay, u.birthDay);
+            u.password = EncryptionHelper.Encrypt(user.password.Trim());
+
+            _data.SaveChanges();
         }
     }
 }

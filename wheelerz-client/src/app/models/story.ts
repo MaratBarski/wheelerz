@@ -27,6 +27,9 @@ export interface Story extends BaseItem {
     storyType?: StoryType
     startDate?: Date
     endDate?: Date
+    startDateDisplay?: string | null
+    endDateDisplay?: string | null
+    dateAdd?: Date
     stories?: Story[]
     accessibility?: WizardItem[]
     links?: Link[]

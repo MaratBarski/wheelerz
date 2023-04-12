@@ -12,9 +12,9 @@ import { Router } from '@angular/router'
   selector: 'dialog-content-example-dialog',
   standalone: true,
   imports: [CommonModule, TopComponent, TranslatePipe, UserFormComponent, MatDialogModule],
-  template: `<h1 mat-dialog-title>Delete file</h1>
+  template: `<h1 mat-dialog-title>Error</h1>
   <div mat-dialog-content>
-    Would you like to delete cat.jpeg?
+    User allready exists
   </div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>{{'no'|translate}}</button>

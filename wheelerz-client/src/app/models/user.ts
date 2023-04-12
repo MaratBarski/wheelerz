@@ -18,6 +18,7 @@ export interface User {
     key?: string
     birthDay?: Date
     registrDate?: Date
+    birthDayDisplay?: string | null | undefined
     phone?: string
     mobilities?: MobilityType[]
     noWalk?: number

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { EstimationLineComponent } from '../estimation-line/estimation-line.component'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
@@ -11,6 +11,8 @@ import { RadioComponent } from '../radio/radio.component'
 import { FileImage } from 'src/app/models/fileImage'
 import { CountryStateSelectorComponent } from '../country-state-selector/country-state-selector.component'
 import { Country, State } from 'src/app/models/country'
+import { DateTimeService } from 'src/app/services/date-time.service'
+import { DateSelectorComponent } from '../date-selector/date-selector.component'
 
 @Component({
   selector: 'app-user-input-form',
@@ -24,7 +26,8 @@ import { Country, State } from 'src/app/models/country'
     InputCommentComponent,
     RadioComponent,
     ReactiveFormsModule,
-    CountryStateSelectorComponent
+    CountryStateSelectorComponent,
+    DateSelectorComponent
   ],
   templateUrl: './user-input-form.component.html',
   styleUrls: ['./user-input-form.component.scss'],
@@ -40,6 +43,8 @@ export class UserInputFormComponent implements OnInit {
     estimation: 0
   }
   @Output() onPublish = new EventEmitter<Story>()
+
+  dateTimeService = inject(DateTimeService)
 
   get isValid(): boolean {
     return this.form.valid
@@ -59,10 +64,6 @@ export class UserInputFormComponent implements OnInit {
 
   createForm(): void {
     this.form = new FormGroup({
-      //city: new FormControl(this.story.city || '', [Validators.required, Validators.maxLength(100)]),
-      //country: new FormControl(this.story.country || '', [Validators.required, Validators.maxLength(100)]),
-      startDate: new FormControl(this.story.startDate || '', [Validators.required]),
-      endDate: new FormControl(this.story.endDate || '', [Validators.required]),
       name: new FormControl(this.story.name || ''),
       title: new FormControl(this.story.title || ''),
       comments: new FormControl(this.story.comments || '')
@@ -94,4 +95,14 @@ export class UserInputFormComponent implements OnInit {
     this.story.cityId = +value.id
   }
 
+  startDateSelected(date: Date): void {
+    this.story.startDate = date
+    this.story.startDateDisplay = this.dateTimeService.dateToString(date)
+  }
+
+  endDateSelected(date: Date): void {
+    this.story.endDate = date
+    this.story.endDateDisplay = this.dateTimeService.dateToString(date)
+  }
+  
 }

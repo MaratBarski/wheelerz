@@ -75,6 +75,18 @@ export class DataService {
     return this.put('story', story)
   }
 
+  deleteStory(id: number): Observable<any> {
+    return this.delete(`story/${id}`)
+  }
+
+  updateProfile(user: User): Observable<any> {
+    return this.put('user', user)
+  }
+
+  getUserInfo(): Observable<User> {
+    return this.get('user/info')
+  }
+  
   addCountries(): void {
     this.http.get('./assets/data/countries.json')
       .subscribe((res: any) => {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wheelerz.Helpers;
 using Wheelerz.Models;
 
 #pragma warning disable CS8620
@@ -13,7 +14,8 @@ namespace Wheelerz.Services
         Task<List<Story>> GetAll();
         Task<List<Story>> GetStories(string q, int type, int userId = 0);
         Story GetStoryById(int id);
-        Task Update(Story story);
+        Task Update(int userId, Story story);
+        Task Delete(int userId, int storyId);
     }
     public class StoryService : IStoryService
     {
@@ -32,6 +34,9 @@ namespace Wheelerz.Services
                 story.dateAdd = DateTime.Now;
                 story.key = Guid.NewGuid().ToString();
                 story.storyPhotos = new List<StoryPhoto>();
+                story.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
+                story.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
+
                 story.accessibility?.ForEach((acc) =>
                 {
                     acc.files = new List<AccessibilityFile>();
@@ -64,11 +69,11 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task Update(Story story)
+        public Task Update(int userId, Story story)
         {
             return Task.Run(() =>
             {
-                var s = _data.Stories.Include(x=>x.storyPhotos).FirstOrDefault(x => x.id == story.id);
+                var s = _data.Stories.Include(x => x.storyPhotos).FirstOrDefault(x => x.id == story.id && x.userId == userId);
 
                 if (s == null) return;
 
@@ -100,11 +105,12 @@ namespace Wheelerz.Services
                 s.accessibility = story.accessibility;
                 s.comments = story.comments;
                 s.name = story.name;
-                s.startDate = story.startDate;  
                 s.title = story.title;
                 s.cityId = story.cityId;
-                s.countryId = story.countryId;  
+                s.countryId = story.countryId;
                 s.estimation = story.estimation;
+                s.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
+                s.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
 
                 _data.SaveChanges();
             });
@@ -123,6 +129,7 @@ namespace Wheelerz.Services
             return Task.Run(() =>
             {
                 var res = _data.Stories
+                .Where(x => x.deleted == 0)
                 .Where(x => x.storyType == type)
                 .Where(x => userId == 0 || x.userId == userId)
                 .Where(x => q == "" ||
@@ -164,11 +171,23 @@ namespace Wheelerz.Services
         public Story GetStoryById(int id)
         {
             var story = _data.Stories
+                .Where(x => x.deleted == 0)
                 .Include(x => x.storyPhotos)
                 .Include(x => x.accessibility)
                 .Include(x => x.user)
                 .Where(x => x.id == id).FirstOrDefault();
             return story;
+        }
+
+        public Task Delete(int userId, int storyId)
+        {
+            return Task.Run(() =>
+            {
+                var story = _data.Stories.FirstOrDefault(x => x.id == storyId && x.userId == userId);
+                if (story == null) return;
+                story.deleted = 1;
+                _data.SaveChanges();
+            });
         }
     }
 }

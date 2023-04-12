@@ -17,5 +17,9 @@ export const MY_PROFILE_ROUTES: Routes = [
     {
         path: 'story/:id',
         loadComponent: () => import('./story-edit/story-edit.component').then(c => c.StoryEditComponent)
+    },
+    {
+        path: 'edit-profile',
+        loadComponent: () => import('./profile-edit/profile-edit.component').then(c => c.ProfileEditComponent)
     }
 ];

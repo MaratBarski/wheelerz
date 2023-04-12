@@ -44,6 +44,9 @@ namespace Wheelerz.Models
         [Column("dateAdd")]
         public DateTime dateAdd { get; set; }
 
+        [Column("deleted")]
+        public int deleted { get; set; }
+
         public List<Accessibility>? accessibility { get; set; }
 
         public User? user { get; set; }
@@ -54,6 +57,12 @@ namespace Wheelerz.Models
 
         [NotMapped]
         public List<FileImage>? photos { get; set; }
+
+        [NotMapped]
+        public string? startDateDisplay { get; set; }
+
+        [NotMapped]
+        public string? endDateDisplay { get; set; }
 
     }
 }

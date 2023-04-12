@@ -73,6 +73,7 @@ create table stories(
     startDate datetime not null default(getdate()),
     endDate datetime  not null default(getdate()),
 	[dateAdd] datetime not null default(getdate()),
+	[deleted] int not null default(0),
 )
 go
 create table storyPhotos(

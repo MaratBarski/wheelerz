@@ -28,5 +28,6 @@
         public int countryId { get;set; }
         public int stateId { get; set; }
         public int sex { get; set; }
+        public string? birthDayDisplay { get; set; }
     }
 }

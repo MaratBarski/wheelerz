@@ -1,19 +1,31 @@
 <div class="cnt">
-    <div *ngIf="editable">
-        <a routerLink="/my-profile/story/{{story.id}}">{{'edit'|translate}}</a>
+    <div class="edit" *ngIf="editable">
+        <button class="edit-btn" routerLink="/my-profile/story/{{story.id}}">{{'edit'|translate}}</button>
+        <button class="delete-btn" (click)="onDelete.emit(story)">{{'delete'|translate}}</button>
     </div>
     <div class="card">
         <div class="main-flex">
             <div *ngIf="isShowAvatar" class="image">
                 <app-avatar [avatar]="story?.user?.avatar"></app-avatar>
             </div>
-            <div>
-                <div>{{story}}</div>
-                <div></div>
+            <div class="info">
+                <div class="title">{{story.title}}</div>
+                <div class="name"  *ngIf="story.user">
+                    <span>{{story.user?.firstName}}&nbsp;{{story.user?.lastName}}&nbsp;</span>
+                    <span *ngIf="story.user?.country">{{story.user?.country?.name}},&nbsp;{{story.user?.state?.name}}</span>
+                </div>
+                <div class="name">{{story.name}}</div>
+                <div class="name" *ngIf="story.country">{{story.city?.name}},&nbsp;{{story.country?.name}}</div>
             </div>
         </div>
         <div>
             <app-stars [estimation]="story.estimation || 0"></app-stars>
+            <div>
+                {{story.dateAdd|date:'dd/MM/yyyy'}}
+            </div>
+            <div class="date">
+                {{story.startDate|date:'dd/MM/yyyy'}}-{{story.endDate|date:'dd/MM/yyyy'}}
+            </div>
         </div>
     </div>
 </div>

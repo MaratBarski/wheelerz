@@ -6,6 +6,7 @@ using Wheelerz.Helpers;
 using Wheelerz.Models;
 
 #pragma warning disable CS8601
+#pragma warning disable CS8604
 
 namespace Wheelerz.Services
 {
@@ -80,7 +81,7 @@ namespace Wheelerz.Services
         {
             if (string.IsNullOrEmpty(registr.password) || registr.password.Trim() == "") return new LoginResponse() { error = "no_password" };
             if (string.IsNullOrEmpty(registr.email) || registr.email.Trim() == "") return new LoginResponse() { error = "no_mail" };
-            if (string.IsNullOrEmpty(registr.birthDay)) return new LoginResponse() { error = "no_birthday" };
+            //if (string.IsNullOrEmpty(registr.birthDay)) return new LoginResponse() { error = "no_birthday" };
 
             var email = registr.email.Trim().ToLower();
             var user = _data.Users?.Where(x => x.email == registr.email).FirstOrDefault();
@@ -94,7 +95,7 @@ namespace Wheelerz.Services
                 phone = registr.phone,
                 lastName = registr.lastName,
                 firstName = registr.firstName,
-                birthDay = Util.ParseDate(registr.birthDay),
+                birthDay = Util.ParseDate(registr.birthDayDisplay, DateTime.Now),
                 sex = registr.sex,
                 countryId = registr.countryId,
                 stateId = registr.stateId,

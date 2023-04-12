@@ -15,10 +15,11 @@ namespace Wheelerz.Controllers
     public class StoryController : ControllerBase
     {
         private readonly IStoryService _storyService;
-
-        public StoryController(IStoryService storyService)
+        private readonly IUserService _userService;
+        public StoryController(IStoryService storyService, IUserService userService)
         {
             _storyService = storyService;
+            _userService = userService;
         }
 
         private string GetSearchText()
@@ -42,7 +43,7 @@ namespace Wheelerz.Controllers
         {
             if (story.storyType < 1 || story.storyType > 5) throw new ArgumentException();
 
-            story.userId = (HttpContext.Items["login"] as User).id;
+            story.userId = _userService.CurrenUser.id;
             story.accessibility?.ForEach(x =>
             {
                 x.userId = story.userId;
@@ -98,7 +99,13 @@ namespace Wheelerz.Controllers
         [HttpPut]
         public async Task Update(Story story)
         {
-            await _storyService.Update(story);
+            await _storyService.Update(_userService.CurrenUser.id,story);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
+        {
+            await _storyService.Delete(_userService.CurrenUser.id, id);
         }
     }
 }

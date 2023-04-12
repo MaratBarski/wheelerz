@@ -19,7 +19,8 @@
     <div class="line">
         <div>
             <app-input-line name="birth_date">
-                <input class="main-input" type="date" formControlName="birthDay">
+                <app-date-selector (dateSelected)="birthdayChanged($event)"
+                    [selectedDate]="user.birthDay"></app-date-selector>
             </app-input-line>
         </div>
         <div>
@@ -88,11 +89,11 @@
     <div class="line">
         <div>
             <app-input-line name="how_would_you_like_us_to_address_you">
-                <app-radio (change)="updateSex($event)" [values]="sexes"></app-radio>
+                <app-radio [selectedKey]="user.sex" (change)="updateSex($event)" [values]="sexes"></app-radio>
             </app-input-line>
         </div>
     </div>
     <div class="buttons">
-        <button [disabled]="!isValid" class="main-btn" (click)="next()">{{'next'|translate}}</button>
+        <button [disabled]="!isValid" class="main-btn" (click)="next()">{{btnText|translate}}</button>
     </div>
 </div>

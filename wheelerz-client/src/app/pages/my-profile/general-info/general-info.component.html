@@ -1,8 +1,9 @@
 <ng-container *ngIf="user$|async as user">
-    <app-top-profile (onAvatarChanged)="onAvatarChanged($event)" [isEditable]="isEditable"
-        [user]="user"></app-top-profile>
-    <div>
-        <app-story-card [editable]="true" *ngFor="let s of user.stories" [isShowAvatar]="false"
-            [story]="s"></app-story-card>
+    <app-top-profile [isEditable]="isEditable" [user]="user"></app-top-profile>
+    <div class="stories">
+        <div class="story" *ngFor="let s of user.stories">
+            <app-story-card (onDelete)="onDelete($event)" [editable]="true" [isShowAvatar]="false"
+                [story]="s"></app-story-card>
+        </div>
     </div>
 </ng-container>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Story } from 'src/app/models/story'
 import { StarsComponent } from '../stars/stars.component'
@@ -18,4 +18,5 @@ export class StoryCardComponent {
   @Input() story!: Story
   @Input() isShowAvatar = true
   @Input() editable = false
+  @Output() onDelete = new EventEmitter<Story>()
 }

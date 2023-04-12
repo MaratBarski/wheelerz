@@ -37,13 +37,12 @@ export class StoryEditComponent implements OnInit {
     this.dataService.updateStory(s).pipe(first()).subscribe({
       next: () => {
         this.loader.load(false)
-        //this.router.navigateByUrl('')
+        this.router.navigateByUrl('/my-profile/general')
       },
       error: () => {
         this.loader.load(false)
       }
     })
-    //alert(JSON.stringify((s.photos as any)[0].id))
   }
 
 }
