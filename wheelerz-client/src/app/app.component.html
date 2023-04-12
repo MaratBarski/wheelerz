@@ -1,4 +1,4 @@
-<div class="loading" *ngIf="loaderService.loading|async">
+<div class="loading" *ngIf="(loaderService.loading|async)">
     <div class="center">Loading</div>
 </div>
 <div *ngIf="isLoaded" [style.direction]="direction">

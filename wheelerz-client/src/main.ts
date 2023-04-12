@@ -4,14 +4,12 @@ import { importProvidersFrom } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 import { APP_ROUTES } from './app/app.routes'
-import { SERVER_URL } from './app/consts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DatePickerConfig } from './app/models/dates'
 import { TokenInterceptorService } from './app/services/token-interceptor.service'
 
 bootstrapApplication(AppComponent, {
     providers: [
-        { provide: SERVER_URL, useValue: 'https://localhost:7059' },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,

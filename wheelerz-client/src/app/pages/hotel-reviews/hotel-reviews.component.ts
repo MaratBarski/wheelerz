@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { StoryCardComponent } from 'src/app/components/story-card/story-card.component'
-import { Observable } from 'rxjs'
+import { Observable, tap } from 'rxjs'
 import { Story } from 'src/app/models/story'
 import { DataService } from 'src/app/services/data.service'
-import { FormsModule } from '@angular/forms'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component'
+import { LoaderService } from 'src/app/services/loader.service'
 
 @Component({
   selector: 'app-hotel-reviews',
@@ -20,9 +20,14 @@ export class HotelReviewsComponent implements OnInit {
 
   dataService = inject(DataService)
   stories$!: Observable<Story[]>
+  loader = inject(LoaderService)
 
   search(text: string): void {
-    this.stories$ = this.dataService.getStories('hotels', text)
+    this.loader.load(true)
+    this.stories$ = this.dataService.getStories('hotels', text).pipe(
+      tap(() => {
+      this.loader.load(false)
+    }))
   }
 
   ngOnInit(): void {
