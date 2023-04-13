@@ -1,0 +1,26 @@
+<div class="cnt" *ngIf="story$|async as story">
+    <div class="flex">
+        <div class="flex">
+            <div class="name">{{story.name}}</div>
+            <div>{{story.title}}</div>
+            <div>{{story.country?.name}}</div>
+            <div>{{story.city?.name}}</div>
+        </div>
+        <div>
+            <app-stars [estimation]="story.estimation || 0"></app-stars>
+        </div>
+    </div>
+    <div class="user" *ngIf="story.user">
+        <app-top-profile [user]="story.user"></app-top-profile>
+    </div>
+    <div class="flex" *ngIf="story.storyPhotos">
+        <div class="photo" *ngFor="let p of story.storyPhotos">
+            <app-file-image [fileName]="p.fileName"></app-file-image>
+        </div>
+    </div>
+    <div class="accs" *ngIf="story?.accessibility?.length">
+        <div *ngFor="let a of story.accessibility" class="acc">
+            <app-accessibility-view [accessibility]="a"></app-accessibility-view>
+        </div>
+    </div>
+</div>

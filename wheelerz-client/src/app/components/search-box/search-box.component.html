@@ -1,2 +1,9 @@
-<input class="main-input" #searchInput autocomplete="off" type="text" placeholder="{{'search_here'|translate}}"
-[(ngModel)]="text">
+<div class="flex">
+    <div>
+        <img style="width: 30px;" src="./assets/img/search.svg">
+    </div>
+    <div>
+        <input class="main-input" #searchInput autocomplete="off" type="text" placeholder="{{'search_here'|translate}}"
+            [(ngModel)]="text">
+    </div>
+</div>

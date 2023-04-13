@@ -1,0 +1,27 @@
+.images {
+    display: flex;
+}
+.img {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 6px;
+}
+.title{
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.flex{
+    flex-wrap: wrap;
+}
+.item{
+    display: flex;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+.it1{
+    font-size: 1rem;
+}
+.it2{
+    color: #b00;
+}

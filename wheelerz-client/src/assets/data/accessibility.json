@@ -10,7 +10,7 @@
                 "name": "is_the_height_mattress_comfortable",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -30,15 +30,15 @@
                 "name": "is_there_enough_space_beside_the_bed",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
-                        "value": "Yes"
+                        "value": "yes"
                     },
                     {
                         "key": "k2",
-                        "value": "No"
+                        "value": "no"
                     },
                     {
                         "key": "k3",
@@ -50,15 +50,15 @@
                 "name": "does_the_mattress_allow_movement",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
-                        "value": "Yes"
+                        "value": "yes"
                     },
                     {
                         "key": "k2",
-                        "value": "No"
+                        "value": "no"
                     },
                     {
                         "key": "k3",
@@ -79,7 +79,7 @@
                 "name": "is_the_toilet_height_convenient",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -99,7 +99,7 @@
                 "name": "is_there_accessible_space_around_the_toilet",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -119,7 +119,7 @@
                 "name": "are_there_accessible_handrails",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -139,7 +139,7 @@
                 "name": "is_there_enough_space_for_the_knees_under_the_sink",
                 "key": "4",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -168,7 +168,7 @@
                 "name": "is_there_a_roll_in_shower",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -188,7 +188,7 @@
                 "name": "does_the_hotel_provide_a_bath_chair",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -208,7 +208,7 @@
                 "name": "are_there_accessible_handrails",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -228,7 +228,7 @@
                 "name": "are_the_showerhead_and_taps_accessible",
                 "key": "4",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -248,7 +248,7 @@
                 "name": "is_there_an_accessible_bathroom_mirror",
                 "key": "5",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -277,7 +277,7 @@
                 "name": "is_the_room_large_and_spacious",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -297,7 +297,7 @@
                 "name": "are_the_doors_accessible",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -317,7 +317,7 @@
                 "name": "is_there_a_convenient_passage_between_the_room_and_bathroom",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -337,7 +337,7 @@
                 "name": "are_there_accessible_windows",
                 "key": "4",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -357,7 +357,7 @@
                 "name": "is_there_an_accessible_balcony",
                 "key": "5",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -381,7 +381,7 @@
                 "name": "is_there_an_accessible_bathroom",
                 "key": "5",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -406,7 +406,7 @@
                 "name": "is_there_an_accessible_entrance_to_the_hotel",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -426,7 +426,7 @@
                 "name": "are_the_passages_of_the_hotel_wide_and_comfortable",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -446,7 +446,7 @@
                 "name": "is_there_an_accessible_elevator",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -470,7 +470,7 @@
                 "name": "are_there_accessible_restrooms_in_the_lobby",
                 "key": "4",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -494,7 +494,7 @@
                 "name": "is_there_a_ramp_with_a_convenient_slope",
                 "key": "5",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -518,7 +518,7 @@
                 "name": "is_there_an_accessible_bathroom",
                 "key": "5",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -543,7 +543,7 @@
                 "name": "is_there_an_accessible_parking_space",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -563,7 +563,7 @@
                 "name": "are_there_accessible_shuttles",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -583,7 +583,7 @@
                 "name": "is_there_accessible_public_transportation",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -612,7 +612,7 @@
                 "name": "is_the_seating_comfortable",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -632,7 +632,7 @@
                 "name": "is_there_an_accessible_buffet",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -652,7 +652,7 @@
                 "name": "is_there_an_accessible_bar",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -672,7 +672,7 @@
                 "name": "did_you_receive_assistance_from_the_hotel_staff",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -697,7 +697,7 @@
                 "name": "is_the_area_of_the_pool_accessible",
                 "key": "1",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -717,7 +717,7 @@
                 "name": "is_there_access_into_the_pool",
                 "key": "2",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",
@@ -737,7 +737,7 @@
                 "name": "is_there_an_accessible_shaded_area",
                 "key": "3",
                 "selectedKey": "k1",
-                "selectedValue": "",
+                "selectedValue": "yes",
                 "items": [
                     {
                         "key": "k1",

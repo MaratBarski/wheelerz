@@ -26,6 +26,11 @@ export const APP_ROUTES: Routes = [
         canActivate: [UserService]
     },
     {
+        path: 'story-info/:id',
+        loadComponent: () => import('./pages/story-view/story-view.component').then(c => c.StoryViewComponent),
+        canActivate: [UserService]
+    },
+    {
         path: 'hotel-reviews',
         loadComponent: () => import('./pages/hotel-reviews/hotel-reviews.component').then(c => c.HotelReviewsComponent),
         canActivate: [UserService]

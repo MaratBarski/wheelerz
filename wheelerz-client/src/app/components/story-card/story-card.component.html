@@ -3,7 +3,7 @@
         <button class="edit-btn" routerLink="/my-profile/story/{{story.id}}">{{'edit'|translate}}</button>
         <button class="delete-btn" (click)="onDelete.emit(story)">{{'delete'|translate}}</button>
     </div>
-    <div class="card">
+    <div class="card pointer" routerLink="/story-info/{{story.id}}">
         <div class="main-flex">
             <div *ngIf="isShowAvatar" class="image">
                 <app-avatar [avatar]="story?.user?.avatar"></app-avatar>
@@ -11,11 +11,11 @@
             <div class="info">
                 <div class="title">{{story.title}}</div>
                 <div class="name"  *ngIf="story.user">
-                    <span>{{story.user?.firstName}}&nbsp;{{story.user?.lastName}}&nbsp;</span>
-                    <span *ngIf="story.user?.country">{{story.user?.country?.name}},&nbsp;{{story.user?.state?.name}}</span>
+                    <span>{{story.user.firstName}}&nbsp;{{story.user.lastName}}&nbsp;</span>
+                    <span *ngIf="story.user?.country">{{story.user.country?.name}},&nbsp;{{story.user.state?.name}}</span>
                 </div>
                 <div class="name">{{story.name}}</div>
-                <div class="name" *ngIf="story.country">{{story.city?.name}},&nbsp;{{story.country?.name}}</div>
+                <div class="name" *ngIf="story.country && story.city">{{story.city.name}},&nbsp;{{story.country.name}}</div>
             </div>
         </div>
         <div>

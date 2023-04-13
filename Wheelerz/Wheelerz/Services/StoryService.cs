@@ -170,12 +170,43 @@ namespace Wheelerz.Services
 
         public Story GetStoryById(int id)
         {
-            var story = _data.Stories
-                .Where(x => x.deleted == 0)
-                .Include(x => x.storyPhotos)
-                .Include(x => x.accessibility)
-                .Include(x => x.user)
-                .Where(x => x.id == id).FirstOrDefault();
+            var story = (from s in _data.Stories
+                            .Include(x => x.storyPhotos)
+                            .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
+                            .Include(x => x.accessibility).ThenInclude(x => x.files)
+                            .Include(x => x.country)
+                            .Include(x => x.city)
+                            .Include(x => x.user).ThenInclude(x => x.mobilities)
+                            .Include(x => x.user).ThenInclude(x => x.country)
+                            .Include(x => x.user).ThenInclude(x => x.state)
+                         where s.id == id && s.deleted == 0
+                         select new Story
+                         {
+                            storyPhotos = (from p in s.storyPhotos
+                                     select new StoryPhoto
+                                     {
+                                         fileName = p.fileName
+                                     }).ToList(),
+                             name = s.name,
+                             title = s.title,
+                             country = s.country,
+                             comments = s.comments,
+                             estimation = s.estimation,
+                             city = s.city,
+                             user = s.user,
+                             accessibility =(from a in  s.accessibility select new Accessibility
+                             {
+                                 files = (from f in a.files
+                                          select new AccessibilityFile
+                                          {
+                                              fileName = f.fileName,
+                                          }).ToList(),
+                                 accessibilityItems = a.accessibilityItems,
+                                 name = a.name,
+                                 comments = a.comments,
+                                 id = a.id,
+                             }).ToList()
+                         }).FirstOrDefault();
             return story;
         }
 
