@@ -16,7 +16,7 @@ export class BigImageComponent {
   loader = inject(LoaderService)
   @Input() files: FileImage[] = []
   @Input() file!: FileImage
-  top = 0
+  top = 10
   isShowBig = false
 
   get src(): string {
@@ -24,7 +24,8 @@ export class BigImageComponent {
   }
 
   openBig(event:MouseEvent): void {
-    this.top = event.clientY + document.documentElement.scrollTop
+    event.stopPropagation()
+    //this.top = document.documentElement.scrollTop + 10
     this.isShowBig = true
     this.loader.load(true)
   }
