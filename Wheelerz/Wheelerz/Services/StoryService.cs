@@ -143,9 +143,9 @@ namespace Wheelerz.Services
                 .Include(x => x.user)
                 .Include(x => x.city)
                 .Include(x => x.country)
-                .Include(x => x.storyPhotos)
-                .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
-                .Include(x => x.accessibility).ThenInclude(x => x.files)
+                //.Include(x => x.storyPhotos)
+                //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
+                //.Include(x => x.accessibility).ThenInclude(x => x.files)
                 .ToList();
 
                 res.ForEach(x =>
@@ -182,30 +182,43 @@ namespace Wheelerz.Services
                          where s.id == id && s.deleted == 0
                          select new Story
                          {
-                            storyPhotos = (from p in s.storyPhotos
-                                     select new StoryPhoto
-                                     {
-                                         fileName = p.fileName
-                                     }).ToList(),
+                             storyPhotos = (from p in s.storyPhotos
+                                            select new StoryPhoto
+                                            {
+                                                id = p.id,
+                                                fileName = p.fileName,
+                                                small = ""
+                                            }).ToList(),
                              name = s.name,
                              title = s.title,
+                             countryId = s.countryId,
+                             cityId = s.cityId,
                              country = s.country,
                              comments = s.comments,
                              estimation = s.estimation,
                              city = s.city,
                              user = s.user,
-                             accessibility =(from a in  s.accessibility select new Accessibility
-                             {
-                                 files = (from f in a.files
-                                          select new AccessibilityFile
-                                          {
-                                              fileName = f.fileName,
-                                          }).ToList(),
-                                 accessibilityItems = a.accessibilityItems,
-                                 name = a.name,
-                                 comments = a.comments,
-                                 id = a.id,
-                             }).ToList()
+                             startDate = s.startDate,
+                             endDate = s.endDate,
+                             dateAdd = s.dateAdd,
+                             id = s.id,
+                             storyType = s.storyType,
+                             key = s.key,
+                             accessibility = (from a in s.accessibility
+                                              select new Accessibility
+                                              {
+                                                  files = (from f in a.files
+                                                           select new AccessibilityFile
+                                                           {
+                                                               fileName = f.fileName,
+                                                               id = f.id,
+                                                           }).ToList(),
+                                                  accessibilityItems = a.accessibilityItems,
+                                                  name = a.name,
+                                                  comments = a.comments,
+                                                  id = a.id,
+                                                  key = a.key,
+                                              }).ToList()
                          }).FirstOrDefault();
             return story;
         }

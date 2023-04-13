@@ -5,11 +5,12 @@ import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { Attachment } from 'src/app/models/story'
 import { ImageService } from 'src/app/services/image.service'
 import { FileImage } from 'src/app/models/fileImage'
+import { FileImageComponent } from '../file-image/file-image.component'
 
 @Component({
   selector: 'app-input-comment',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe, FileImageComponent],
   templateUrl: './input-comment.component.html',
   styleUrls: ['./input-comment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,7 +24,7 @@ export class InputCommentComponent {
   @Input() files: FileImage[] = []
 
   @Output() onImageUpdates = new EventEmitter<FileImage[]>()
-  
+
   @ViewChild('file') file!: ElementRef<HTMLInputElement>
   @ViewChild('div') div!: ElementRef<HTMLDivElement>
 

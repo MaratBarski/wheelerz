@@ -24,7 +24,7 @@
             <div (click)="deleteImage(a)" class="delete">
                 <img src="./assets/img/delete.svg">
             </div>
-            <img style="width: 80px;" [src]="a.small">
+            <app-file-image [small]="a.small" [fileName]="a.fileName || ''"></app-file-image>
         </div>
     </div>
     <input type="file" multiple (change)="changeFile($event)" #file style="display: none;">

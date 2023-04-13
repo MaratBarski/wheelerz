@@ -12,7 +12,9 @@ import { SERVER_URL } from 'src/app/consts'
 })
 export class FileImageComponent {
   @Input() fileName!: string
+  @Input() small?: string
+
   get src(): string {
-    return `${SERVER_URL}/image/p${this.fileName}`
+    return this.small ? this.small : `${SERVER_URL}/image/p${this.fileName}`
   }
 }
