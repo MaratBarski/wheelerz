@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FileImage } from 'src/app/models/fileImage'
 import { SERVER_URL } from 'src/app/consts'
 import { LoaderService } from 'src/app/services/loader.service'
 
@@ -14,8 +13,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 })
 export class BigImageComponent {
   loader = inject(LoaderService)
-  @Input() files: FileImage[] = []
-  @Input() file!: FileImage
+  @Input() files: { fileName: string }[] = []
+  @Input() file!: { fileName: string }
   top = 10
   isShowBig = false
 
@@ -23,7 +22,7 @@ export class BigImageComponent {
     return `${SERVER_URL}/image/${this.file.fileName}`
   }
 
-  openBig(event:MouseEvent): void {
+  openBig(event: MouseEvent): void {
     event.stopPropagation()
     //this.top = document.documentElement.scrollTop + 10
     this.isShowBig = true

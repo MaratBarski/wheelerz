@@ -9,7 +9,9 @@
     </div>
     <div class="images" *ngIf="accessibility.files?.length">
         <div class="img" *ngFor="let f of accessibility.files">
-            <app-file-image [fileName]="f.fileName"></app-file-image>
+            <app-big-image [files]="accessibility.files || []" [file]="f">
+                <app-file-image [fileName]="f.fileName"></app-file-image>
+            </app-big-image>
         </div>
     </div>
     <div>{{accessibility.comments}}</div>
