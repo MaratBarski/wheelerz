@@ -265,5 +265,494 @@
                 ]
             }
         ]
+    },
+    {
+        "key": "4",
+        "img": "room.svg",
+        "name": "room",
+        "comments": "",
+        "files": [],
+        "accessibilityItems": [
+            {
+                "name": "is_the_room_large_and_spacious",
+                "key": "1",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_the_doors_accessible",
+                "key": "2",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_a_convenient_passage_between_the_room_and_bathroom",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_there_accessible_windows",
+                "key": "4",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_balcony",
+                "key": "5",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    },
+                    {
+                        "key": "k4",
+                        "value": "doesnt_exist"
+                    }                    
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_bathroom",
+                "key": "5",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "5",
+        "img": "entrancepassages.svg",
+        "name": "entrance_and_passages",
+        "comments": "",
+        "files": [],
+        "accessibilityItems": [
+            {
+                "name": "is_there_an_accessible_entrance_to_the_hotel",
+                "key": "1",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_the_passages_of_the_hotel_wide_and_comfortable",
+                "key": "2",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_elevator",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    },
+                    {
+                        "key": "k4",
+                        "value": "doesnt_exist"
+                    }   
+                ]
+            },
+            {
+                "name": "are_there_accessible_restrooms_in_the_lobby",
+                "key": "4",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    },
+                    {
+                        "key": "k4",
+                        "value": "doesnt_exist"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_a_ramp_with_a_convenient_slope",
+                "key": "5",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    },
+                    {
+                        "key": "k4",
+                        "value": "doesnt_exist"
+                    }                    
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_bathroom",
+                "key": "5",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "6",
+        "img": "parkingtransportation.svg",
+        "name": "parking_and_transportation",
+        "comments": "",
+        "files": [],
+        "accessibilityItems": [
+            {
+                "name": "is_there_an_accessible_parking_space",
+                "key": "1",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_there_accessible_shuttles",
+                "key": "2",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_accessible_public_transportation",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }  
+                ]
+            }
+        ]
+    },
+    {
+        "key": "7",
+        "img": "diningroom.svg",
+        "name": "dining_room",
+        "comments": "",
+        "files": [],
+        "accessibilityItems": [
+            {
+                "name": "is_the_seating_comfortable",
+                "key": "1",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_buffet",
+                "key": "2",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_bar",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }  
+                ]
+            },
+            {
+                "name": "did_you_receive_assistance_from_the_hotel_staff",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "8",
+        "img": "pool.svg",
+        "name": "pool",
+        "comments": "",
+        "files": [],
+        "accessibilityItems": [
+            {
+                "name": "is_the_area_of_the_pool_accessible",
+                "key": "1",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_access_into_the_pool",
+                "key": "2",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_shaded_area",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }  
+                ]
+            }
+        ]
     }
 ]

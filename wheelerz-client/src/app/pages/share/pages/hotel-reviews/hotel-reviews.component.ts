@@ -9,6 +9,7 @@ import { DataService } from 'src/app/services/data.service'
 import { first } from 'rxjs'
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
+import { ShareWizardService } from '../../share-wizard.service'
 
 @Component({
   selector: 'app-hotel-reviews',
@@ -23,6 +24,7 @@ export class HotelReviewsComponent implements OnDestroy {
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
   router = inject(Router)
+  shareWizardService = inject(ShareWizardService)
 
   wizard$ = this.accessibilityWizardService.getWizard()
   story: Story = {
@@ -48,11 +50,13 @@ export class HotelReviewsComponent implements OnDestroy {
     this.story = story
     this.step = 1
     this.loaderService.showTopMenu(false)
+    this.shareWizardService.shoeTabs(false)
   }
 
   onInit(): void {
     this.step = 0
     this.loaderService.showTopMenu(true)
+    this.shareWizardService.shoeTabs(true)
   }
 
   ngOnDestroy(): void {

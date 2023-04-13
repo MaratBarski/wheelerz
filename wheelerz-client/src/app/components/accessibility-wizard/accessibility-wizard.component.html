@@ -1,5 +1,5 @@
 <div class="wizard ltr">
-    <div class="next" [class.unvisible]="current===0 && !showPrev"><img (click)="next(-1)" src="./assets/img/prev.svg">
+    <div class="next" [class.unvisible]="current===0 && !showPrev"><img class="prev-btn" (click)="next(-1)" src="./assets/img/prev.svg">
     </div>
     <div class="wzr">
         <div class="wizard-title">{{currentWizard.name|translate}}</div>
@@ -26,6 +26,6 @@
                 [total]="wizard.length"></app-progress-bar>
         </div>
     </div>
-    <div class="next" [class.unvisible]="current===wizard.length-1"><img (click)="next(1)" src="./assets/img/next.svg">
+    <div class="next" [class.unvisible]="current===wizard.length-1"><img class="next-btn" (click)="next(1)" src="./assets/img/next.svg">
     </div>
 </div>

@@ -73,6 +73,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .prev-btn,
 .next-btn{
     width: 50px;
+    cursor: pointer;
 }
 .no-display{
     display: none;
