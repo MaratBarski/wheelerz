@@ -30,6 +30,7 @@ export class CitiesAccessibilityComponent {
   }
 
   ngOnInit(): void {
+    this.loader.setShareUrl('cities-accessibility')
     this.search('')
   }
 }

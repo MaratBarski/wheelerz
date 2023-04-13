@@ -31,6 +31,7 @@ export class HotelReviewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loader.setShareUrl('hotel-review')
     this.search('')
   }
 

@@ -4,7 +4,7 @@
 <div *ngIf="isLoaded" [style.direction]="direction">
     <app-top *ngIf="userService.isLogedIn"></app-top>
     <div [class.main]="userService.isLogedIn">
-        <app-nav-bar *ngIf="userService.isLogedIn && (loaderService.onShowTopMenu | async)"></app-nav-bar>
+        <app-nav-bar [links]="(links$|async)||[]" *ngIf="userService.isLogedIn && (loaderService.onShowTopMenu | async)"></app-nav-bar>
         <router-outlet></router-outlet>
     </div>
 </div>

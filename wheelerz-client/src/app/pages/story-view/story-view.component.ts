@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component,OnDestroy, OnInit, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { DataService } from 'src/app/services/data.service'
 import { ActivatedRoute } from '@angular/router'
@@ -10,16 +10,17 @@ import { StarsComponent } from 'src/app/components/stars/stars.component'
 import { AccessibilityViewComponent } from 'src/app/components/accessibility-view/accessibility-view.component'
 import { LoaderService } from 'src/app/services/loader.service'
 import { FileImageComponent } from 'src/app/components/file-image/file-image.component'
+import { BigImageComponent } from 'src/app/components/big-image/big-image.component'
 
 @Component({
   selector: 'app-story-view',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, StarsComponent, TopProfileComponent, AccessibilityViewComponent,FileImageComponent],
+  imports: [CommonModule, TranslatePipe, StarsComponent, BigImageComponent, TopProfileComponent, AccessibilityViewComponent, FileImageComponent],
   templateUrl: './story-view.component.html',
   styleUrls: ['./story-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StoryViewComponent implements OnInit, OnDestroy  {
+export class StoryViewComponent implements OnInit, OnDestroy {
   dataService = inject(DataService)
   activatedRoute = inject(ActivatedRoute)
   loader = inject(LoaderService)

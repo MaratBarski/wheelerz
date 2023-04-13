@@ -13,12 +13,6 @@ import { TranslatePipe } from 'src/app/pipes/translate.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavBarComponent {
-  @Input() links: NavLink[] = [
-    { name: 'road_trip_stories', link: 'stories' },
-    { name: 'hotel_reviews', link: 'hotel-reviews' },
-    { name: 'cities_accessibility', link: 'cities-accessibility' },
-    { name: 'trends', link: 'fellow-travelers' },
-    { name: 'share', link: 'share' },
-  ]
+  @Input() links: NavLink[] = []
 
 }

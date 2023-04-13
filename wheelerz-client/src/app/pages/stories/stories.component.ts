@@ -30,6 +30,7 @@ export class StoriesComponent {
   }
 
   ngOnInit(): void {
+    this.loader.setShareUrl('story')
     this.search('')
   }
 }

@@ -30,6 +30,7 @@ export class TrendsComponent {
   }
 
   ngOnInit(): void {
+    this.loader.setShareUrl('trends')
     this.search('')
   }
 }
