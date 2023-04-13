@@ -3,31 +3,31 @@
         "key": "1",
         "img": "bad.svg",
         "name": "bed",
-        "comments": "test",
+        "comments": "",
         "files": [],
         "accessibilityItems": [
             {
-                "name": "Is the height mattress comfortable?",
+                "name": "is_the_height_mattress_comfortable",
                 "key": "1",
                 "selectedKey": "k1",
                 "selectedValue": "",
                 "items": [
                     {
                         "key": "k1",
-                        "value": "Yes"
+                        "value": "yes"
                     },
                     {
                         "key": "k2",
-                        "value": "No"
+                        "value": "too_height"
                     },
                     {
                         "key": "k3",
-                        "value": "I don't know"
+                        "value": "too_low"
                     }
                 ]
             },
             {
-                "name": "Is god?",
+                "name": "is_there_enough_space_beside_the_bed",
                 "key": "2",
                 "selectedKey": "k1",
                 "selectedValue": "",
@@ -42,7 +42,27 @@
                     },
                     {
                         "key": "k3",
-                        "value": "I don't know"
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "does_the_mattress_allow_movement",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "Yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "No"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
                     }
                 ]
             }
@@ -50,48 +70,197 @@
     },
     {
         "key": "2",
-        "img": "bad.svg",
-        "name": "bed",
-        "comments": "test",
+        "img": "toilet.svg",
+        "name": "toilet",
+        "comments": "",
         "files": [],
         "accessibilityItems": [
             {
-                "name": "aaaaaaaaaa?",
+                "name": "is_the_toilet_height_convenient",
                 "key": "1",
                 "selectedKey": "k1",
                 "selectedValue": "",
                 "items": [
                     {
                         "key": "k1",
-                        "value": "Yes"
+                        "value": "yes"
                     },
                     {
                         "key": "k2",
-                        "value": "No"
+                        "value": "no"
                     },
                     {
                         "key": "k3",
-                        "value": "I don't know"
+                        "value": "i_dont_Know"
                     }
                 ]
             },
             {
-                "name": "bbbbbbbbbb",
+                "name": "is_there_accessible_space_around_the_toilet",
                 "key": "2",
-                "selectedKey": "k3",
+                "selectedKey": "k1",
                 "selectedValue": "",
                 "items": [
                     {
                         "key": "k1",
-                        "value": "Yes"
+                        "value": "yes"
                     },
                     {
                         "key": "k2",
-                        "value": "No"
+                        "value": "no"
                     },
                     {
                         "key": "k3",
-                        "value": "I don't know"
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_there_accessible_handrails",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_enough_space_for_the_knees_under_the_sink",
+                "key": "4",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "3",
+        "img": "shower.svg",
+        "name": "shower",
+        "comments": "",
+        "files": [],
+        "accessibilityItems": [
+            {
+                "name": "is_there_a_roll_in_shower",
+                "key": "1",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "does_the_hotel_provide_a_bath_chair",
+                "key": "2",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_there_accessible_handrails",
+                "key": "3",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "are_the_showerhead_and_taps_accessible",
+                "key": "4",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
+                    }
+                ]
+            },
+            {
+                "name": "is_there_an_accessible_bathroom_mirror",
+                "key": "5",
+                "selectedKey": "k1",
+                "selectedValue": "",
+                "items": [
+                    {
+                        "key": "k1",
+                        "value": "yes"
+                    },
+                    {
+                        "key": "k2",
+                        "value": "no"
+                    },
+                    {
+                        "key": "k3",
+                        "value": "i_dont_Know"
                     }
                 ]
             }

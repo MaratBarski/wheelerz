@@ -1,4 +1,4 @@
-<div style="display: inline-block;">
+<div class="cnt">
     <div class="extimations">
         <ng-container *ngFor="let e of estimations;let i = index">
             <div (click)="estimation=e;change.emit(e)" [class.selected]="e===estimation" class="estimation">

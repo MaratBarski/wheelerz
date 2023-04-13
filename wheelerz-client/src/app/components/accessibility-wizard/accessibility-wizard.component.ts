@@ -17,7 +17,7 @@ import { FileImage } from 'src/app/models/fileImage';
   styleUrls: ['./accessibility-wizard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccessibilityWizardComponent {
+export class AccessibilityWizardComponent  {
   @Input() wizard: WizardItem[] = []
   @Input() current = 0
   @Input() showPrev = false

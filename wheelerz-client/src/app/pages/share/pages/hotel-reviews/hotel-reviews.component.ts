@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { AccessibilityWizardComponent } from 'src/app/components/accessibility-wizard/accessibility-wizard.component'
 import { AccessibilityWizardService } from 'src/app/services/accessibility-wizard.service'
@@ -18,7 +18,7 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./hotel-reviews.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HotelReviewsComponent {
+export class HotelReviewsComponent implements OnDestroy {
   accessibilityWizardService = inject(AccessibilityWizardService)
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
@@ -47,9 +47,15 @@ export class HotelReviewsComponent {
   onPublish(story: Story): void {
     this.story = story
     this.step = 1
+    this.loaderService.showTopMenu(false)
   }
 
   onInit(): void {
     this.step = 0
+    this.loaderService.showTopMenu(true)
+  }
+
+  ngOnDestroy(): void {
+    this.loaderService.showTopMenu(true)
   }
 }

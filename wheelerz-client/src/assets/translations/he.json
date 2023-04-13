@@ -123,5 +123,19 @@
     "edit_profile": "Edit profile",
     "edit": "Edit",
     "delete": "Delete",
-    "save": "Save"
+    "save": "Save",
+    "too_height": "Too High",
+    "too_low": "Too Low",
+    "is_the_height_mattress_comfortable": "Is the height mattress comfortable?",
+    "is_there_enough_space_beside_the_bed":"Is there enough space beside the bed?",
+    "i_dont_Know":"I don't Know",
+    "does_the_mattress_allow_movement":"Does the Mattress allow movement?",
+    "is_the_toilet_height_convenient":"Is the toilet height convenient?",
+    "is_there_accessible_space_around_the_toilet":"Is there accessible space around the toilet?",
+    "are_there_accessible_handrails":"Are there accessible handrails?",
+    "is_there_enough_space_for_the_knees_under_the_sink":"Is there enough space for the knees under the sink?",
+    "is_there_a_roll_in_shower":"Is there a roll-in shower?",
+    "does_the_hotel_provide_a_bath_chair":"Does the hotel provide a bath chair?",
+    "are_the_showerhead_and_taps_accessible":"Are the showerhead and taps accessible?",
+    "is_there_an_accessible_bathroom_mirror":"Is there an accessible bathroom mirror?"
 }

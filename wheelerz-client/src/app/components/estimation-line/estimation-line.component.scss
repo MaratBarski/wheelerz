@@ -3,6 +3,10 @@ $border-radius: 10px;
 $border-width: 1px;
 $height: 30px;
 
+.cnt{
+    display: inline-block;
+    background-color: #fff;
+}
 .extimations {
     display: flex;
     border-radius: $border-radius $border-radius $border-radius $border-radius;

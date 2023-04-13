@@ -37,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   changeDetectorRef = inject(ChangeDetectorRef)
   userService = inject(UserService)
   loaderService = inject(LoaderService)
+  translationService = inject(TranslationService)
 
   ngOnInit(): void {
     this.translationService.loadTranslation
@@ -45,8 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.markForCheck()
       })
   }
-  translationService = inject(TranslationService)
-
+  
   get isLoaded(): boolean {
     return this.translationService.isLoaded
   }
