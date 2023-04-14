@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { UserInputFormComponent } from 'src/app/components/user-input-form/user-input-form.component'
 import { Story, StoryType } from 'src/app/models/story'
@@ -15,13 +15,17 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./stories.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StoriesComponent {
+export class StoriesComponent implements OnInit{
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
   router = inject(Router)
 
   story: Story = {
     storyType: StoryType.story
+  }
+
+  ngOnInit(): void {
+    this.loaderService.setShareUrl('story')
   }
 
   onPublish(story: Story): void {

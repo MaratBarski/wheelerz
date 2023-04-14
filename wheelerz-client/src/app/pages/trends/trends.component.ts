@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Observable, tap } from 'rxjs'
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component'
@@ -16,7 +16,7 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./trends.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TrendsComponent {
+export class TrendsComponent implements OnInit {
   dataService = inject(DataService)
   stories$!: Observable<Story[]>
   loader = inject(LoaderService)

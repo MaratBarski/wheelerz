@@ -4,10 +4,10 @@
             <div><input [placeholder]="titlePlaceholder|translate" class="title" type="text" formControlName="title">
             </div>
             <div>
-                <div #div style="height: 400px;display: none;" contenteditable="true">
-                    0123<b>123213213</b>123
+                <div #div (keyup)="updateDiv()" style="height: 400px;font-size: 2rem;display: none;" contenteditable="true">
+                    123456789 abcdefghijk
                 </div>
-                <textarea [placeholder]="commentPlaceholder|translate" class="area"
+                 <textarea [placeholder]="commentPlaceholder|translate" class="area"
                     formControlName="comments"></textarea>
             </div>
         </div>
@@ -15,8 +15,8 @@
             <img (click)="openAttachment()" src="./assets/img/camera-white.svg">
             <img src="./assets/img/video-white.svg">
             <img src="./assets/img/link-white.svg">
-            <img (click)="setBold()" src="./assets/img/bold-white.svg">
-            <img src="./assets/img/italics-white.svg">
+            <img (click)="setTag('b')" src="./assets/img/bold-white.svg">
+            <img (click)="setTag('i')" src="./assets/img/italics-white.svg">
         </div>
     </div>
     <div class="images" *ngIf="files">

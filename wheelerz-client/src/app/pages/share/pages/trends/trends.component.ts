@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
 import { first } from 'rxjs'
@@ -15,13 +15,18 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./trends.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TrendsComponent {
+export class TrendsComponent implements OnInit {
+
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
   router = inject(Router)
 
   story: Story = {
     storyType: StoryType.activity
+  }
+
+  ngOnInit(): void {
+    this.loaderService.setShareUrl('trends')
   }
 
   onPublish(story: Story): void {

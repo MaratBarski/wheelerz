@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
 import { first } from 'rxjs'
@@ -15,13 +15,17 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./cities-accessibility.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CitiesAccessibilityComponent {
+export class CitiesAccessibilityComponent implements OnInit {
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
   router = inject(Router)
 
   story: Story = {
     storyType: StoryType.city
+  }
+
+  ngOnInit(): void {
+    this.loaderService.setShareUrl('cities-accessibility')
   }
 
   onPublish(story: Story): void {

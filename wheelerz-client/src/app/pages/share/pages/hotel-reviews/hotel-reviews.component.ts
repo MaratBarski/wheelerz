@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { AccessibilityWizardComponent } from 'src/app/components/accessibility-wizard/accessibility-wizard.component'
 import { AccessibilityWizardService } from 'src/app/services/accessibility-wizard.service'
@@ -19,7 +19,8 @@ import { ShareWizardService } from '../../share-wizard.service'
   styleUrls: ['./hotel-reviews.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HotelReviewsComponent implements OnDestroy {
+export class HotelReviewsComponent implements OnDestroy , OnInit{
+
   accessibilityWizardService = inject(AccessibilityWizardService)
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
@@ -57,6 +58,10 @@ export class HotelReviewsComponent implements OnDestroy {
     this.step = 0
     this.loaderService.showTopMenu(true)
     this.shareWizardService.shoeTabs(true)
+  }
+
+  ngOnInit(): void {
+    this.loaderService.setShareUrl('hotel-review')
   }
 
   ngOnDestroy(): void {
