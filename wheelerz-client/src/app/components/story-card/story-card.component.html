@@ -6,7 +6,7 @@
     <div class="card pointer" routerLink="/story-info/{{story.id}}">
         <div class="main-flex">
             <div *ngIf="isShowAvatar" class="image">
-                <app-avatar [avatar]="story?.user?.avatar"></app-avatar>
+                <app-avatar [avatar]="story.user?.avatar"></app-avatar>
             </div>
             <div class="info">
                 <div class="title">{{story.title}}</div>

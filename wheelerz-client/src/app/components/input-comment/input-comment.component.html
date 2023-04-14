@@ -4,19 +4,20 @@
             <div><input [placeholder]="titlePlaceholder|translate" class="title" type="text" formControlName="title">
             </div>
             <div>
-                <div #div (keyup)="updateDiv()" style="height: 400px;font-size: 2rem;display: none;" contenteditable="true">
-                    123456789 abcdefghijk
-                </div>
-                 <textarea [placeholder]="commentPlaceholder|translate" class="area"
+                <div #div (keyup)="updateDiv()" style="height: 400px;font-size: 2rem;display: none;"
+                    contenteditable="true"></div>
+                <textarea *ngIf="!isEditor" [placeholder]="commentPlaceholder|translate" class="area"
                     formControlName="comments"></textarea>
+                <angular-editor *ngIf="isEditor" [config]="editorConfig" [placeholder]="'Enter text here...'"
+                    formControlName="comments"></angular-editor>
             </div>
         </div>
         <div class="footer">
             <img (click)="openAttachment()" src="./assets/img/camera-white.svg">
-            <img src="./assets/img/video-white.svg">
+            <!-- <img src="./assets/img/video-white.svg">
             <img src="./assets/img/link-white.svg">
             <img (click)="setTag('b')" src="./assets/img/bold-white.svg">
-            <img (click)="setTag('i')" src="./assets/img/italics-white.svg">
+            <img (click)="setTag('i')" src="./assets/img/italics-white.svg"> -->
         </div>
     </div>
     <div class="images" *ngIf="files">
