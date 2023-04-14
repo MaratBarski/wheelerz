@@ -48,13 +48,13 @@ namespace Wheelerz.Services
 
         public Task<User> GetUserProfileAsyns(int id)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 var user = _data.Users
                 .Include(x => x.country)
                 .Include(x => x.state)
                 .FirstOrDefault(x => x.id == id);
-                user.stories = (from s in _data.Stories
+                user.stories = await (from s in _data.Stories
                                 where s.userId == id && s.deleted == 0
                                 select new Story
                                 {
@@ -62,8 +62,8 @@ namespace Wheelerz.Services
                                     name = s.name,
                                     title = s.title,
                                     storyType = s.storyType,
-                                    storyPhotos = s.storyPhotos,
-                                    accessibility = s.accessibility,
+                                    //storyPhotos = s.storyPhotos,
+                                    //accessibility = s.accessibility,
                                     estimation = s.estimation, 
                                     city = s.city,
                                     country = s.country,
@@ -74,9 +74,9 @@ namespace Wheelerz.Services
                                     {
                                         avatar = user.avatar
                                     }
-                                }).ToList();
-                user.mobilities = _data.UserMobilities.Where(x => x.userId == id).ToList();
-                user.chairInfo = _data.ChairInfos.FirstOrDefault(x => x.userId == id);
+                                }).ToListAsync();
+                user.mobilities = await _data.UserMobilities.Where(x => x.userId == id).ToListAsync();
+                user.chairInfo = await _data.ChairInfos.FirstOrDefaultAsync(x => x.userId == id);
                 user.chairOptions = _data.ChairOptions.Where(x => x.userId == id).ToList();
 
                 return user;
@@ -101,9 +101,9 @@ namespace Wheelerz.Services
         }
         public Task UpdateMobilityAsync(int userId, List<UserMobility> mobilities)
         {
-            return Task.Run(() =>
+            return Task.Run(async() =>
             {
-                var user = _data.Users.FirstOrDefault(x => x.id == userId);
+                var user = await _data.Users.FirstOrDefaultAsync(x => x.id == userId);
                 if (user == null) return;
 
                 user.noWalk = mobilities.Any(x => x.noWalk) ? 1 : 0;
@@ -111,36 +111,36 @@ namespace Wheelerz.Services
                 _data.UserMobilities.RemoveRange(forRemove);
                 mobilities.ForEach(x => x.userId = userId);
                 _data.UserMobilities.AddRange(mobilities);
-                _data.SaveChanges();
+                await _data.SaveChangesAsync();
             });
         }
 
         public Task UpdateChairInfoAsync(int userId, ChairInfo info)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
-                var user = _data.Users.FirstOrDefault(x => x.id == userId);
+                var user = await _data.Users.FirstOrDefaultAsync(x => x.id == userId);
                 if (user == null) return;
 
-                var forDelete = _data.ChairInfos.Where(x => x.userId == userId).FirstOrDefault();
+                var forDelete = await _data.ChairInfos.Where(x => x.userId == userId).FirstOrDefaultAsync();
                 if (forDelete != null) _data.ChairInfos.Remove(forDelete);
                 info.userId = userId;
                 _data.ChairInfos.Add(info);
-                _data.SaveChanges();
+                await _data.SaveChangesAsync();
             });
         }
         public Task UpdateChairOptionsAsync(int userId, List<ChairOption> options)
         {
-            return Task.Run(() =>
+            return Task.Run(async() =>
             {
-                var user = _data.Users.FirstOrDefault(x => x.id == userId);
+                var user = await _data.Users.FirstOrDefaultAsync(x => x.id == userId);
                 if (user == null) return;
 
                 var forDelete = _data.ChairOptions.Where(x => x.userId == userId);
                 _data.ChairOptions.RemoveRange(forDelete);
                 options.ForEach(x => { x.userId = userId; });
                 _data.ChairOptions.AddRange(options);
-                _data.SaveChanges();
+                await _data.SaveChangesAsync();
             });
         }
 

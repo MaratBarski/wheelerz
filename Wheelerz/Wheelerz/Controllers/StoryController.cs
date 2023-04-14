@@ -91,9 +91,9 @@ namespace Wheelerz.Controllers
         }
 
         [HttpGet("{id}")]
-        public Story GetStory(int id)
+        public async Task<Story> GetStory(int id)
         {
-            return  _storyService.GetStoryById(id);
+            return await _storyService.GetStoryById(id);
         }
 
         [HttpPut]

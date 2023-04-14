@@ -13,7 +13,7 @@
     <div class="user" *ngIf="story.user">
         <app-top-profile [user]="story.user"></app-top-profile>
     </div>
-    <div class="flex" *ngIf="story.storyPhotos">
+    <div class="flex photos" *ngIf="story.storyPhotos">
         <div class="photo" *ngFor="let p of story.storyPhotos">
             <app-big-image [files]="story.storyPhotos" [file]="p">
                 <app-file-image [fileName]="p.fileName"></app-file-image>

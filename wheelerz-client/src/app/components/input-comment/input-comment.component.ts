@@ -27,7 +27,7 @@ export class InputCommentComponent {
 
   @ViewChild('file') file!: ElementRef<HTMLInputElement>
   @ViewChild('div') div!: ElementRef<HTMLDivElement>
-  
+
   imageService = inject(ImageService)
   changeDetectorRef = inject(ChangeDetectorRef)
 
@@ -122,14 +122,42 @@ export class InputCommentComponent {
       if (j === i2 + 1) newText += `</${tag}>`
       newText += html.charAt(i)
     }
-    console.log(this.fixTags(j + i1, j + i2, newText))
+    //this.createHtmlList(newText)
+    //console.log(this.fixTags(j + i1, j + i2, newText))
     this.div.nativeElement.innerHTML = newText
-    console.log(newText)
+    //console.log(newText)
+  }
+
+  createHtmlList(text: string): void {
+    let i = 0
+    let str = ''
+    const ar = []
+    for (i = 0; i < text.length; i++) {
+      let ch = text.charAt(i)
+      if (ch === '<') {
+        str = '<'
+        while (ch !== '>') {
+          i++
+          ch = text.charAt(i)
+          str += ch
+        }
+      } else {
+        str += ch
+        while (ch !== '<' && i < text.length) {
+          i++
+          ch = text.charAt(i)
+          if (ch !== '<') str += ch
+        }
+        i--
+      }
+      ar.push(str)
+      str = ''
+    }
+    console.log(ar)
   }
 
   fixTags(i1: number, i2: number, text: string): string {
     let res = ''
-
     return res
   }
 }
