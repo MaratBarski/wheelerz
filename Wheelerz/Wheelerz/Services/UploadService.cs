@@ -18,6 +18,7 @@ namespace Wheelerz.Services
         public void DeleteFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName)) return;
+            if (fileName.ToLower().EndsWith("no.no")) return;
             try
             {
                 File.Delete(Path.Combine(GetUploadDir(), fileName));
@@ -47,7 +48,7 @@ namespace Wheelerz.Services
         public string GetFileText(string image)
         {
             var filePath = Path.Combine(GetUploadDir(), image);
-            if (!System.IO.File.Exists(filePath)) return "";
+            if (!System.IO.File.Exists(filePath)) filePath = Path.Combine(GetUploadDir(), "pno.no");
 
             using (StreamReader sr = new StreamReader(filePath))
             {
