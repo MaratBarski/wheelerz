@@ -145,3 +145,6 @@ create table chairInfos(
 	seatHeight float not null,
 	[messure] varchar(20) not null
 )
+go
+alter table stories add lang varchar(10) not null default('en')
+go

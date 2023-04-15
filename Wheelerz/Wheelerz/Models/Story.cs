@@ -32,6 +32,9 @@ namespace Wheelerz.Models
         [Column("comments")]
         public string? comments { get; set; }
 
+        [Column("lang")]
+        public string? lang { get; set; }
+
         [Column("storyType")]
         public int storyType { get; set; }
 

@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, first, map } from 'rxjs';
+import { deflang, langs } from '../consts';
 
-const langs = ['en', 'he'];
-const deflang = 'en';
 
 @Injectable({
   providedIn: 'root'

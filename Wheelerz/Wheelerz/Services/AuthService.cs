@@ -7,6 +7,7 @@ using Wheelerz.Models;
 
 #pragma warning disable CS8601
 #pragma warning disable CS8604
+#pragma warning disable CS8602
 
 namespace Wheelerz.Services
 {
@@ -14,7 +15,7 @@ namespace Wheelerz.Services
     {
         LoginResponse Registration(RegistrRequest user);
         LoginResponse Login(LoginRequest login);
-        User? ValidateUser(string authorization);
+        User? ValidateUser(string authorization,string lang);
     }
 
     public class AuthService : IAuthService
@@ -67,15 +68,19 @@ namespace Wheelerz.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public User? ValidateUser(string authorization)
+        public User? ValidateUser(string authorization,string lang)
         {
             if (authorization == null) return null;
+            if (lang != "en" && lang != "he") lang = "en";
 
             var token = new JwtSecurityTokenHandler().ReadJwtToken(authorization);
             var dictionary = token.Claims.ToDictionary(x => x.Type, x => x.Value);
             var id = int.Parse(dictionary["id"]);
 
-            return _data.Users?.Where(x => x.id == id).FirstOrDefault();
+            var user = _data.Users?.Where(x => x.id == id).FirstOrDefault();
+            user.lang = lang;
+
+            return user;
         }
 
         public LoginResponse Registration(RegistrRequest registr)

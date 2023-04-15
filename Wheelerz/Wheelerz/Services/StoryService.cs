@@ -35,6 +35,7 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
+                story.lang = _userService.CurrenUser.lang;
                 story.dateAdd = DateTime.Now;
                 story.key = Guid.NewGuid().ToString();
                 story.storyPhotos = new List<StoryPhoto>();
@@ -85,6 +86,8 @@ namespace Wheelerz.Services
                 if (story.photos == null) story.photos = new List<FileImage>();
                 if (s.storyPhotos == null) s.storyPhotos = new List<StoryPhoto>();
 
+                s.lang = _userService.CurrenUser.lang;
+
                 s.storyPhotos.ForEach((photo) =>
                 {
                     if (!story.photos.Any(x => x.id == photo.id))
@@ -133,6 +136,7 @@ namespace Wheelerz.Services
         {
             var linq = _data.Stories
                 .Where(x => x.deleted == 0)
+                .Where(x => x.lang == _userService.CurrenUser.lang)
                 .Where(x => request.type == 0 || x.storyType == request.type)
                 .Where(x => request.userId == 0 || x.userId == request.userId)
                 .Where(x => string.IsNullOrEmpty(request.q) ||
@@ -144,7 +148,7 @@ namespace Wheelerz.Services
                 );
             return Task.Run(async () =>
             {
-                var total =await linq.CountAsync();
+                var total = await linq.CountAsync();
                 var list = await linq
                     .OrderByDescending(x => x.estimation).ThenByDescending(x => x.endDate)
                     .Include(x => x.user)

@@ -1,5 +1,7 @@
 ﻿using Wheelerz.Services;
 
+#pragma warning disable CS8604
+
 namespace Wheelerz.Middlewares
 {
     public class LoginMiddleware
@@ -13,7 +15,7 @@ namespace Wheelerz.Middlewares
 
         public Task Invoke(HttpContext httpContext, IAuthService authService)
         {
-            httpContext.Items["login"] = authService.ValidateUser(httpContext.Request.Headers.Authorization);
+            httpContext.Items["login"] = authService.ValidateUser(httpContext.Request.Headers.Authorization, httpContext.Request.Headers["lang"]);
             return _next(httpContext);
         }
     }

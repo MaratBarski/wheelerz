@@ -71,5 +71,8 @@ namespace Wheelerz.Models
         [NotMapped]
         public bool isAdmin => role == 1;
 
+        [NotMapped]
+        public string lang { get; set; } = "en";
+
     }
 }
