@@ -63,7 +63,7 @@ namespace Wheelerz.Services
 
         public string SaveFile(string content)
         {
-            var name = Guid.NewGuid().ToString() + ".txt";
+            var name = Guid.NewGuid().ToString();
             var path = Path.Combine(GetUploadDir(), name);
             using (StreamWriter sw = new StreamWriter(path))
             {
