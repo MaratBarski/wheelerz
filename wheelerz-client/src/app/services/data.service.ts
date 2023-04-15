@@ -7,6 +7,8 @@ import { Story } from '../models/story'
 import { User } from '../models/user'
 import { FileImage } from '../models/fileImage'
 import { MobilityDto, UserMobility } from '../models/user-accessibility'
+import { StoryRequest } from '../models/story-dto'
+import { PageResponse } from '../models/page-request'
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +45,8 @@ export class DataService {
     return this.post<Story>('story', story)
   }
 
-  getStories(type: string, q: string = ''): Observable<Story[]> {
-    return this.get(`story/${type}/?q=${q}`)
+  getStories(request: StoryRequest): Observable<PageResponse<Story[]>> {
+    return this.post<PageResponse<Story[]>>(`story/search`,request)
   }
 
   getMyProfile(): Observable<User> {

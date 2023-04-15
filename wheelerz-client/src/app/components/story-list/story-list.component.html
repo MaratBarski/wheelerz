@@ -1,0 +1,16 @@
+<div class="cnt">
+    <app-search-box [text]="request.q || ''" (onSearch)="updateSearchText($event)"></app-search-box>
+    <ng-container *ngIf="stories">
+        <ng-container *ngFor="let story of stories">
+            <div class="story">
+                <app-story-card [story]="story"></app-story-card>
+            </div>
+        </ng-container>
+    </ng-container>
+    <div class="pager">
+        <div>
+            <app-paginator (onPageChange)="onPageChange($event)" [total]="total" [size]="request.page.size"
+                [current]="request.page.current"></app-paginator>
+        </div>
+    </div>
+</div>

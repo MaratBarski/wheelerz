@@ -18,7 +18,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   @Input() minLength = 2
   @Input() pause = 500
   @Input() text = ''
-  prevText = ''
   @Output() onSearch = new EventEmitter<string>()
 
   get textTrim(): string {
@@ -29,9 +28,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
     fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(debounceTime(this.pause), takeUntil(this.destroy))
       .subscribe(() => {
-        if (this.prevText === this.text) return
         if (this.text.length < this.minLength && this.text != '') return
-        this.prevText = this.text
         this.onSearch.emit(this.textTrim)
       })
   }

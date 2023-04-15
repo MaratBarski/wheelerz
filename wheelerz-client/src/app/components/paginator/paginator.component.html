@@ -1,0 +1,10 @@
+<div class="flex pgn" *ngIf="total">
+    <div class="next" [class.unvisible]="isFirst"><img class="prev-btn" (click)="next(-1)"
+            src="./assets/img/prev.svg"></div>
+    <div class="info">
+        {{'page'|translate}}&nbsp;{{current+1}}&nbsp;{{'of'|translate}}&nbsp;{{totalPages}}&nbsp;{{'total'|translate}}&nbsp;{{total}}
+    </div>
+    <div class="next" [class.unvisible]="isLast"><img class="next-btn" (click)="next(1)"
+            src="./assets/img/next.svg">
+    </div>
+</div>

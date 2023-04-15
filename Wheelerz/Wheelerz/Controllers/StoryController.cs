@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Wheelerz.DTO;
 using Wheelerz.Filters;
 using Wheelerz.Models;
 using Wheelerz.Services;
@@ -20,22 +21,6 @@ namespace Wheelerz.Controllers
         {
             _storyService = storyService;
             _userService = userService;
-        }
-
-        private string GetSearchText()
-        {
-            string q = Request.Query["q"];
-            if (String.IsNullOrEmpty(q)) q = "";
-            return q.Trim();
-        }
-
-        private int GetUserId()
-        {
-            string u = Request.Query["u"];
-            if (String.IsNullOrEmpty(u)) u = "0";
-            int id;
-            if (int.TryParse(u, out id)) return Math.Max(id, 0);
-            return 0;
         }
 
         [HttpPost]
@@ -60,34 +45,10 @@ namespace Wheelerz.Controllers
             return await _storyService.GetAll();
         }
 
-        [HttpGet("trips")]
-        public async Task<List<Story>> GetTrips()
+        [HttpPost("search")]
+        public async Task<PageResponse<List<Story>>> GetReview(StoryRequest request)
         {
-            return await _storyService.GetStories(GetSearchText(), 1, GetUserId());
-        }
-
-        [HttpGet("hotels")]
-        public async Task<List<Story>> GetHotels()
-        {
-            return await _storyService.GetStories(GetSearchText(), 2, GetUserId());
-        }
-
-        [HttpGet("accessibilities")]
-        public async Task<List<Story>> GetAccessibilities()
-        {
-            return await _storyService.GetStories(GetSearchText(), 3, GetUserId());
-        }
-
-        [HttpGet("trends")]
-        public async Task<List<Story>> GetTrands()
-        {
-            return await _storyService.GetStories(GetSearchText(), 4, GetUserId());
-        }
-
-        [HttpGet("travelers")]
-        public async Task<List<Story>> GetTravelers()
-        {
-            return await _storyService.GetStories(GetSearchText(), 5, GetUserId());
+            return await _storyService.GetStories(request);
         }
 
         [HttpGet("{id}")]

@@ -14,5 +14,4 @@ import { TranslatePipe } from 'src/app/pipes/translate.pipe';
 })
 export class NavBarComponent {
   @Input() links: NavLink[] = []
-
 }

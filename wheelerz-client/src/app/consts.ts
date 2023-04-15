@@ -13,3 +13,10 @@ export const SEX_MAP = {
     '2': SEXES[1],
     '3': SEXES[2],
 }
+
+export const StoryUrls: { [key: number]: { view: string, share: string } } = {
+    1: { view: 'stories', share: 'story' },
+    2: { view: 'hotel-reviews', share: 'hotel-review' },
+    3: { view: 'cities-accessibility', share: 'cities-accessibility' },
+    4: { view: 'fellow-travelers', share: 'trends' }
+}

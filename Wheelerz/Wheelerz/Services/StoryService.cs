@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wheelerz.DTO;
 using Wheelerz.Helpers;
 using Wheelerz.Models;
 
@@ -13,7 +14,7 @@ namespace Wheelerz.Services
     {
         Task<Story> Add(Story story);
         Task<List<Story>> GetAll();
-        Task<List<Story>> GetStories(string q, int type, int userId = 0);
+        Task<PageResponse<List<Story>>> GetStories(StoryRequest request);
         Task<Story> GetStoryById(int id);
         Task Update(int userId, Story story);
         Task Delete(int userId, int storyId);
@@ -125,31 +126,35 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task<List<Story>> GetStories(string q, int type, int userId = 0)
+        public Task<PageResponse<List<Story>>> GetStories(StoryRequest request)
         {
+            var linq = _data.Stories
+                .Where(x => x.deleted == 0)
+                .Where(x => x.storyType == request.type)
+                .Where(x => request.userId == 0 || x.userId == request.userId)
+                .Where(x => string.IsNullOrEmpty(request.q) ||
+                (
+                       (x.name != null && x.name.Contains(request.q)))
+                    || (x.title != null && x.title.Contains(request.q))
+                    || (x.country != null && x.country.name != null && x.country.name.Contains(request.q))
+                    || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
+                );
             return Task.Run(async () =>
             {
-                var res = await _data.Stories
-                .Where(x => x.deleted == 0)
-                .Where(x => x.storyType == type)
-                .Where(x => userId == 0 || x.userId == userId)
-                .Where(x => q == "" ||
-                (
-                       (x.name != null && x.name.Contains(q)))
-                    || (x.title != null && x.title.Contains(q))
-                    || (x.country != null && x.country.name != null && x.country.name.Contains(q))
-                    || (x.city != null && x.city.name != null && x.city.name.Contains(q))
-                )
-                .OrderByDescending(x => x.estimation).ThenByDescending(x => x.endDate)
-                .Include(x => x.user)
-                .Include(x => x.city)
-                .Include(x => x.country)
-                //.Include(x => x.storyPhotos)
-                //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
-                //.Include(x => x.accessibility).ThenInclude(x => x.files)
-                .ToListAsync();
+                var total =await linq.CountAsync();
+                var list = await linq
+                    .OrderByDescending(x => x.estimation).ThenByDescending(x => x.endDate)
+                    .Include(x => x.user)
+                    .Include(x => x.city)
+                    .Include(x => x.country)
+                    //.Include(x => x.storyPhotos)
+                    //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
+                    //.Include(x => x.accessibility).ThenInclude(x => x.files)
+                    .Skip(request.page.current * request.page.size)
+                    .Take(request.page.size)
+                    .ToListAsync();
 
-                res.ForEach(x =>
+                list.ForEach(x =>
                 {
                     if (x.user != null)
                     {
@@ -165,7 +170,11 @@ namespace Wheelerz.Services
                         x.storyPhotos = new List<StoryPhoto> { x.storyPhotos[0] };
                 });
 
-                return res;
+                return new PageResponse<List<Story>>
+                {
+                    total = total,
+                    result = list
+                };
             });
         }
 
