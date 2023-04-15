@@ -3,7 +3,8 @@
     <ng-container *ngIf="stories">
         <ng-container *ngFor="let story of stories">
             <div class="story">
-                <app-story-card [story]="story"></app-story-card>
+                <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
+                    [story]="story"></app-story-card>
             </div>
         </ng-container>
     </ng-container>

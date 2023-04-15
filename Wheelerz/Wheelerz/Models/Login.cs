@@ -14,6 +14,7 @@
         public string lastName { get; set; } = string.Empty;
         public string email { get; set; } = string.Empty;
         public string token { get; set; } = string.Empty;
+        public int role { get; set; }
     }
 
     public class RegistrRequest

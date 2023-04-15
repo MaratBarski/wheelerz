@@ -15,6 +15,7 @@ export const SEX_MAP = {
 }
 
 export const StoryUrls: { [key: number]: { view: string, share: string } } = {
+    0: { view: 'my-profile/general', share: '' },
     1: { view: 'stories', share: 'story' },
     2: { view: 'hotel-reviews', share: 'hotel-review' },
     3: { view: 'cities-accessibility', share: 'cities-accessibility' },

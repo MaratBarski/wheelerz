@@ -29,6 +29,9 @@ export class StoryListComponent implements OnInit, OnDestroy {
   changeDetectorRef = inject(ChangeDetectorRef)
 
   @Input() type = 1
+  @Input() userId = 0
+  @Input() editable = false
+  @Input() isShowAvatar = true
 
   destroy = new Subject<void>()
   total = 0
@@ -71,6 +74,7 @@ export class StoryListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.request.type = this.type
+    this.request.userId = this.userId
     this.activatedRoute.paramMap
       .pipe(takeUntil(this.destroy))
       .subscribe((res: any) => {
@@ -96,5 +100,18 @@ export class StoryListComponent implements OnInit, OnDestroy {
 
   reload(): void {
     this.router.navigate([this.url, { q: this.request.q, p: this.request.page.current }])
+  }
+
+  onDelete(story: Story): void {
+    if (!story.id) return
+    this.loader.load(true)
+    this.dataService.deleteStory(story.id).pipe(first()).subscribe({
+      next: () => {
+        this.search()
+      },
+      error: () => {
+        this.search()
+      }
+    })
   }
 }

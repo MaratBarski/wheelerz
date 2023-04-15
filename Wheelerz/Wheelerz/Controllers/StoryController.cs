@@ -60,13 +60,13 @@ namespace Wheelerz.Controllers
         [HttpPut]
         public async Task Update(Story story)
         {
-            await _storyService.Update(_userService.CurrenUser.id,story);
+            await _storyService.Update(story);
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            await _storyService.Delete(_userService.CurrenUser.id, id);
+            await _storyService.Delete(id);
         }
     }
 }

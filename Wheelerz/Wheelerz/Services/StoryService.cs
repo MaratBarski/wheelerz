@@ -16,17 +16,19 @@ namespace Wheelerz.Services
         Task<List<Story>> GetAll();
         Task<PageResponse<List<Story>>> GetStories(StoryRequest request);
         Task<Story> GetStoryById(int id);
-        Task Update(int userId, Story story);
-        Task Delete(int userId, int storyId);
+        Task Update(Story story);
+        Task Delete(int storyId);
     }
     public class StoryService : IStoryService
     {
         private readonly DataContext _data;
         private readonly IUploadService _uploadService;
-        public StoryService(DataContext data, IUploadService uploadService)
+        private readonly IUserService _userService;
+        public StoryService(DataContext data, IUploadService uploadService, IUserService userService)
         {
             _data = data;
             _uploadService = uploadService;
+            _userService = userService;
         }
 
         public Task<Story> Add(Story story)
@@ -71,11 +73,12 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task Update(int userId, Story story)
+        public Task Update(Story story)
         {
             return Task.Run(async () =>
             {
-                var s = await _data.Stories.Include(x => x.storyPhotos).FirstOrDefaultAsync(x => x.id == story.id && x.userId == userId);
+                var s = await _data.Stories.Include(x => x.storyPhotos)
+                .FirstOrDefaultAsync(x => x.id == story.id && (_userService.CurrenUser.isAdmin || x.userId == _userService.CurrenUser.id));
 
                 if (s == null) return;
 
@@ -130,7 +133,7 @@ namespace Wheelerz.Services
         {
             var linq = _data.Stories
                 .Where(x => x.deleted == 0)
-                .Where(x => x.storyType == request.type)
+                .Where(x => request.type == 0 || x.storyType == request.type)
                 .Where(x => request.userId == 0 || x.userId == request.userId)
                 .Where(x => string.IsNullOrEmpty(request.q) ||
                 (
@@ -236,11 +239,11 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task Delete(int userId, int storyId)
+        public Task Delete(int storyId)
         {
             return Task.Run(async () =>
             {
-                var story = _data.Stories.FirstOrDefault(x => x.id == storyId && x.userId == userId);
+                var story = _data.Stories.FirstOrDefault(x => x.id == storyId && (_userService.CurrenUser.isAdmin || x.userId == _userService.CurrenUser.id));
                 if (story == null) return;
                 story.deleted = 1;
                 await _data.SaveChangesAsync();

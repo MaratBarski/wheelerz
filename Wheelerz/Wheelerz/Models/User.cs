@@ -68,5 +68,8 @@ namespace Wheelerz.Models
         [NotMapped]
         public List<Story>? stories { get; set; }
 
+        [NotMapped]
+        public bool isAdmin => role == 1;
+
     }
 }

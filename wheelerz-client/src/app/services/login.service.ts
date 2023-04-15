@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { SERVER_URL } from '../consts';
 import { User } from '../models/user';
+import { LoginResponse } from '../models/login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class LoginService {
     return !this.userService.isLogedIn
   }
 
-  registr(data: User): Observable<any> {
-    return this.http.post(`${SERVER_URL}/auth/registr`, data).pipe(first())
+  registr(data: User): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${SERVER_URL}/auth/registr`, data).pipe(first())
   }
 
   get isLogedIn(): boolean {
@@ -37,16 +38,16 @@ export class LoginService {
     this.userService.logOut()
   }
 
-  login(data: { email: string, password: string }): Observable<any> {
-    return this.http.post(`${SERVER_URL}/auth/login`, data).pipe(
+  login(data: { email: string, password: string }): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${SERVER_URL}/auth/login`, data).pipe(
       first(),
       tap(res => this.loginSucc(res))
     )
   }
 
-  loginSucc(data: any): void {
+  loginSucc(data: LoginResponse): void {
     if (data.error) return
 
-    this.userService.login(data.token)
+    this.userService.login(data)
   }
 }

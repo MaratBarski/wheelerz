@@ -7,14 +7,12 @@ import { User } from 'src/app/models/user'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { TopProfileComponent } from 'src/app/components/top-profile/top-profile.component'
 import { StoryCardComponent } from 'src/app/components/story-card/story-card.component'
-import { RouterModule } from '@angular/router'
-import { Story } from 'src/app/models/story'
-import { LoaderService } from 'src/app/services/loader.service'
+import { StoryListComponent } from 'src/app/components/story-list/story-list.component'
 
 @Component({
   selector: 'app-general-info',
   standalone: true,
-  imports: [CommonModule, AvatarComponent, TranslatePipe, TopProfileComponent, StoryCardComponent, RouterModule],
+  imports: [CommonModule, TranslatePipe, TopProfileComponent, StoryListComponent],
   templateUrl: './general-info.component.html',
   styleUrls: ['./general-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,10 +20,6 @@ import { LoaderService } from 'src/app/services/loader.service'
 export class GeneralInfoComponent implements OnInit {
   dataService = inject(DataService)
   user$!: Observable<User>
-  loaderService = inject(LoaderService)
-  cd = inject(ChangeDetectorRef)
-
-  isEditable = true
 
   ngOnInit(): void {
     this.reload()
@@ -33,21 +27,5 @@ export class GeneralInfoComponent implements OnInit {
 
   reload(): void {
     this.user$ = this.dataService.getMyProfile()
-    this.loaderService.load(false)
-  }
-
-  onDelete(story: Story): void {
-    if (!story.id) return
-    this.loaderService.load(true)
-    this.dataService.deleteStory(story.id).pipe(first()).subscribe({
-      next: () => {
-        this.reload()
-        this.cd.markForCheck()
-      },
-      error: () => {
-        this.reload()
-        this.cd.markForCheck()
-      }
-    })
   }
 }

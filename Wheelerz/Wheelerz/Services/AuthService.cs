@@ -42,6 +42,7 @@ namespace Wheelerz.Services
                 lastName = user.lastName,
                 email = user.email,
                 token = GenerateJSONWebToken(user),
+                role = user.role,
             };
         }
 
