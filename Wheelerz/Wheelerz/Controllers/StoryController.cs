@@ -30,23 +30,17 @@ namespace Wheelerz.Controllers
 
             story.userId = _userService.CurrenUser.id;
             story.accessibility?.ForEach(x =>
-            {
-                x.userId = story.userId;
-                x.accessibilityItems?.ForEach(y => y.userId = story.userId);
-                x.files?.ForEach(z => z.userId = story.userId);
-            });
+           {
+               x.userId = story.userId;
+               x.accessibilityItems?.ForEach(y => y.userId = story.userId);
+               x.files?.ForEach(z => z.userId = story.userId);
+           });
 
             return await _storyService.Add(story);
         }
 
-        [HttpGet]
-        public async Task<List<Story>> Get()
-        {
-            return await _storyService.GetAll();
-        }
-
         [HttpPost("search")]
-        public async Task<PageResponse<List<Story>>> GetReview(StoryRequest request)
+        public async Task<PageResponse<IEnumerable<Story>>> GetReview(StoryRequest request)
         {
             return await _storyService.GetStories(request);
         }

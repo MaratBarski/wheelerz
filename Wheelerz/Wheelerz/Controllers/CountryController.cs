@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Wheelerz.Models;
 using Wheelerz.Services;
+
+#pragma warning disable CS8603
 
 namespace Wheelerz.Controllers
 {
@@ -16,13 +17,13 @@ namespace Wheelerz.Controllers
         }
 
         [HttpGet("countries")]
-        public List<Country>? GetCountries()
+        public IEnumerable<Country> GetCountries()
         {
             return _countryService.GetCountries();
         }
 
         [HttpGet("states/{countryId}")]
-        public List<State>? GetStates(int countryId)
+        public IEnumerable<State> GetStates(int countryId)
         {
             return _countryService.GetStates(countryId);
         }

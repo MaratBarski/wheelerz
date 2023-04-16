@@ -50,34 +50,10 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
-                var user = _data.Users
-                .Include(x => x.country)
-                .Include(x => x.state)
-                .FirstOrDefault(x => x.id == id);
-                user.stories = await (from s in _data.Stories
-                                where s.userId == id && s.deleted == 0
-                                select new Story
-                                {
-                                    id = s.id,
-                                    name = s.name,
-                                    title = s.title,
-                                    storyType = s.storyType,
-                                    //storyPhotos = s.storyPhotos,
-                                    //accessibility = s.accessibility,
-                                    estimation = s.estimation, 
-                                    city = s.city,
-                                    country = s.country,
-                                    startDate = s.startDate,
-                                    endDate = s.endDate,
-                                    dateAdd = s.dateAdd,
-                                    user = new User()
-                                    {
-                                        avatar = user.avatar
-                                    }
-                                }).ToListAsync();
+                var user = await _data.Users.Include(x => x.country).Include(x => x.state).FirstOrDefaultAsync(x => x.id == id);
                 user.mobilities = await _data.UserMobilities.Where(x => x.userId == id).ToListAsync();
                 user.chairInfo = await _data.ChairInfos.FirstOrDefaultAsync(x => x.userId == id);
-                user.chairOptions = _data.ChairOptions.Where(x => x.userId == id).ToList();
+                user.chairOptions = await _data.ChairOptions.Where(x => x.userId == id).ToListAsync();
 
                 return user;
             });

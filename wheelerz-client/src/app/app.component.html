@@ -1,5 +1,7 @@
 <div class="loading" *ngIf="(loaderService.loading|async)">
-    <div class="center">Loading</div>
+    <div class="center">
+        <img src="./assets/img/loading.gif">
+    </div>
 </div>
 <div *ngIf="isLoaded" [style.direction]="direction">
     <app-top *ngIf="userService.isLogedIn"></app-top>

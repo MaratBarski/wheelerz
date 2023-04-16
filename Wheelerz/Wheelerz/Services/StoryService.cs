@@ -13,8 +13,7 @@ namespace Wheelerz.Services
     public interface IStoryService
     {
         Task<Story> Add(Story story);
-        Task<List<Story>> GetAll();
-        Task<PageResponse<List<Story>>> GetStories(StoryRequest request);
+        Task<PageResponse<IEnumerable<Story>>> GetStories(StoryRequest request);
         Task<Story> GetStoryById(int id);
         Task Update(Story story);
         Task Delete(int storyId);
@@ -124,39 +123,35 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task<List<Story>> GetAll()
-        {
-            return Task.Run(async () =>
-            {
-                return await _data.Stories.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems).ToListAsync();
-            });
-        }
-
-        public Task<PageResponse<List<Story>>> GetStories(StoryRequest request)
+        public Task<PageResponse<IEnumerable<Story>>> GetStories(StoryRequest request)
         {
             var linq = _data.Stories
+                .Include(x => x.user)
+                .Include(x => x.city)
+                .Include(x => x.country)
+                //.Include(x => x.storyPhotos)
+                //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
+                //.Include(x => x.accessibility).ThenInclude(x => x.files)
                 .Where(x => x.deleted == 0)
                 .Where(x => x.lang == _userService.CurrenUser.lang)
                 .Where(x => request.type == 0 || x.storyType == request.type)
                 .Where(x => request.userId == 0 || x.userId == request.userId)
                 .Where(x => string.IsNullOrEmpty(request.q) ||
                 (
-                       (x.name != null && x.name.Contains(request.q)))
-                    || (x.title != null && x.title.Contains(request.q))
-                    || (x.country != null && x.country.name != null && x.country.name.Contains(request.q))
-                    || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
-                );
+                   // (x.name != null && x.name == request.q)
+                   //|| (x.title != null && x.title == request.q)
+                   //|| (x.country != null && x.country.name != null && x.country.name == request.q)
+                   //|| (x.city != null && x.city.name != null && x.city.name == request.q)
+                   (x.name != null && x.name.Contains(request.q))
+                || (x.title != null && x.title.Contains(request.q))
+                || (x.country != null && x.country.name != null && x.country.name.Contains(request.q))
+                || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
+                ));
             return Task.Run(async () =>
             {
-                var total = await linq.CountAsync();
+                var total = await linq.AsSplitQuery().CountAsync();
                 var list = await linq
-                    .OrderByDescending(x => x.estimation).ThenByDescending(x => x.endDate)
-                    .Include(x => x.user)
-                    .Include(x => x.city)
-                    .Include(x => x.country)
-                    //.Include(x => x.storyPhotos)
-                    //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
-                    //.Include(x => x.accessibility).ThenInclude(x => x.files)
+                    .OrderByDescending(x => x.dateAdd).ThenByDescending(x => x.endDate)
                     .Skip(request.page.current * request.page.size)
                     .Take(request.page.size)
                     .ToListAsync();
@@ -177,7 +172,7 @@ namespace Wheelerz.Services
                         x.storyPhotos = new List<StoryPhoto> { x.storyPhotos[0] };
                 });
 
-                return new PageResponse<List<Story>>
+                return new PageResponse<IEnumerable<Story>>
                 {
                     total = total,
                     result = list
@@ -198,47 +193,47 @@ namespace Wheelerz.Services
                             .Include(x => x.user).ThenInclude(x => x.mobilities)
                             .Include(x => x.user).ThenInclude(x => x.country)
                             .Include(x => x.user).ThenInclude(x => x.state)
-                             where s.id == id && s.deleted == 0
-                             select new Story
-                             {
-                                 storyPhotos = (from p in s.storyPhotos
-                                                select new StoryPhoto
-                                                {
-                                                    id = p.id,
-                                                    fileName = p.fileName,
-                                                    small = ""
-                                                }).ToList(),
-                                 name = s.name,
-                                 title = s.title,
-                                 countryId = s.countryId,
-                                 cityId = s.cityId,
-                                 country = s.country,
-                                 comments = s.comments,
-                                 estimation = s.estimation,
-                                 city = s.city,
-                                 user = s.user,
-                                 startDate = s.startDate,
-                                 endDate = s.endDate,
-                                 dateAdd = s.dateAdd,
-                                 id = s.id,
-                                 storyType = s.storyType,
-                                 key = s.key,
-                                 accessibility = (from a in s.accessibility
-                                                  select new Accessibility
-                                                  {
-                                                      files = (from f in a.files
-                                                               select new AccessibilityFile
-                                                               {
-                                                                   fileName = f.fileName,
-                                                                   id = f.id,
-                                                               }).ToList(),
-                                                      accessibilityItems = a.accessibilityItems,
-                                                      name = a.name,
-                                                      comments = a.comments,
-                                                      id = a.id,
-                                                      key = a.key,
-                                                  }).ToList()
-                             }).FirstOrDefaultAsync();
+                                   where s.id == id && s.deleted == 0
+                                   select new Story
+                                   {
+                                       storyPhotos = (from p in s.storyPhotos
+                                                      select new StoryPhoto
+                                                      {
+                                                          id = p.id,
+                                                          fileName = p.fileName,
+                                                          small = ""
+                                                      }).ToList(),
+                                       name = s.name,
+                                       title = s.title,
+                                       countryId = s.countryId,
+                                       cityId = s.cityId,
+                                       country = s.country,
+                                       comments = s.comments,
+                                       estimation = s.estimation,
+                                       city = s.city,
+                                       user = s.user,
+                                       startDate = s.startDate,
+                                       endDate = s.endDate,
+                                       dateAdd = s.dateAdd,
+                                       id = s.id,
+                                       storyType = s.storyType,
+                                       key = s.key,
+                                       accessibility = (from a in s.accessibility
+                                                        select new Accessibility
+                                                        {
+                                                            files = (from f in a.files
+                                                                     select new AccessibilityFile
+                                                                     {
+                                                                         fileName = f.fileName,
+                                                                         id = f.id,
+                                                                     }).ToList(),
+                                                            accessibilityItems = a.accessibilityItems,
+                                                            name = a.name,
+                                                            comments = a.comments,
+                                                            id = a.id,
+                                                            key = a.key,
+                                                        }).ToList()
+                                   }).FirstOrDefaultAsync();
                 return story;
             });
         }

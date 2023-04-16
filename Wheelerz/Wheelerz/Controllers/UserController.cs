@@ -21,7 +21,7 @@ namespace Wheelerz.Controllers
         }
 
         [HttpGet]
-        public async Task<List<User>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
             return await _userService.GetUsers();
         }
