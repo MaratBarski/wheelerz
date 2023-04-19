@@ -49,37 +49,49 @@ input:focus {
     font-size: 0.8rem;
     color: #b00;
 }
-.hide{
+.hide {
     display: none;
 }
 .flex,
-.main-flex{
+.main-flex {
     display: flex;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.ltr{
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.ltr {
     direction: ltr !important;
 }
-.rtl{
-    direction: rtl !important;;
+.rtl {
+    direction: rtl !important;
 }
 .unvisible {
     visibility: hidden;
 }
-.pointer{
+.pointer {
     cursor: pointer;
 }
 .prev-btn,
-.next-btn{
+.next-btn {
     width: 50px;
     cursor: pointer;
 }
-.no-display{
+.no-display {
     display: none;
 }
-.main-center{
+.main-center {
     display: flex;
     align-content: center;
     justify-content: center;
+}
+.main-pager {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
 }

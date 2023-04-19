@@ -94,6 +94,7 @@
         </div>
     </div>
     <div class="buttons">
+        <button class="main-btn" (click)="deleteUser()">{{'delete_profile'|translate}}</button>
         <button [disabled]="!isValid" class="main-btn" (click)="next()">{{btnText|translate}}</button>
     </div>
 </div>

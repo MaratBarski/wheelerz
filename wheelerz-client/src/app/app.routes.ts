@@ -3,6 +3,7 @@ import { SHARE_ROUTES } from './pages/share/share.routes'
 import { UserService } from './services/user.service'
 import { LoginService } from './services/login.service';
 import { MY_PROFILE_ROUTES } from './pages/my-profile/myProfile.routes';
+import { AdminService } from './services/admin.service';
 
 export const APP_ROUTES: Routes = [
     {
@@ -71,5 +72,10 @@ export const APP_ROUTES: Routes = [
         path: 'registration',
         loadComponent: () => import('./pages/registration/registration.component').then(c => c.RegistrationComponent),
         canActivate: [LoginService]
+    },
+    {
+        path: 'users',
+        loadComponent: () => import('./pages/users/users.component').then(c => c.UsersComponent),
+        canActivate: [AdminService]
     }
 ];

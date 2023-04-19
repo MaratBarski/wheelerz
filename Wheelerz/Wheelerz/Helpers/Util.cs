@@ -1,5 +1,4 @@
-﻿using Wheelerz.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿#pragma warning disable CS8603
 
 namespace Wheelerz.Helpers
 {
@@ -17,6 +16,14 @@ namespace Wheelerz.Helpers
             {
                 return defaultDate;
             }
+        }
+
+        public static string GetQueryParam(HttpRequest request,string name, object defaultValue)
+        {
+            if(request.Query.TryGetValue(name, out var value))
+                return value.ToString();
+            
+            return defaultValue.ToString();
         }
     }
 }

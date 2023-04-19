@@ -21,7 +21,9 @@ export class AvatarComponent implements OnInit {
   changeDetectorRef = inject(ChangeDetectorRef)
   @Input() avatar?: string
   @Input() isEditable = false
+  @Input() width = 200
   @Output() onChange = new EventEmitter<string>()
+  @Input() userId = 0
 
   openFile(): void {
     this.fileUpload.nativeElement.click()
@@ -39,7 +41,7 @@ export class AvatarComponent implements OnInit {
 
     const url = await this.imageService.getPreview(event.target.files[0])
     this.avatar = url.small
-    this.dataService.changeAvatar(url).pipe(first()).subscribe()
+    this.dataService.changeAvatar(url, this.userId).pipe(first()).subscribe()
 
     this.fileUpload.nativeElement.value = ''
     this.changeDetectorRef.markForCheck()

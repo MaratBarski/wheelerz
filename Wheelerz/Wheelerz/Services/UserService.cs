@@ -22,9 +22,12 @@ namespace Wheelerz.Services
         Task UpdateChairOptionsAsync(int userId, List<ChairOption> options);
         ChairInfo GetChairInfo(int id);
         List<ChairOption> GetChairOptions(int id);
+        Task<PageResponse<IEnumerable<User>>> GetUsers(UserSelector request);
         User GetUserInfo(int id);
         void UpdateUserInfo(int id, RegistrRequest user);
+        void DeleteUser(int id);
         User CurrenUser { get; }
+        bool IsNotValidUser(int id);
     }
     public class UserService : IUserService
     {
@@ -50,6 +53,9 @@ namespace Wheelerz.Services
 
         public Task<User> GetUserProfileAsyns(int id)
         {
+            if (id == 0) id = CurrenUser.id;
+            if (IsNotValidUser(id)) throw new Exception("auth");
+
             return Task.Run(async () =>
             {
                 var user = await _data.Users.Include(x => x.country).Include(x => x.state).FirstOrDefaultAsync(x => x.id == id);
@@ -68,6 +74,8 @@ namespace Wheelerz.Services
 
         public string ChangeAvatar(FileImage file, int userId)
         {
+            if (userId == 0) userId = CurrenUser.id;
+            if (IsNotValidUser(userId)) return "";
             var user = _data.Users.FirstOrDefault(x => x.id == userId);
             if (user == null) return null;
             if (!string.IsNullOrEmpty(user.avatar)) _uploadService.DeleteFile(user.avatar);
@@ -131,9 +139,17 @@ namespace Wheelerz.Services
             return _data.ChairOptions.Where(x => x.userId == userId).ToList();
         }
 
+        public bool IsNotValidUser(int id)
+        {
+            return (!CurrenUser.isAdmin && id != CurrenUser.id);
+        }
+
         public User GetUserInfo(int id)
         {
+            if (id == 0) id = CurrenUser.id;
+            if (IsNotValidUser(id)) return null;
             var user = _data.Users.FirstOrDefault(x => x.id == id);
+            user.password = "";
             return user;
         }
 
@@ -160,9 +176,13 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
-                var users = await _data.Users.Include(x => x.mobilities)
-                    .Where(x => x.deleted == 0)
-                    .Where(x => request.isMyInclude || x.id != CurrenUser.id).ToListAsync();
+                var linq = _data.Users.Include(x => x.mobilities).Where(x => x.deleted == 0);
+                if (request.isOnlyMy)
+                    linq = linq.Where(x => x.id == request.userId);
+                else
+                    linq = linq.Where(x => request.isMyInclude || x.id != CurrenUser.id);
+
+                var users = await linq.ToListAsync();
 
                 var userIds = new List<int>();
 
@@ -201,6 +221,45 @@ namespace Wheelerz.Services
 
                 return userIds;
             });
+        }
+
+        public Task<PageResponse<IEnumerable<User>>> GetUsers(UserSelector request)
+        {
+            return Task.Run(async () =>
+            {
+                var linq = _data.Users.Include(x => x.country).Include(x => x.state).Include(x => x.mobilities)
+                .Where(x => x.deleted == 0)
+                .Where(x => string.IsNullOrEmpty(request.q) ||
+                (
+                    x.firstName.Contains(request.q) ||
+                    x.lastName.Contains(request.q) ||
+                    x.email.Contains(request.q)
+                 ));
+
+                var total = await linq.AsSplitQuery().CountAsync();
+                var res = await linq.Skip(request.page.current * request.page.size).Take(request.page.size)
+                .ToListAsync();
+                res.ForEach(x =>
+                {
+                    x.password = "";
+                });
+                return new PageResponse<IEnumerable<User>>
+                {
+                    total = total,
+                    result = res
+                };
+            });
+        }
+
+        public void DeleteUser(int id)
+        {
+            if (id == 0) id = CurrenUser.id;
+            if (IsNotValidUser(id)) return;
+
+            var user = _data.Users.FirstOrDefault(x => x.id == id);
+            if (user == null) return;
+            user.deleted = 1;
+            _data.SaveChanges();
         }
     }
 }

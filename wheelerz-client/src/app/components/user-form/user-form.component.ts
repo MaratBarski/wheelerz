@@ -47,6 +47,9 @@ export class UserFormComponent implements OnInit {
     stateId: 0
   };
   @Input() btnText = 'next'
+  @Input() delete = false
+
+  @Output() onDelete = new EventEmitter<void>()
 
   separateDialCode = true
   SearchCountryField = SearchCountryField
@@ -136,5 +139,11 @@ export class UserFormComponent implements OnInit {
   birthdayChanged(date: Date): void {
     this.user.birthDay = date
     this.user.birthDayDisplay = this.dateTimeService.dateToString(date)
+  }
+
+  deleteUser(): void {
+    if (confirm('Are you sure')) {
+      this.onDelete.next()
+    }
   }
 }

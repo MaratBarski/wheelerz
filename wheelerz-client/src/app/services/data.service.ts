@@ -10,6 +10,7 @@ import { MobilityDto, UserMobility } from '../models/user-accessibility'
 import { StoryRequest } from '../models/story-dto'
 import { PageResponse } from '../models/page-request'
 import { StorySelector } from '../models/story-selector'
+import { UserSelector } from '../models/user-selector'
 
 @Injectable({
   providedIn: 'root'
@@ -50,12 +51,13 @@ export class DataService {
     return this.post<PageResponse<Story[]>>(`story/search`, request)
   }
 
-  getMyProfile(): Observable<User> {
-    return this.get<User>('User/my-profile')
+  getMyProfile(id: any = 0): Observable<User> {
+    if (!id) id = 0
+    return this.get<User>(`User/my-profile/${id}`)
   }
 
-  changeAvatar(file: FileImage): Observable<string> {
-    return this.post<string>('User/avatar', file)
+  changeAvatar(file: FileImage, uid: number): Observable<string> {
+    return this.post<string>(`User/avatar/?uid=${uid}`, file)
   }
 
   getModilityDefinition(): Observable<UserMobility> {
@@ -86,12 +88,21 @@ export class DataService {
     return this.put('user', user)
   }
 
-  getUserInfo(): Observable<User> {
-    return this.get('user/info')
+  getUserInfo(id: any = 0): Observable<User> {
+    if (!id) id = 0
+    return this.get(`user/info/${id}`)
   }
 
   selectStories(selector: StorySelector): Observable<PageResponse<Story[]>> {
     return this.post<PageResponse<Story[]>>(`story/select`, selector)
+  }
+
+  getUsers(selector: UserSelector): Observable<PageResponse<User[]>> {
+    return this.post('user', selector)
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.delete(`user/${id}`)
   }
 
   addCountries(): void {

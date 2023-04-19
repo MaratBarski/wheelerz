@@ -166,5 +166,7 @@
     "of": "Of",
     "total": "Total",
     "include_my_posts": "Include my posts",
-    "no_data": "No data"
+    "no_data": "No data",
+    "reg_date": "Registration Date",
+    "delete_profile": "Delete profile"
 }

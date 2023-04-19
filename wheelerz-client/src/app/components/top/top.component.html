@@ -5,6 +5,9 @@
         </a>
     </div>
     <div class="top-link">
+        <div *ngIf="userService.isAdmin">
+            <a style="color: white;" routerLink="/users" class="pointer">Users</a>
+        </div>
         <div *ngIf="userService.isLogedIn">
             <img  routerLink="/" class="pointer" src="./assets/img/chat.svg">
         </div>

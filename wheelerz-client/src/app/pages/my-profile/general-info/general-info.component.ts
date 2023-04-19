@@ -8,6 +8,7 @@ import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { TopProfileComponent } from 'src/app/components/top-profile/top-profile.component'
 import { StoryCardComponent } from 'src/app/components/story-card/story-card.component'
 import { StoryListComponent } from 'src/app/components/story-list/story-list.component'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-general-info',
@@ -19,6 +20,7 @@ import { StoryListComponent } from 'src/app/components/story-list/story-list.com
 })
 export class GeneralInfoComponent implements OnInit {
   dataService = inject(DataService)
+  activatedRoute = inject(ActivatedRoute)
   user$!: Observable<User>
 
   ngOnInit(): void {
@@ -26,6 +28,6 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   reload(): void {
-    this.user$ = this.dataService.getMyProfile()
+    this.user$ = this.dataService.getMyProfile(this.activatedRoute.snapshot.paramMap.get('id'))
   }
 }

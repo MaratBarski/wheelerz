@@ -65,31 +65,10 @@ export class StoryListComponent implements OnInit, OnDestroy {
     return StoryUrls[this.type].view
   }
 
-  search(): void {
-    this.isNoData = false
-    this.loader.load(true)
-    this.dataService.getStories(this.request).pipe(
-      tap(res => {
-        this.total = res.total
-        this.loader.load(false)
-        if (this.request.page.current > 0 && !res.result?.length) {
-          this.request.page.current = 0
-          this.reload()
-        }
-      }),
-      map(res => res.result),
-      first()
-    ).subscribe(res => {
-      this.stories = res
-      this.isNoData = res.length === 0
-      this.changeDetectorRef.markForCheck()
-    })
-  }
-
   updateSearchText(text: string): void {
     this.request.q = text
     this.request.page.current = 0
-    this.reload()
+    this.select()
   }
 
   loadProfile(): void {
@@ -98,30 +77,18 @@ export class StoryListComponent implements OnInit, OnDestroy {
         this.storySelector = {
           cityId: 0,
           countryId: 0,
-          mobilities: (res.mobilities || []).reduce((prev, cur) => ({ ...prev, [cur.name]: true }), {}),
+          mobilities: this.searchByUser ? {} : (res.mobilities || []).reduce((prev, cur) => ({ ...prev, [cur.name]: true }), {}),
           type: this.type,
           page: { current: 0, size: 50 },
-          userId: this.userId
+          userId: this.userId,
+          isOnlyMy: this.searchByUser
         }
         this.select()
       }))
   }
 
   ngOnInit(): void {
-    if (this.searchByUser) {
-      this.request.type = this.type
-      this.request.userId = this.userId
-      this.activatedRoute.paramMap
-        .pipe(takeUntil(this.destroy))
-        .subscribe((res: any) => {
-          const params = res['params']
-          this.request = { ...this.request, page: { ...this.request.page, current: +(params.p || 0) }, q: params.q || '', }
-          this.validateRequest()
-          this.search()
-        })
-    } else {
-      this.loadProfile()
-    }
+    this.loadProfile()
   }
 
   validateRequest(): void {
@@ -135,7 +102,7 @@ export class StoryListComponent implements OnInit, OnDestroy {
   onPageChange(value: number): void {
     this.request.page.current = value
     this.storySelector.page.current = value
-    this.reload()
+    this.select()
   }
 
   select(): void {
@@ -155,11 +122,6 @@ export class StoryListComponent implements OnInit, OnDestroy {
     })
   }
 
-  reload(): void {
-    if (this.searchByUser) this.router.navigate([this.url, { q: this.request.q, p: this.request.page.current }])
-    else this.select()
-  }
-
   onApplySelector(selector: StorySelector): void {
     this.storySelector = selector
     this.onPageChange(0)
@@ -170,10 +132,10 @@ export class StoryListComponent implements OnInit, OnDestroy {
     this.loader.load(true)
     this.dataService.deleteStory(story.id).pipe(first()).subscribe({
       next: () => {
-        this.search()
+        this.select()
       },
       error: () => {
-        this.search()
+        this.select()
       }
     })
   }

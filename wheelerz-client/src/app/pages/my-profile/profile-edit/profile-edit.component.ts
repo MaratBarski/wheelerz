@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { CommonModule } from '@angular/common'
 import { User } from 'src/app/models/user'
 import { UserFormComponent } from 'src/app/components/user-form/user-form.component'
-import { Router } from '@angular/router'
-import { Observable } from 'rxjs'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Observable, first } from 'rxjs'
 import { DataService } from 'src/app/services/data.service'
 
 @Component({
@@ -15,18 +15,27 @@ import { DataService } from 'src/app/services/data.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileEditComponent implements OnInit {
-  user$!: Observable<User>;
-
   dataService = inject(DataService)
   router = inject(Router)
+  activatedRoute = inject(ActivatedRoute)
+
+  user$!: Observable<User>;
+  id = 0
 
   ngOnInit(): void {
-    this.user$ = this.dataService.getUserInfo()
+    this.id = +(this.activatedRoute.snapshot.paramMap.get('id') || 0)
+    this.user$ = this.dataService.getUserInfo(this.id)
   }
 
   save(event: User): void {
     this.dataService.updateProfile(event).subscribe(res => {
       this.router.navigateByUrl('/my-profile')
+    })
+  }
+
+  onDelete(): void {
+    this.dataService.deleteUser(this.id).pipe(first()).subscribe(() => {
+
     })
   }
 }

@@ -8,4 +8,5 @@ export interface StorySelector extends BaseRequest {
     mobilities: Record<string, boolean>,
     page: PageRequest
     isMyInclude?: boolean
+    isOnlyMy?: boolean
 }

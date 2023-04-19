@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, Router, UrlTree, createUrlTreeFromSnapshot } from '@angular/router'
 import { Observable, of, map } from 'rxjs'
-import { User } from '../models/user'
 import { LoginResponse } from '../models/login-response'
 
 const TOKEN = 'token'

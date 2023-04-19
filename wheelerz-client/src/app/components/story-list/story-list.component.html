@@ -14,7 +14,7 @@
     <ng-container *ngIf="isNoData">
         <app-no-data></app-no-data>
     </ng-container>
-    <div class="pager">
+    <div class="main-pager">
         <div>
             <app-paginator (onPageChange)="onPageChange($event)" [total]="total" [size]="request.page.size"
                 [current]="request.page.current"></app-paginator>

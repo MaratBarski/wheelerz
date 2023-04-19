@@ -11,6 +11,10 @@ export const MY_PROFILE_ROUTES: Routes = [
         loadComponent: () => import('./general-info/general-info.component').then(c => c.GeneralInfoComponent)
     },
     {
+        path: 'general/:id',
+        loadComponent: () => import('./general-info/general-info.component').then(c => c.GeneralInfoComponent)
+    },
+    {
         path: 'accessibility',
         loadComponent: () => import('./my-accessibility/my-accessibility.component').then(c => c.MyAccessibilityComponent)
     },
@@ -20,6 +24,10 @@ export const MY_PROFILE_ROUTES: Routes = [
     },
     {
         path: 'edit-profile',
+        loadComponent: () => import('./profile-edit/profile-edit.component').then(c => c.ProfileEditComponent)
+    },
+    {
+        path: 'edit-profile/:id',
         loadComponent: () => import('./profile-edit/profile-edit.component').then(c => c.ProfileEditComponent)
     }
 ];
