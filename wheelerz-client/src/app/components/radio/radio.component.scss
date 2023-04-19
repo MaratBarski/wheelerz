@@ -2,13 +2,21 @@
     display: inline-flex;
     border: 2px solid #ad4b9c;
     border-radius: 10px;
+    height: 40px;
 }
-.radio div {
+.radio-div {
     padding: 10px;
     cursor: pointer;
+    min-width: 50px;
+    text-align: center;
 }
 .selected{
     cursor: default !important;
     background-color: #ad4b9c;
     color: #fff;
+}
+.separator {
+    background-color: #ad4b9c;
+    width: 1px;
+    height: 100%;
 }

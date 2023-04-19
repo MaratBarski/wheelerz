@@ -17,6 +17,7 @@ namespace Wheelerz.Services
         Task<Story> GetStoryById(int id);
         Task Update(Story story);
         Task Delete(int storyId);
+        Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
     }
     public class StoryService : IStoryService
     {
@@ -246,6 +247,56 @@ namespace Wheelerz.Services
                 if (story == null) return;
                 story.deleted = 1;
                 await _data.SaveChangesAsync();
+            });
+        }
+
+        public Task<PageResponse<IEnumerable<Story>>> Select(StorySelector request)
+        {
+            return Task.Run(async () =>
+            {
+                var userIds = await _userService.GetUserIds(request);
+                var linq = _data.Stories
+                    .Include(x => x.user)
+                    .Include(x => x.city)
+                    .Include(x => x.country)
+                    .Where(x => x.deleted == 0)
+                    .Where(x => x.lang == _userService.CurrenUser.lang)
+                    .Where(x => request.type == 0 || x.storyType == request.type)
+                    .Where(x => request.userId == 0 || x.userId == request.userId)
+                    .Where(x =>
+                           (request.countryId == 0 || x.countryId == request.countryId)
+                        && (request.cityId == 0 || x.cityId == request.cityId)
+                    )
+                    .Where(x => userIds.Contains(x.userId));
+
+                var total = await linq.AsSplitQuery().CountAsync();
+                var list = await linq
+                    .OrderByDescending(x => x.dateAdd).ThenByDescending(x => x.endDate)
+                    .Skip(request.page.current * request.page.size)
+                    .Take(request.page.size)
+                    .ToListAsync();
+
+                list.ForEach(x =>
+                {
+                    if (x.user != null)
+                    {
+                        x.user.password = null;
+                        x.user.key = null;
+                        x.user.stories = null;
+                        x.user.role = 0;
+                        x.user.mobilities = null;
+                        x.user.chairInfo = null;
+                        x.user.chairOptions = null;
+                    }
+                    if (x.storyPhotos != null && x.storyPhotos.Count > 0)
+                        x.storyPhotos = new List<StoryPhoto> { x.storyPhotos[0] };
+                });
+
+                return new PageResponse<IEnumerable<Story>>
+                {
+                    total = total,
+                    result = list
+                };
             });
         }
     }

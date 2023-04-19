@@ -1,5 +1,8 @@
 <div class="radio">
-    <div [class.selected]="v===selectedValue || v.key === selectedKey" (click)="select(v)" *ngFor="let v of values">
-        {{v.value|translate}}
-    </div>
+    <ng-container *ngFor="let v of values;let i = index;">
+        <div class="radio-div" [class.selected]="v===selectedValue || v.key===selectedKey" (click)="select(v)">
+            {{v.value|translate}}
+        </div>
+        <div *ngIf="i < values.length-1" class="separator"></div>
+    </ng-container>
 </div>

@@ -1,0 +1,35 @@
+<ng-container *ngIf="userMobility$|async as userMobility">
+    <div>
+        <div class="mob flex">
+            <div class="flex radio">
+                <div class="item">
+                    <app-country-state-selector (onCountry)="changeCountry($event)"
+                        (onCity)="changeCity($event)"></app-country-state-selector>
+                </div>
+                <div>
+                    <div>
+                        <label>
+                            {{'include_my_posts'|translate}}
+                            <input type="checkbox" [(ngModel)]="storySelector.isMyInclude">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex radio">
+                <div class="mob-item item" *ngFor="let t of mobilities">
+                    <div>
+                        {{t|translate}}
+                    </div>
+                    <div>
+                        <app-radio (change)="changeMobilitiesValue($event,t)" [values]="mobilitiesValues"
+                            [selectedKey]="getMobilitiesState(t)"></app-radio>
+                    </div>
+                </div>
+                <div class="item">
+                    <button class="main-btn" (click)="aplly()"><img style="width: 30px;"
+                            src="./assets/img/search.svg"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

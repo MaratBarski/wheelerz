@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wheelerz.DTO;
 using Wheelerz.Helpers;
 using Wheelerz.Models;
 
@@ -13,6 +14,7 @@ namespace Wheelerz.Services
     {
         Task UpdateMobilityAsync(int userId, List<UserMobility> mobilities);
         Task<List<User>> GetUsers();
+        Task<List<int>> GetUserIds(StorySelector request);
         Task<User> GetUserProfileAsyns(int id);
         string ChangeAvatar(FileImage file, int userId);
         List<UserMobility> GetMobilities(int userId);
@@ -77,7 +79,7 @@ namespace Wheelerz.Services
         }
         public Task UpdateMobilityAsync(int userId, List<UserMobility> mobilities)
         {
-            return Task.Run(async() =>
+            return Task.Run(async () =>
             {
                 var user = await _data.Users.FirstOrDefaultAsync(x => x.id == userId);
                 if (user == null) return;
@@ -90,7 +92,6 @@ namespace Wheelerz.Services
                 await _data.SaveChangesAsync();
             });
         }
-
         public Task UpdateChairInfoAsync(int userId, ChairInfo info)
         {
             return Task.Run(async () =>
@@ -107,7 +108,7 @@ namespace Wheelerz.Services
         }
         public Task UpdateChairOptionsAsync(int userId, List<ChairOption> options)
         {
-            return Task.Run(async() =>
+            return Task.Run(async () =>
             {
                 var user = await _data.Users.FirstOrDefaultAsync(x => x.id == userId);
                 if (user == null) return;
@@ -127,7 +128,7 @@ namespace Wheelerz.Services
 
         public List<ChairOption> GetChairOptions(int userId)
         {
-            return _data.ChairOptions.Where(x=>x.userId == userId).ToList();
+            return _data.ChairOptions.Where(x => x.userId == userId).ToList();
         }
 
         public User GetUserInfo(int id)
@@ -153,6 +154,53 @@ namespace Wheelerz.Services
             u.password = EncryptionHelper.Encrypt(user.password.Trim());
 
             _data.SaveChanges();
+        }
+
+        public Task<List<int>> GetUserIds(StorySelector request)
+        {
+            return Task.Run(async () =>
+            {
+                var users = await _data.Users.Include(x => x.mobilities)
+                    .Where(x => x.deleted == 0)
+                    .Where(x => request.isMyInclude || x.id != CurrenUser.id).ToListAsync();
+
+                var userIds = new List<int>();
+
+                foreach (var user in users)
+                {
+                    if (user.mobilities == null) user.mobilities = new List<UserMobility>();
+
+                    bool isContinue = false;
+                    foreach (var mobility in user.mobilities)
+                    {
+                        if (request.mobilities.ContainsKey(mobility.name) && !request.mobilities[mobility.name])
+                        {
+                            isContinue = true;
+                            break;
+                        }
+                    }
+
+                    foreach (var mob in request.mobilities.Keys)
+                    {
+                        if (request.mobilities[mob] && !user.mobilities.Any(x => x.name == mob))
+                        {
+                            isContinue = true;
+                            break;
+                        }
+                        if (!request.mobilities[mob] && user.mobilities.Any(x => x.name == mob))
+                        {
+                            isContinue = true;
+                            break;
+                        }
+                    }
+
+                    if (isContinue) continue;
+
+                    userIds.Add(user.id);
+                }
+
+                return userIds;
+            });
         }
     }
 }

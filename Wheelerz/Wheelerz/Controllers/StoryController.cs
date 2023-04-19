@@ -62,5 +62,11 @@ namespace Wheelerz.Controllers
         {
             await _storyService.Delete(id);
         }
+
+        [HttpPost("select")]
+        public async Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector)
+        {
+            return await _storyService.Select(storySelector);
+        }
     }
 }

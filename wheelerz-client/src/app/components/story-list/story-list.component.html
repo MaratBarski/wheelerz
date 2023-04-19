@@ -1,5 +1,8 @@
-<div class="cnt">
-    <app-search-box [text]="request.q || ''" (onSearch)="updateSearchText($event)"></app-search-box>
+<div class="cnt" *ngIf="user$|async as user">
+    <app-story-selector *ngIf="!searchByUser" (onApply)="onApplySelector($event)"
+        [storySelector]="storySelector"></app-story-selector>
+    <app-search-box *ngIf="searchByUser" [text]="request.q || ''"
+        (onSearch)="updateSearchText($event)"></app-search-box>
     <ng-container *ngIf="stories">
         <ng-container *ngFor="let story of stories">
             <div class="story">
@@ -7,6 +10,9 @@
                     [story]="story"></app-story-card>
             </div>
         </ng-container>
+    </ng-container>
+    <ng-container *ngIf="isNoData">
+        <app-no-data></app-no-data>
     </ng-container>
     <div class="pager">
         <div>

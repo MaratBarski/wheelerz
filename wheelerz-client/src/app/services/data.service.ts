@@ -9,6 +9,7 @@ import { FileImage } from '../models/fileImage'
 import { MobilityDto, UserMobility } from '../models/user-accessibility'
 import { StoryRequest } from '../models/story-dto'
 import { PageResponse } from '../models/page-request'
+import { StorySelector } from '../models/story-selector'
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class DataService {
   }
 
   getStories(request: StoryRequest): Observable<PageResponse<Story[]>> {
-    return this.post<PageResponse<Story[]>>(`story/search`,request)
+    return this.post<PageResponse<Story[]>>(`story/search`, request)
   }
 
   getMyProfile(): Observable<User> {
@@ -88,7 +89,11 @@ export class DataService {
   getUserInfo(): Observable<User> {
     return this.get('user/info')
   }
-  
+
+  selectStories(selector: StorySelector): Observable<PageResponse<Story[]>> {
+    return this.post<PageResponse<Story[]>>(`story/select`, selector)
+  }
+
   addCountries(): void {
     this.http.get('./assets/data/countries.json')
       .subscribe((res: any) => {

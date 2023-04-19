@@ -164,5 +164,7 @@
     "is_there_an_accessible_bathroom": "Is there an accessible bathroom?",
     "page": "Page",
     "of": "Of",
-    "total": "Total"
+    "total": "Total",
+    "include_my_posts": "Include my posts",
+    "no_data": "No data"
 }
