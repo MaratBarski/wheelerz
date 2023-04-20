@@ -3,7 +3,7 @@
         <div class="mob flex">
             <div class="flex radio">
                 <div class="item">
-                    <app-country-state-selector [exists]="true" (onCountry)="changeCountry($event)"
+                    <app-country-state-selector [storyType]="storySelector.type" [exists]="true" (onCountry)="changeCountry($event)"
                         (onCity)="changeCity($event)"></app-country-state-selector>
                 </div>
                 <div>
@@ -13,6 +13,12 @@
                             <input type="checkbox" [(ngModel)]="storySelector.isMyInclude">
                         </label>
                     </div>
+                    <div>
+                        <label>
+                            {{'by_story'|translate}}
+                            <input type="checkbox" [(ngModel)]="storySelector.byStoryMob">
+                        </label>
+                    </div>                    
                 </div>
             </div>
             <div class="flex radio">

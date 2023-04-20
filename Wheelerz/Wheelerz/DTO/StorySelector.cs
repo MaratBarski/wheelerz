@@ -10,6 +10,7 @@ namespace Wheelerz.DTO
         public bool isOnlyMy { get; set; }
         public Dictionary<string, bool> mobilities { get; set; }
         public int type { get; set; }
+        public bool byStoryMob { get; set; }
         public PageRequest page { get; set; }
     }
 }

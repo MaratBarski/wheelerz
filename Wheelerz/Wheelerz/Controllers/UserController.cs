@@ -84,5 +84,11 @@ namespace Wheelerz.Controllers
             _userService.DeleteUser(id);
         }
 
+        [HttpGet("hasmob")]
+        public dynamic CheckMobs()
+        {
+            return new { count = _userService.GetMobilities(_userService.CurrenUser.id).Count() };
+        }
+
     }
 }

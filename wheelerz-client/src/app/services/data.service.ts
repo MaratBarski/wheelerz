@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable, of } from 'rxjs'
+import { Observable, map, of } from 'rxjs'
 import { Country, State } from '../models/country'
 import { SERVER_URL } from '../consts'
 import { Story } from '../models/story'
@@ -18,12 +18,12 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getCoutries(exists = false): Observable<Country[]> {
-    return this.http.get<Country[]>(`${SERVER_URL}/country/countries/?exists=${exists}`)
+  getCoutries(exists = false, type = 0): Observable<Country[]> {
+    return this.http.get<Country[]>(`${SERVER_URL}/country/countries/?exists=${exists}&type=${type}`)
   }
 
-  getStates(countryId: number, exists = false): Observable<State[]> {
-    return countryId ? this.http.get<State[]>(`${SERVER_URL}/country/states/${countryId}/?exists=${exists}`) : of([]);
+  getStates(countryId: number, exists = false, type = 0): Observable<State[]> {
+    return countryId ? this.http.get<State[]>(`${SERVER_URL}/country/states/${countryId}/?exists=${exists}&type=${type}`) : of([]);
   }
 
   post<T>(url: string, data: any): Observable<T> {
@@ -98,6 +98,10 @@ export class DataService {
 
   deleteUser(id: number): Observable<any> {
     return this.delete(`user/${id}`)
+  }
+
+  hasMod(): Observable<boolean> {
+    return this.get('user/hasmob').pipe(map((x: any) => x.count))
   }
 
   addCountries(): void {

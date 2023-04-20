@@ -170,5 +170,6 @@
     "reg_date": "Registration Date",
     "delete_profile": "Delete profile",
     "birth_year": "Birth year",
-    "last_visit": "Last visit"
+    "last_visit": "Last visit",
+    "by_story": "By post"
 }

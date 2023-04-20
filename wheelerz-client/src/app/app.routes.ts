@@ -4,6 +4,7 @@ import { UserService } from './services/user.service'
 import { LoginService } from './services/login.service';
 import { MY_PROFILE_ROUTES } from './pages/my-profile/myProfile.routes';
 import { AdminService } from './services/admin.service';
+import { StoryService } from './services/story.service';
 
 export const APP_ROUTES: Routes = [
     {
@@ -54,7 +55,7 @@ export const APP_ROUTES: Routes = [
     {
         path: 'share',
         loadComponent: () => import('./pages/share/share.component').then(c => c.ShareComponent),
-        canActivate: [UserService],
+        canActivate: [UserService, StoryService],
         children: SHARE_ROUTES
     },
     {

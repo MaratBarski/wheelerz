@@ -17,6 +17,7 @@ namespace Wheelerz.Services
         Task<Story> GetStoryById(int id);
         Task Update(Story story);
         Task Delete(int storyId);
+        Task<List<int>> GetStoryIds(StorySelector request);
         Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
     }
     public class StoryService : IStoryService
@@ -255,11 +256,52 @@ namespace Wheelerz.Services
             });
         }
 
+        public Task<List<int>> GetStoryIds(StorySelector request)
+        {
+            return Task.Run(async () =>
+            {
+                var mobilities = await _data.StoryMobilities.GroupBy(x => x.storyId, y => y.name).ToListAsync();
+                var ids = new List<int>();
+
+                foreach (var m in mobilities)
+                {
+                    bool isContinue = false;
+                    foreach (var mobility in m)
+                    {
+                        if (request.mobilities.ContainsKey(mobility) && !request.mobilities[mobility])
+                        {
+                            isContinue = true;
+                            break;
+                        }
+                    }
+                    if (isContinue) continue;
+                    foreach (var mob in request.mobilities.Keys)
+                    {
+                        if (request.mobilities[mob] && !m.Any(x => x == mob))
+                        {
+                            isContinue = true;
+                            break;
+                        }
+                        if (!request.mobilities[mob] && m.Any(x => x == mob))
+                        {
+                            isContinue = true;
+                            break;
+                        }
+                    }
+
+                    if (isContinue) continue;
+
+                    ids.Add(m.Key);
+                }
+                return ids;
+            });
+        }
+
         public Task<PageResponse<IEnumerable<Story>>> Select(StorySelector request)
         {
             return Task.Run(async () =>
             {
-                var userIds = await _userService.GetUserIds(request);
+                var ids = request.byStoryMob ? await GetStoryIds(request) : await _userService.GetUserIds(request);
                 var linq = _data.Stories
                     .Include(x => x.user)
                     .Include(x => x.city)
@@ -273,7 +315,8 @@ namespace Wheelerz.Services
                            (request.countryId == 0 || x.countryId == request.countryId)
                         && (request.cityId == 0 || x.cityId == request.cityId)
                     )
-                    .Where(x => userIds.Contains(x.userId));
+                    .Where(x => request.byStoryMob ? ids.Contains(x.id) : ids.Contains(x.userId))
+                    ;
 
                 if (!string.IsNullOrEmpty(request.q))
                     linq = linq.Where(x => string.IsNullOrEmpty(request.q) ||

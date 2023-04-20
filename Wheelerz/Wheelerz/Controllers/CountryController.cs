@@ -21,14 +21,16 @@ namespace Wheelerz.Controllers
         public IEnumerable<Country> GetCountries()
         {
             var exists = bool.Parse(Util.GetQueryParam(Request, "exists", false));
-            return _countryService.GetCountries(exists);
+            var type = int.Parse(Util.GetQueryParam(Request, "type", 0));
+            return _countryService.GetCountries(exists,type);
         }
 
         [HttpGet("states/{countryId}")]
         public IEnumerable<State> GetStates(int countryId)
         {
             var exists = bool.Parse(Util.GetQueryParam(Request, "exists", false));
-            return _countryService.GetStates(countryId, exists);
+            var type = int.Parse(Util.GetQueryParam(Request, "type", 0));
+            return _countryService.GetStates(countryId, exists, type);
         }
 
         [HttpPost]

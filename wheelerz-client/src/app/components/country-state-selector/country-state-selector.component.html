@@ -1,12 +1,14 @@
-<div class="flex">
+<div class="flex pan" *ngIf="countries$|async as coutnries">
     <app-input-line name="country">
-        <select class="main-input country" [(ngModel)]="selectedCountry" (change)="changeCountry()">
-            <option [value]="c.id" *ngFor="let c of countries$|async">{{c.name}}</option>
+        <select [disabled]="coutnries.length===1" class="main-input country" [(ngModel)]="selectedCountry"
+            (change)="changeCountry()">
+            <option [value]="c.id" *ngFor="let c of coutnries">{{c.name}}</option>
         </select>
     </app-input-line>
-    <app-input-line name="state">
-        <select  (change)="changeCity()" [(ngModel)]="selectedCity" [disabled]="!selectedCountry" class="main-input city">
-            <option [value]="c.id" *ngFor="let c of states$|async">{{c.name}}</option>
+    <app-input-line name="state" *ngIf="states$|async as cities">
+        <select (change)="changeCity()" [(ngModel)]="selectedCity"
+            [disabled]="!selectedCountry||coutnries.length===1||cities.length===1" class="main-input city">
+            <option [value]="c.id" *ngFor="let c of cities">{{c.name}}</option>
         </select>
     </app-input-line>
 </div>

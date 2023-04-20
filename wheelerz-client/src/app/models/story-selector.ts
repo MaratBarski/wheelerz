@@ -5,8 +5,9 @@ export interface StorySelector extends BaseRequest {
     countryId?: number
     cityId?: number
     type: number
-    mobilities: Record<string, boolean>,
+    mobilities: Record<string, boolean>
     page: PageRequest
     isMyInclude?: boolean
     isOnlyMy?: boolean
+    byStoryMob?: boolean
 }
