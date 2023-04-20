@@ -50,7 +50,7 @@ export class RegistrationComponent {
         return
       }
       this.loginService.loginSucc(res)
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl('/my-profile/accessibility')
     })
   }
 }

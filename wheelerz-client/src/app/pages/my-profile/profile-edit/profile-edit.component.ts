@@ -29,7 +29,7 @@ export class ProfileEditComponent implements OnInit {
 
   save(event: User): void {
     this.dataService.updateProfile(event).subscribe(res => {
-      this.router.navigateByUrl('/my-profile')
+      this.router.navigateByUrl('/my-profile/accessibility')
     })
   }
 

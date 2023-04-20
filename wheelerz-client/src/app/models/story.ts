@@ -2,6 +2,7 @@ import { WizardItem } from "./accesability"
 import { Country, State } from "./country"
 import { FileImage, StoryPhoto } from "./fileImage"
 import { User } from "./user"
+import { MobilityType } from "./user-accessibility"
 
 export enum StoryType {
     story = 1,
@@ -39,4 +40,5 @@ export interface Story extends BaseItem {
     user?: User
     country?: Country
     city?: State
+    mobilities?: MobilityType[]
 }

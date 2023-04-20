@@ -7,7 +7,6 @@ import { Story } from '../models/story'
 import { User } from '../models/user'
 import { FileImage } from '../models/fileImage'
 import { MobilityDto, UserMobility } from '../models/user-accessibility'
-import { StoryRequest } from '../models/story-dto'
 import { PageResponse } from '../models/page-request'
 import { StorySelector } from '../models/story-selector'
 import { UserSelector } from '../models/user-selector'
@@ -19,12 +18,12 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getCoutries(): Observable<Country[]> {
-    return this.http.get<Country[]>(`${SERVER_URL}/country/countries`)
+  getCoutries(exists = false): Observable<Country[]> {
+    return this.http.get<Country[]>(`${SERVER_URL}/country/countries/?exists=${exists}`)
   }
 
-  getStates(countryId: number): Observable<State[]> {
-    return countryId ? this.http.get<State[]>(`${SERVER_URL}/country/states/${countryId}`) : of([]);
+  getStates(countryId: number, exists = false): Observable<State[]> {
+    return countryId ? this.http.get<State[]>(`${SERVER_URL}/country/states/${countryId}/?exists=${exists}`) : of([]);
   }
 
   post<T>(url: string, data: any): Observable<T> {
@@ -45,10 +44,6 @@ export class DataService {
 
   addStory(story: Story): Observable<Story> {
     return this.post<Story>('story', story)
-  }
-
-  getStories(request: StoryRequest): Observable<PageResponse<Story[]>> {
-    return this.post<PageResponse<Story[]>>(`story/search`, request)
   }
 
   getMyProfile(id: any = 0): Observable<User> {

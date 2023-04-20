@@ -41,6 +41,11 @@ namespace Wheelerz.Services
                 story.storyPhotos = new List<StoryPhoto>();
                 story.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
                 story.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
+                story.mobilities = (from m in _data.UserMobilities.Where(x => x.userId == _userService.CurrenUser.id)
+                                    select new StoryMobility()
+                                    {
+                                        name = m.name
+                                    }).ToList();
 
                 story.accessibility?.ForEach((acc) =>
                 {
@@ -259,6 +264,7 @@ namespace Wheelerz.Services
                     .Include(x => x.user)
                     .Include(x => x.city)
                     .Include(x => x.country)
+                    .Include(x => x.mobilities)
                     .Where(x => x.deleted == 0)
                     .Where(x => x.lang == _userService.CurrenUser.lang)
                     .Where(x => request.type == 0 || x.storyType == request.type)
@@ -268,6 +274,15 @@ namespace Wheelerz.Services
                         && (request.cityId == 0 || x.cityId == request.cityId)
                     )
                     .Where(x => userIds.Contains(x.userId));
+
+                if (!string.IsNullOrEmpty(request.q))
+                    linq = linq.Where(x => string.IsNullOrEmpty(request.q) ||
+               (
+                  (x.name != null && x.name.Contains(request.q))
+                   || (x.title != null && x.title.Contains(request.q))
+                   || (x.country != null && x.country.name != null && x.country.name.Contains(request.q))
+                   || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
+               ));
 
                 var total = await linq.AsSplitQuery().CountAsync();
                 var list = await linq

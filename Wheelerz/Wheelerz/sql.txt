@@ -148,3 +148,15 @@ create table chairInfos(
 go
 alter table stories add lang varchar(10) not null default('en')
 go
+
+alter table users add  birthYear int not null default(0)
+go
+alter table users add  lastVisit datetime not null default(getdate())
+go
+
+CREATE TABLE [storyMobilities](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[storyId] [int] NOT NULL,
+	[name] [varchar](100) NOT NULL
+) 
+go

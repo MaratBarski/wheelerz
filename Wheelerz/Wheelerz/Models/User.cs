@@ -46,6 +46,12 @@ namespace Wheelerz.Models
         [Column("birthDay")]
         public DateTime birthDay { get; set; }
 
+        [Column("lastVisit")]
+        public DateTime lastVisit { get; set; }
+
+        [Column("birthYear")]
+        public int birthYear { get; set; }
+
         [Column("registrDate")]
         public DateTime registrDate { get; set; }
 

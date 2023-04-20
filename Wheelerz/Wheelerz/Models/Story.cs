@@ -51,7 +51,7 @@ namespace Wheelerz.Models
         public int deleted { get; set; }
 
         public List<Accessibility>? accessibility { get; set; }
-
+        public List<StoryMobility>? mobilities { get; set; }
         public User? user { get; set; }
 
         public List<StoryPhoto>? storyPhotos { get; set; }

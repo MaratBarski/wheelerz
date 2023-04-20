@@ -42,12 +42,14 @@ namespace Wheelerz.Controllers
         [HttpPost("search")]
         public async Task<PageResponse<IEnumerable<Story>>> GetReview(StoryRequest request)
         {
+            await _userService.UpdateLastAccess();
             return await _storyService.GetStories(request);
         }
 
         [HttpGet("{id}")]
         public async Task<Story> GetStory(int id)
         {
+            await _userService.UpdateLastAccess();
             return await _storyService.GetStoryById(id);
         }
 
@@ -60,12 +62,14 @@ namespace Wheelerz.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
+            await _userService.UpdateLastAccess();
             await _storyService.Delete(id);
         }
 
         [HttpPost("select")]
         public async Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector)
         {
+            await _userService.UpdateLastAccess();
             return await _storyService.Select(storySelector);
         }
     }

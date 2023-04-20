@@ -17,7 +17,9 @@ export interface User {
     password?: string
     key?: string
     birthDay?: Date
+    birthYear?: number
     registrDate?: Date
+    lastVisit?: Date
     birthDayDisplay?: string | null | undefined
     phone?: string
     mobilities?: MobilityType[]

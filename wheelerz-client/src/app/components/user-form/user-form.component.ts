@@ -41,14 +41,15 @@ export class UserFormComponent implements OnInit {
   dateTimeService = inject(DateTimeService)
   cd = inject(ChangeDetectorRef)
 
-  @Output() onSave = new EventEmitter<User>();
   @Input() user: User = {
     countryId: 0,
     stateId: 0
   };
   @Input() btnText = 'next'
   @Input() delete = false
+  @Input() update = false
 
+  @Output() onSave = new EventEmitter<User>()
   @Output() onDelete = new EventEmitter<void>()
 
   separateDialCode = true
@@ -79,11 +80,11 @@ export class UserFormComponent implements OnInit {
   }
 
   get isPasswordEq(): boolean {
-    return this.form.get('password')?.value === this.form.get('confirmPassword')?.value;
+    return this.form.get('password')?.value === this.form.get('confirmPassword')?.value
   }
 
-  get selectedDate(): Date {
-    return new Date(this.form.get('birthDay')?.value || 0)
+  get birthYear(): number {
+    return this.form.get('birthYear')?.value
   }
 
   get phone(): string {
@@ -102,7 +103,8 @@ export class UserFormComponent implements OnInit {
     phone: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
-    sex: new FormControl('', [Validators.required])
+    sex: new FormControl('', [Validators.required]),
+    birthYear: new FormControl('', [Validators.required])
   })
 
   updateSex(sex: KeyValue<any, any>): void {
@@ -111,6 +113,10 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.update) {
+      this.form.removeControl('password')
+      this.form.removeControl('confirmPassword')
+    }
     this.form.patchValue(this.user)
     this.loadStates()
   }
@@ -134,11 +140,6 @@ export class UserFormComponent implements OnInit {
       })
     )
     this.form.controls['stateId'].patchValue(0)
-  }
-
-  birthdayChanged(date: Date): void {
-    this.user.birthDay = date
-    this.user.birthDayDisplay = this.dateTimeService.dateToString(date)
   }
 
   deleteUser(): void {

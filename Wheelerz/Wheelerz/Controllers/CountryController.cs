@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Wheelerz.Helpers;
 using Wheelerz.Models;
 using Wheelerz.Services;
 
@@ -19,13 +20,15 @@ namespace Wheelerz.Controllers
         [HttpGet("countries")]
         public IEnumerable<Country> GetCountries()
         {
-            return _countryService.GetCountries();
+            var exists = bool.Parse(Util.GetQueryParam(Request, "exists", false));
+            return _countryService.GetCountries(exists);
         }
 
         [HttpGet("states/{countryId}")]
         public IEnumerable<State> GetStates(int countryId)
         {
-            return _countryService.GetStates(countryId);
+            var exists = bool.Parse(Util.GetQueryParam(Request, "exists", false));
+            return _countryService.GetStates(countryId, exists);
         }
 
         [HttpPost]

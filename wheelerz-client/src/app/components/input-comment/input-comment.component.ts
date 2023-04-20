@@ -36,7 +36,7 @@ export class InputCommentComponent {
   @Input() editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '500px',
+    height: '300px',
     minHeight: '0',
     maxHeight: 'auto',
     width: 'auto',
@@ -113,7 +113,6 @@ export class InputCommentComponent {
   @Output() onImageUpdates = new EventEmitter<FileImage[]>()
 
   @ViewChild('file') file!: ElementRef<HTMLInputElement>
-  @ViewChild('div') div!: ElementRef<HTMLDivElement>
 
   imageService = inject(ImageService)
   changeDetectorRef = inject(ChangeDetectorRef)
@@ -140,111 +139,5 @@ export class InputCommentComponent {
     this.file.nativeElement.value = ''
     this.changeDetectorRef.markForCheck()
     this.onImageUpdates.emit(this.files)
-  }
-
-  findNode(node: Node | null): { node: Node, index: number } | undefined {
-    if (!node) return undefined
-    for (let i = 0; i < this.div.nativeElement.childNodes.length; i++) {
-      const elm = this.div.nativeElement.childNodes.item(i)
-      if (elm.isSameNode(node) || elm.isSameNode(node.parentNode as any)) return { node: elm, index: i }
-    }
-    return undefined
-  }
-
-  updateDiv(): void {
-    console.log(this.div.nativeElement.innerHTML)
-    if (this.div.nativeElement.innerText.trim() === '') {
-      this.div.nativeElement.innerHTML = ''
-    }
-  }
-
-  setTag(tag: string): void {
-    const selection = window.getSelection()
-    if (!selection) return
-    let anchorNode = this.findNode(selection.anchorNode)
-    const focusNode = this.findNode(selection.focusNode)
-    if (!anchorNode || !focusNode) return
-    let startIndex = -1
-    let endIndex = -1
-    const range = [anchorNode, focusNode].sort((a, b) => a.index < b.index ? -1 : 1)
-    if (anchorNode.node === focusNode.node) {
-      startIndex = Math.min(selection.focusOffset, selection.anchorOffset)
-      endIndex = Math.max(selection.focusOffset, selection.anchorOffset);
-    }
-
-    let i1 = 0
-    let i2 = 0
-
-    let startFound = false
-    let endFound = false
-    for (let i = 0; i < this.div.nativeElement.childNodes.length; i++) {
-      const elm = this.div.nativeElement.childNodes.item(i)
-      if (startFound && endFound) break
-      if (elm.isSameNode(range[0].node)) {
-        i1 += (startIndex !== -1 ? startIndex : selection.focusOffset)
-        startFound = true
-      } else if (!startFound) { i1 += elm.textContent?.length || 0 }
-
-      if (elm.isSameNode(range[1].node)) {
-        i2 += (endIndex !== -1 ? endIndex : selection.anchorOffset)
-        endFound = true
-      } else if (!endFound) { i2 += elm.textContent?.length || 0 }
-    }
-
-    const html = this.div.nativeElement.innerHTML || ''
-    let newText = ''
-
-    let j = 0
-    for (let i = 0; i < html.length; i++) {
-      if (html.charAt(i) === '<') {
-        while (html.charAt(i) !== '>') {
-          newText += html.charAt(i);
-          i++
-        }
-        newText += html.charAt(i);
-        continue
-      }
-      j++
-      if (j === i1 + 1) newText += `<${tag}>`
-      if (j === i2 + 1) newText += `</${tag}>`
-      newText += html.charAt(i)
-    }
-    //this.createHtmlList(newText)
-    //console.log(this.fixTags(j + i1, j + i2, newText))
-    this.div.nativeElement.innerHTML = newText
-    //console.log(newText)
-  }
-
-  createHtmlList(text: string): void {
-    let i = 0
-    let str = ''
-    const ar = []
-    for (i = 0; i < text.length; i++) {
-      let ch = text.charAt(i)
-      if (ch === '<') {
-        str = '<'
-        while (ch !== '>') {
-          i++
-          ch = text.charAt(i)
-          str += ch
-        }
-      } else {
-        str += ch
-        while (ch !== '<' && i < text.length) {
-          i++
-          ch = text.charAt(i)
-          if (ch !== '<') str += ch
-        }
-        i--
-      }
-      ar.push(str)
-      str = ''
-    }
-    console.log(ar)
-  }
-
-  fixTags(i1: number, i2: number, text: string): string {
-    let res = ''
-    return res
   }
 }

@@ -18,6 +18,7 @@ namespace Wheelerz
         public DbSet<AccessibilityFile> AccessibilityFiles { get; set; }
         public DbSet<StoryPhoto> StoryPhotos { get; set; }
         public DbSet<UserMobility> UserMobilities { get; set; }
+        public DbSet<StoryMobility> StoryMobilities { get; set; }
         public DbSet<ChairInfo> ChairInfos { get; set; }
         public DbSet<ChairOption> ChairOptions { get; set; }
 

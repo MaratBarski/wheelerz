@@ -18,9 +18,8 @@
     </div>
     <div class="line">
         <div>
-            <app-input-line name="birth_date">
-                <app-date-selector (dateSelected)="birthdayChanged($event)"
-                    [selectedDate]="user.birthDay"></app-date-selector>
+            <app-input-line name="birth_year">
+                <input type="number" class="main-input" style="width:100px" formControlName="birthYear">
             </app-input-line>
         </div>
         <div>
@@ -70,7 +69,7 @@
             </app-input-line>
         </div>
     </div>
-    <div class="line">
+    <div *ngIf="!update" class="line">
         <div>
             <app-input-line name="password">
                 <input formControlName="password" class="main-input" type="password">
@@ -94,7 +93,7 @@
         </div>
     </div>
     <div class="buttons">
-        <button class="main-btn" (click)="deleteUser()">{{'delete_profile'|translate}}</button>
+        <button class="main-btn" *ngIf="delete" (click)="deleteUser()">{{'delete_profile'|translate}}</button>
         <button [disabled]="!isValid" class="main-btn" (click)="next()">{{btnText|translate}}</button>
     </div>
 </div>

@@ -27,6 +27,7 @@ namespace Wheelerz.Services
         void UpdateUserInfo(int id, RegistrRequest user);
         void DeleteUser(int id);
         User CurrenUser { get; }
+        Task UpdateLastAccess();
         bool IsNotValidUser(int id);
     }
     public class UserService : IUserService
@@ -166,7 +167,8 @@ namespace Wheelerz.Services
             u.lastName = user.lastName;
             u.email = user.email;
             u.phone = user.phone;
-            u.birthDay = Util.ParseDate(user.birthDayDisplay, u.birthDay);
+            u.birthYear = user.birthYear;
+            u.birthDay = DateTime.Now;
             u.password = EncryptionHelper.Encrypt(user.password.Trim());
 
             _data.SaveChanges();
@@ -260,6 +262,19 @@ namespace Wheelerz.Services
             if (user == null) return;
             user.deleted = 1;
             _data.SaveChanges();
+        }
+
+        public Task UpdateLastAccess()
+        {
+            return Task.Run(async () =>
+            {
+                var user = await _data.Users.FirstOrDefaultAsync(x=>x.id == CurrenUser.id);
+                if(user == null) return;
+
+                user.lastVisit = DateTime.Now;  
+                CurrenUser.lastVisit = DateTime.Now;
+                await _data.SaveChangesAsync();
+            });
         }
     }
 }

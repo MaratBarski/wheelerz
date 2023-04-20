@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms'
 })
 export class CountryStateSelectorComponent implements OnInit {
   dataService = inject(DataService)
-  countries$ = this.dataService.getCoutries().pipe(map(res => ([{ name: 'Select Country', id: 0 }, ...res])), tap(res => this.countries = res))
+  countries$!: Observable<Country[]>
   states$?: Observable<State[]>
   countries!: Country[]
   states!: State[]
@@ -27,13 +27,15 @@ export class CountryStateSelectorComponent implements OnInit {
 
   @Input() selectedCountry = 0
   @Input() selectedCity = 0
+  @Input() exists = false
 
   ngOnInit(): void {
+    this.countries$ = this.dataService.getCoutries(this.exists).pipe(map(res => ([{ name: 'Select Country', id: 0 }, ...res])), tap(res => this.countries = res))
     this.loadStates()
   }
 
   loadStates(): void {
-    this.states$ = this.dataService.getStates(this.selectedCountry)
+    this.states$ = this.dataService.getStates(this.selectedCountry, this.exists)
       .pipe(map(res => ([{ name: 'Select State', id: 0, countryId: 0 }, ...res])), tap(res => this.states = res))
   }
 

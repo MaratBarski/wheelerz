@@ -1,7 +1,7 @@
 <div class="cnt" *ngIf="user$|async as user">
     <app-story-selector *ngIf="!searchByUser" (onApply)="onApplySelector($event)"
         [storySelector]="storySelector"></app-story-selector>
-    <app-search-box *ngIf="searchByUser" [text]="request.q || ''"
+    <app-search-box *ngIf="searchByUser" [text]="storySelector.q || ''"
         (onSearch)="updateSearchText($event)"></app-search-box>
     <ng-container *ngIf="stories">
         <ng-container *ngFor="let story of stories">
@@ -16,8 +16,8 @@
     </ng-container>
     <div class="main-pager">
         <div>
-            <app-paginator (onPageChange)="onPageChange($event)" [total]="total" [size]="request.page.size"
-                [current]="request.page.current"></app-paginator>
+            <app-paginator (onPageChange)="onPageChange($event)" [total]="total" [size]="storySelector.page.size"
+                [current]="storySelector.page.current"></app-paginator>
         </div>
     </div>
 </div>

@@ -23,7 +23,7 @@
         public string password { get; set; } = string.Empty;
         public string firstName { get; set; } = string.Empty;
         public string lastName { get; set; } = string.Empty;
-        public string birthDay { get; set; } = string.Empty;
+        public int birthYear { get; set; }
         public string confirmPassword { get; set; } = string.Empty;
         public string phone { get; set; } = string.Empty;
         public int countryId { get;set; }

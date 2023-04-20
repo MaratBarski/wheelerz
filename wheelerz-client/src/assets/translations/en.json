@@ -168,5 +168,7 @@
     "include_my_posts": "Include my posts",
     "no_data": "No data",
     "reg_date": "Registration Date",
-    "delete_profile": "Delete profile"
+    "delete_profile": "Delete profile",
+    "birth_year": "Birth year",
+    "last_visit": "Last visit"
 }

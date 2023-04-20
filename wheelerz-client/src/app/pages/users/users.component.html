@@ -12,6 +12,7 @@
             <th>{{'state'|translate}}</th>
             <th>{{'phone_number'|translate}}</th>
             <th>{{'reg_date'|translate}}</th>
+            <th>{{'last_visit'|translate}}</th>            
             <th></th>
         </tr>
         <tr *ngFor="let u of data.result">
@@ -23,6 +24,7 @@
             <td>{{u.state?.name}}</td>
             <td>{{u.phone}}</td>
             <td class="c">{{u.registrDate|date:'dd/MM/yyyy'}}</td>
+            <td class="c">{{u.lastVisit|date:'dd/MM/yyyy HH:mm'}}</td>            
             <td>
                 <a routerLink="/my-profile/general/{{u.id}}">Posts</a>&nbsp;
                 <a routerLink="/my-profile/edit-profile/{{u.id}}">Profile</a>

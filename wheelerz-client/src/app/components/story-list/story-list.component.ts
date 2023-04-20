@@ -6,7 +6,6 @@ import { DataService } from 'src/app/services/data.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Story } from 'src/app/models/story'
 import { Observable, Subject, first, map, takeUntil, tap } from 'rxjs'
-import { StoryRequest } from 'src/app/models/story-dto'
 import { PaginatorComponent } from '../paginator/paginator.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StoryUrls } from 'src/app/consts'
@@ -54,20 +53,14 @@ export class StoryListComponent implements OnInit, OnDestroy {
   total = 0
   stories!: Story[]
 
-  request: StoryRequest = {
-    page: { current: 0, size: 50 },
-    type: this.type,
-    userId: 0,
-    q: ''
-  }
-
   get url(): string {
     return StoryUrls[this.type].view
   }
 
   updateSearchText(text: string): void {
-    this.request.q = text
-    this.request.page.current = 0
+    if (!text) text = ''
+    this.storySelector.q = text.trim()
+    this.storySelector.page.current = 0
     this.select()
   }
 
@@ -91,16 +84,11 @@ export class StoryListComponent implements OnInit, OnDestroy {
     this.loadProfile()
   }
 
-  validateRequest(): void {
-    if (this.request.page.current < 0) this.request.page.current = 0
-  }
-
   ngOnDestroy(): void {
     this.destroy.next()
   }
 
   onPageChange(value: number): void {
-    this.request.page.current = value
     this.storySelector.page.current = value
     this.select()
   }
