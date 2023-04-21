@@ -79,6 +79,8 @@ namespace Wheelerz.Models
         public State? city { get; set; }
         public Country? country { get; set; }
 
+        public List<StoryComment>? userComments { get; set; }
+
         [NotMapped]
         public List<FileImage>? photos { get; set; }
 

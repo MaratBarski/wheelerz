@@ -72,5 +72,12 @@ namespace Wheelerz.Controllers
             await _userService.UpdateLastAccess();
             return await _storyService.SelectForUser(storySelector);
         }
+
+        [HttpPost("add-comment")]
+        public async Task<List<StoryComment>> AddComment(StoryComment comment)
+        {
+            await _userService.UpdateLastAccess();
+            return await _storyService.AddComment(comment);
+        }
     }
 }

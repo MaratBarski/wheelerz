@@ -89,6 +89,12 @@ body {
     align-content: center;
     justify-content: center;
 }
+.main-center-column {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
 .main-pager {
     width: 100%;
     display: flex;

@@ -10,6 +10,7 @@ import { MobilityDto, UserMobility } from '../models/user-accessibility'
 import { PageResponse } from '../models/page-request'
 import { StorySelector } from '../models/story-selector'
 import { UserSelector } from '../models/user-selector'
+import { StoryComment } from '../models/story-comment'
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +103,10 @@ export class DataService {
 
   hasMod(): Observable<boolean> {
     return this.get('user/hasmob').pipe(map((x: any) => x.count))
+  }
+
+  addComment(comment: StoryComment): Observable<StoryComment[]> {
+    return this.post('story/add-comment', comment)
   }
 
   addCountries(): void {

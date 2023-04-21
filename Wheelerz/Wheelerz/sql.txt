@@ -178,3 +178,12 @@ alter table stories add mobilityNumber int not null default(0)
 go
 alter table stories add mainImage varchar(100)
 go
+create table storyComments(
+	id int not null identity(1,1),
+	storyId int not null,
+	userId int not null,
+	[dateAdd] datetime not null default(getdate()),
+	[deleted] int not null default(0),
+	[text] ntext not null
+)
+go

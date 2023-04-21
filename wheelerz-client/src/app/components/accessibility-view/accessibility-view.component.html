@@ -1,10 +1,18 @@
 <div class="main-shadow">
-     <!-- {{accessibility|json}} -->
-    <div class="title">{{accessibility.name|translate}}</div>
-    <div  *ngIf="accessibility.accessibilityItems?.length">
-        <div class="item" *ngFor="let it of accessibility.accessibilityItems">
-            <span class="it1">{{it.name|translate}}</span>:&nbsp;
-            <span class="it2">{{it.selectedValue|translate}}</span>
+    <!-- {{accessibility|json}} -->
+    <div class="title-cnt">
+        <div>
+            <div class="img-div">
+                <app-image src="ac-{{accessibility.name}}.svg"></app-image>
+            </div>
+        </div>
+        <div class="title main-marg-10">
+            {{accessibility.name|translate}}
+        </div>
+    </div>
+    <div class="items" *ngIf="accessibility.accessibilityItems?.length">
+        <div class="item {{it.selectedValue}}" *ngFor="let it of accessibility.accessibilityItems">
+            {{getText(it)|translate}}
         </div>
     </div>
     <!-- <div class="images" *ngIf="accessibility.files?.length">
@@ -14,5 +22,5 @@
             </app-big-image>
         </div>
     </div> -->
-    <div>{{accessibility.comments}}</div>
+    <!-- <div>{{accessibility.comments}}</div> -->
 </div>

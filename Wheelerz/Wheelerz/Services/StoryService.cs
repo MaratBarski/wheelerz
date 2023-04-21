@@ -20,6 +20,7 @@ namespace Wheelerz.Services
         Task<List<int>> GetStoryIds(StorySelector request);
         Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
         Task<PageResponse<IEnumerable<Story>>> SelectForUser(StorySelector storySelector);
+        Task<List<StoryComment>> AddComment(StoryComment comment);
     }
     public class StoryService : IStoryService
     {
@@ -210,6 +211,7 @@ namespace Wheelerz.Services
                             .Include(x => x.user).ThenInclude(x => x.mobilities)
                             .Include(x => x.user).ThenInclude(x => x.country)
                             .Include(x => x.user).ThenInclude(x => x.state)
+                            .Include(x => x.userComments).ThenInclude(x => x.user)
                             .Include(x => x.user).ThenInclude(x => x.chairInfo)
                                    where s.id == id && s.deleted == 0
                                    select new Story
@@ -221,6 +223,20 @@ namespace Wheelerz.Services
                                                           fileName = p.fileName,
                                                           small = ""
                                                       }).ToList(),
+                                       userComments = (from c in s.userComments
+                                                       select new StoryComment
+                                                       {
+                                                           text = c.text,
+                                                           id = c.id,
+                                                           dateAdd = c.dateAdd,
+                                                           user = c.user ?? new User
+                                                           {
+                                                               avatar = c.user.avatar,
+                                                               id = c.user.id,
+                                                               firstName = c.user.firstName,
+                                                               lastName = c.user.lastName
+                                                           }
+                                                       }).ToList(),
                                        phone = s.phone,
                                        address = s.address,
                                        mail = s.mail,
@@ -406,6 +422,23 @@ namespace Wheelerz.Services
                     total = total,
                     result = list
                 };
+            });
+        }
+
+        public Task<List<StoryComment>> AddComment(StoryComment comment)
+        {
+            return Task.Run(async () =>
+            {
+                var story = await _data.States.FirstOrDefaultAsync(x => x.id == comment.storyId);
+                if (story != null)
+                {
+                    comment.userId = _userService.CurrenUser.id;
+                    comment.dateAdd = DateTime.Now;
+                    _data.StoryComments.Add(comment);
+                    await _data.SaveChangesAsync();
+                }
+                var s = await GetStoryById(comment.storyId);
+                return s.userComments;
             });
         }
     }

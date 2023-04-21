@@ -28,7 +28,7 @@ import { UserService } from 'src/app/services/user.service'
 })
 export class InputCommentComponent {
   userService = inject(UserService)
-  
+
   @Input() form!: FormGroup
   @Input() controlName = 'comments'
   @Input() titlePlaceholder = 'title'
@@ -36,6 +36,9 @@ export class InputCommentComponent {
   @Input() images?: Attachment[]
   @Input() files: FileImage[] = []
   @Input() isEditor = true
+  @Input() isTitle = true
+  @Input() isFooter = true
+  @Input() areaHeight = 300
   @Input() editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -112,7 +115,7 @@ export class InputCommentComponent {
       ]
     ]
   };
-  
+
   @Output() onImageUpdates = new EventEmitter<FileImage[]>()
 
   @ViewChild('file') file!: ElementRef<HTMLInputElement>

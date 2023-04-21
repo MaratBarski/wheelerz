@@ -1,17 +1,16 @@
 <div [formGroup]="form">
     <div class="main">
         <div class="comments">
-            <div><input [placeholder]="titlePlaceholder|translate" class="title" type="text" formControlName="title">
-            </div>
+            <div *ngIf="isTitle"><input [placeholder]="titlePlaceholder|translate" class="title" type="text" formControlName="title"></div>
             <div>
-                <textarea *ngIf="!isEditor" [placeholder]="commentPlaceholder|translate" class="area"
+                <textarea *ngIf="!isEditor" [style.height.px]="areaHeight" [placeholder]="commentPlaceholder|translate" class="area"
                     formControlName="comments"></textarea>
                 <angular-editor *ngIf="isEditor" [config]="editorConfig" [placeholder]="'Enter text here...'"
                     formControlName="comments"></angular-editor>
             </div>
         </div>
         <div class="footer">
-            <ng-container *ngIf="userService.isAdmin">
+            <ng-container *ngIf="userService.isAdmin && isFooter">
                 <img (click)="openAttachment()" src="./assets/img/camera-white.svg">
                 <div class="admin-inputs">
                     <div>
@@ -28,6 +27,7 @@
                     </div>
                 </div>
             </ng-container>
+            <ng-content></ng-content>
         </div>
     </div>
     <div class="images" *ngIf="files">

@@ -1,6 +1,7 @@
 import { WizardItem } from "./accesability"
 import { Country, State } from "./country"
 import { FileImage, StoryPhoto } from "./fileImage"
+import { StoryComment } from "./story-comment"
 import { User } from "./user"
 import { MobilityType } from "./user-accessibility"
 
@@ -47,4 +48,5 @@ export interface Story extends BaseItem {
     mail?: string
     link?: string
     mainImage?: string
+    userComments?: StoryComment[]
 }

@@ -1,4 +1,4 @@
-<div class="cnt main-center" *ngIf="story$|async as story">
+<div class="cnt" *ngIf="story$|async as story">
     <div class="main-cnt">
         <div>
             <div class="flex">
@@ -9,19 +9,22 @@
                     <app-stars [estimation]="story.estimation || 0"></app-stars>
                 </div>
             </div>
-            <div>
+            <div class="add-view">
                 <app-image src="address.svg"></app-image>&nbsp;{{story.address}}
             </div>
             <app-story-img [photos]="story.storyPhotos||[]"></app-story-img>
         </div>
+
         <div class="map-address">
             <div class="map"></div>
+            <div style="width: 6px;"></div>
             <div>
                 <app-address [name]="story.name||story.title" [phone]="story.phone" [mail]="story.mail"
                     [link]="story.link"></app-address>
             </div>
         </div>
-        <div class="main-center">
+
+        <div>
             <div>
                 <div class="profile">{{'Reviewer’s Accessibility Profile'|translate}}</div>
                 <div class="main-shadow" *ngIf="story.user">
@@ -29,10 +32,36 @@
                 </div>
             </div>
         </div>
-        <div class="main-center">
+
+        <div>
             <div class="accs" *ngIf="story?.accessibility?.length">
                 <div *ngFor="let a of story.accessibility" class="acc">
                     <app-accessibility-view [accessibility]="a"></app-accessibility-view>
+                </div>
+            </div>
+
+            <div class="comment-title">Comments</div>
+            <div class="editor">
+                <app-input-comment [areaHeight]="150" [isTitle]="false" [isFooter]="false" [form]="form"
+                    [isEditor]="false">
+                    <div class="add-commentsd">
+                        <button class="main-btn" (click)="addComment()">{{'publish'|translate}}</button>
+                    </div>
+                </app-input-comment>
+            </div>
+
+
+            <div *ngIf="comments">
+                <div class="com-item flex" *ngFor="let com of comments">
+                    <div class="avatar">
+                        <app-avatar [avatar]="com.user?.avatar"></app-avatar>
+                    </div>
+                    <div>
+                        <div class="user-name">{{com.user?.firstName}}&nbsp;{{com.user?.lastName}}</div>
+                        <div class="comment-text">
+                            {{com.text}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
