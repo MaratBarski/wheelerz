@@ -29,7 +29,7 @@
         <div>
             <div>
                 <div class="profile">{{'Reviewer’s Accessibility Profile'|translate}}</div>
-                <div class="main-shadow" *ngIf="story.user">
+                <div class="main-shadow profile-view" *ngIf="story.user">
                     <app-top-profile [user]="story.user"></app-top-profile>
                 </div>
             </div>
