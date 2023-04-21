@@ -7,8 +7,7 @@ import { StorySelector } from 'src/app/models/story-selector'
 import { DataService } from 'src/app/services/data.service'
 import { Observable, tap } from 'rxjs'
 import { UserMobility } from 'src/app/models/user-accessibility'
-import { RadioComponent } from '../radio/radio.component'
-import { FormsModule } from '@angular/forms'
+import { ImageComponent } from '../image/image.component'
 
 @Component({
   selector: 'app-story-selector',
@@ -17,8 +16,7 @@ import { FormsModule } from '@angular/forms'
     CommonModule,
     TranslatePipe,
     CountryStateSelectorComponent,
-    RadioComponent,
-    FormsModule
+    ImageComponent
   ],
   templateUrl: './story-selector.component.html',
   styleUrls: ['./story-selector.component.scss'],
@@ -68,6 +66,5 @@ export class StorySelectorComponent implements OnInit {
 
   aplly(): void {
     this.onApply.emit(this.storySelector)
-    //this.dataService.selectStories(this.storySelector).subscribe()
   }
 }

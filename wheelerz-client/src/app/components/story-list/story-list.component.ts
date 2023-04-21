@@ -74,7 +74,8 @@ export class StoryListComponent implements OnInit, OnDestroy {
           type: this.type,
           page: { current: 0, size: 50 },
           userId: this.userId,
-          isOnlyMy: this.searchByUser
+          isOnlyMy: this.searchByUser,
+          isMyInclude: true
         }
         this.select()
       }))

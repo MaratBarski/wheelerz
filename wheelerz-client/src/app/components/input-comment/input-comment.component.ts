@@ -8,6 +8,7 @@ import { FileImage } from 'src/app/models/fileImage'
 import { FileImageComponent } from '../file-image/file-image.component'
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-input-comment',
@@ -26,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputCommentComponent {
+  userService = inject(UserService)
+  
   @Input() form!: FormGroup
   @Input() controlName = 'comments'
   @Input() titlePlaceholder = 'title'

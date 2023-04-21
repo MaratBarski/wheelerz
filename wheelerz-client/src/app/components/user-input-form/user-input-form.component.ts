@@ -66,7 +66,11 @@ export class UserInputFormComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(this.story.name || ''),
       title: new FormControl(this.story.title || ''),
-      comments: new FormControl(this.story.comments || '')
+      comments: new FormControl(this.story.comments || ''),
+      phone: new FormControl(this.story.phone || ''),
+      mail: new FormControl(this.story.mail || ''),
+      link: new FormControl(this.story.link || ''),
+      address: new FormControl(this.story.address || '')
     })
   }
 

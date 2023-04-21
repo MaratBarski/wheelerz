@@ -171,5 +171,11 @@
     "delete_profile": "Delete profile",
     "birth_year": "Birth year",
     "last_visit": "Last visit",
-    "by_story": "By post"
+    "by_story": "By post",
+    "add_story": "Add story review",
+    "add_hotel-review": "Add hotel review",
+    "add_cities-accessibility": "Add city review",
+    "add_trends": "Add trands review",
+    "book_room_at_the_hotel": "Book a room at the hotel",
+    "Reviewer’s Accessibility Profile": "Reviewer’s Accessibility Profile"
 }

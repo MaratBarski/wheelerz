@@ -27,3 +27,6 @@ export const StoryUrls: { [key: number]: { view: string, share: string } } = {
     3: { view: 'cities-accessibility', share: 'cities-accessibility' },
     4: { view: 'fellow-travelers', share: 'trends' }
 }
+
+
+//https://www.figma.com/file/c0Yvf3X27rd15JtudeKvkM/WEBAPP-Design-Wheelerz?node-id=2404-3779&t=z2om1YW229lHs7hV-0

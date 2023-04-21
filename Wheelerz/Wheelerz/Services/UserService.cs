@@ -96,7 +96,13 @@ namespace Wheelerz.Services
                 user.noWalk = mobilities.Any(x => x.noWalk) ? 1 : 0;
                 var forRemove = _data.UserMobilities.Where(x => x.userId == userId);
                 _data.UserMobilities.RemoveRange(forRemove);
-                mobilities.ForEach(x => x.userId = userId);
+                user.mobilityNumber = 0;
+                mobilities.ForEach(x =>
+                {
+                    x.userId = userId;
+                    user.mobilityNumber += Consts.MobilitiesDictionary[x.name];
+                });
+                
                 _data.UserMobilities.AddRange(mobilities);
                 await _data.SaveChangesAsync();
             });

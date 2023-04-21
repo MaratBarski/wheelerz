@@ -6,27 +6,30 @@
     <div class="card pointer" routerLink="/story-info/{{story.id}}">
         <div class="main-flex">
             <div *ngIf="isShowAvatar" class="image">
-                <app-avatar [avatar]="story.user?.avatar"></app-avatar>
-            </div>
-            <div class="info">
-                <div class="title">{{story.title}}</div>
-                <div class="name" *ngIf="story.user">
-                    <span>{{story.user.firstName}}&nbsp;{{story.user.lastName}}&nbsp;</span>
-                    <span
-                        *ngIf="story.user?.country">{{story.user.country?.name}},&nbsp;{{story.user.state?.name}}</span>
-                </div>
-                <div class="name">{{story.name}}</div>
-                <div class="name" *ngIf="story.country && story.city">{{story.city.name}},&nbsp;{{story.country.name}}
-                </div>
+                <app-avatar [avatar]="story.mainImage"></app-avatar>
             </div>
         </div>
-        <div>
-            <app-stars [estimation]="story.estimation || 0"></app-stars>
-            <div>
-                {{story.dateAdd|date:'dd/MM/yyyy'}}
+        <div class="comment-stars">
+            <div class="info-stars">
+                <div class="info">
+                    <div class="title">{{story.name || story.title}}</div>
+                    <div class="address">
+                        <app-image src="address.svg"></app-image>
+                        &nbsp;{{story.address}},&nbsp;{{story.city?.name}},&nbsp;{{story.country?.name}}
+                    </div>
+                </div>
+                <div>
+                    <app-stars [estimation]="story.estimation || 0"></app-stars>
+                    <div class="date">
+                        <div>
+                            {{story.dateAdd|date:'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="date">
-                {{story.startDate|date:'dd/MM/yyyy'}}-{{story.endDate|date:'dd/MM/yyyy'}}
+            <div class="comments">
+                <div [innerHTML]="story.comments">
+                </div>
             </div>
         </div>
     </div>

@@ -55,3 +55,16 @@
 :host ::ng-deep .image img {
     width: 80px;
 }
+.admin-inputs {
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+.admin-inputs div{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.admin-inputs input{
+    height: 20px;
+    width: 300px;
+}

@@ -1,29 +1,43 @@
-<div class="cnt" *ngIf="story$|async as story">
-    <div class="flex">
-        <div class="flex">
-            <div class="name">{{story.name}}</div>
-            <div>{{story.title}}</div>
-            <div>{{story.country?.name}}</div>
-            <div>{{story.city?.name}}</div>
-        </div>
+<div class="cnt main-center" *ngIf="story$|async as story">
+    <div class="main-cnt">
         <div>
-            <app-stars [estimation]="story.estimation || 0"></app-stars>
+            <div class="flex">
+                <div class="flex">
+                    <div class="name">{{story.name || story.title}}</div>
+                </div>
+                <div class="main-marg-20">
+                    <app-stars [estimation]="story.estimation || 0"></app-stars>
+                </div>
+            </div>
+            <div>
+                <app-image src="address.svg"></app-image>&nbsp;{{story.address}}
+            </div>
+            <app-story-img [photos]="story.storyPhotos||[]"></app-story-img>
+        </div>
+        <div class="map-address">
+            <div class="map"></div>
+            <div>
+                <app-address [name]="story.name||story.title" [phone]="story.phone" [mail]="story.mail"
+                    [link]="story.link"></app-address>
+            </div>
+        </div>
+        <div class="main-center">
+            <div>
+                <div class="profile">{{'Reviewer’s Accessibility Profile'|translate}}</div>
+                <div class="main-shadow" *ngIf="story.user">
+                    <app-top-profile [user]="story.user"></app-top-profile>
+                </div>
+            </div>
+        </div>
+        <div class="main-center">
+            <div class="accs" *ngIf="story?.accessibility?.length">
+                <div *ngFor="let a of story.accessibility" class="acc">
+                    <app-accessibility-view [accessibility]="a"></app-accessibility-view>
+                </div>
+            </div>
+        </div>
+        <div class="comments">
+            <div [innerHTML]="story.comments"></div>
         </div>
     </div>
-    <div class="user" *ngIf="story.user">
-        <app-top-profile [user]="story.user"></app-top-profile>
-    </div>
-    <div class="flex photos" *ngIf="story.storyPhotos">
-        <div class="photo" *ngFor="let p of story.storyPhotos">
-            <app-big-image [files]="story.storyPhotos" [file]="p">
-                <app-file-image [fileName]="p.fileName"></app-file-image>
-            </app-big-image>
-        </div>
-    </div>
-    <div class="accs" *ngIf="story?.accessibility?.length">
-        <div *ngFor="let a of story.accessibility" class="acc">
-            <app-accessibility-view [accessibility]="a"></app-accessibility-view>
-        </div>
-    </div>
-    <div [innerHTML]="story.comments"></div>
 </div>

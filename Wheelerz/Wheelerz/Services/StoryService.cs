@@ -19,6 +19,7 @@ namespace Wheelerz.Services
         Task Delete(int storyId);
         Task<List<int>> GetStoryIds(StorySelector request);
         Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
+        Task<PageResponse<IEnumerable<Story>>> SelectForUser(StorySelector storySelector);
     }
     public class StoryService : IStoryService
     {
@@ -37,6 +38,7 @@ namespace Wheelerz.Services
             return Task.Run(async () =>
             {
                 story.lang = _userService.CurrenUser.lang;
+                story.mobilityNumber = _userService.CurrenUser.mobilityNumber;
                 story.dateAdd = DateTime.Now;
                 story.key = Guid.NewGuid().ToString();
                 story.storyPhotos = new List<StoryPhoto>();
@@ -74,6 +76,7 @@ namespace Wheelerz.Services
                         //storyId = story.id,
                     });
                 });
+                story.mainImage = story.storyPhotos?.FirstOrDefault()?.fileName;
                 _data.Stories?.Add(story);
                 await _data.SaveChangesAsync();
                 return story;
@@ -103,11 +106,14 @@ namespace Wheelerz.Services
                     }
                 });
 
+                s.mainImage = "";
                 story.photos.ForEach((photo) =>
                 {
+                    if (s.mainImage == "") s.mainImage = photo.fileName;
                     if (photo.id != 0) return;
 
                     var fileName = _uploadService.SaveFile(photo);
+                    if (s.mainImage == "") s.mainImage = photo.fileName;
 
                     s.storyPhotos.Add(new StoryPhoto
                     {
@@ -123,6 +129,10 @@ namespace Wheelerz.Services
                 s.cityId = story.cityId;
                 s.countryId = story.countryId;
                 s.estimation = story.estimation;
+                s.phone = story.phone;
+                s.link = story.link;
+                s.address = story.address;
+                s.mail = story.mail;
                 s.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
                 s.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
 
@@ -200,6 +210,7 @@ namespace Wheelerz.Services
                             .Include(x => x.user).ThenInclude(x => x.mobilities)
                             .Include(x => x.user).ThenInclude(x => x.country)
                             .Include(x => x.user).ThenInclude(x => x.state)
+                            .Include(x => x.user).ThenInclude(x => x.chairInfo)
                                    where s.id == id && s.deleted == 0
                                    select new Story
                                    {
@@ -210,8 +221,14 @@ namespace Wheelerz.Services
                                                           fileName = p.fileName,
                                                           small = ""
                                                       }).ToList(),
+                                       phone = s.phone,
+                                       address = s.address,
+                                       mail = s.mail,
+                                       link = s.link,
+                                       map = s.map,
                                        name = s.name,
                                        title = s.title,
+                                       mobilityNumber = s.mobilityNumber,
                                        countryId = s.countryId,
                                        cityId = s.cityId,
                                        country = s.country,
@@ -349,6 +366,40 @@ namespace Wheelerz.Services
                     if (x.storyPhotos != null && x.storyPhotos.Count > 0)
                         x.storyPhotos = new List<StoryPhoto> { x.storyPhotos[0] };
                 });
+
+                return new PageResponse<IEnumerable<Story>>
+                {
+                    total = total,
+                    result = list
+                };
+            });
+        }
+
+        public Task<PageResponse<IEnumerable<Story>>> SelectForUser(StorySelector request)
+        {
+            return Task.Run(async () =>
+            {
+                var linq = _data.Stories
+                    .Include(x => x.city)
+                    .Include(x => x.country)
+                    .Include(x => x.mobilities)
+                    .Where(x => x.deleted == 0)
+                    .Where(x => x.lang == _userService.CurrenUser.lang)
+                    .Where(x => x.storyType == request.type)
+                    .Where(x =>
+                           (request.countryId == 0 || x.countryId == request.countryId)
+                        && (request.cityId == 0 || x.cityId == request.cityId)
+                    );
+
+                var total = await linq.AsSplitQuery().CountAsync();
+                var list = await linq
+                    .OrderByDescending(x => x.mobilityNumber & _userService.CurrenUser.mobilityNumber)
+                    .ThenByDescending(x => x.userId - _userService.CurrenUser.id)
+                    .ThenByDescending(x => x.dateAdd)
+                    .ThenByDescending(x => x.endDate)
+                    .Skip(request.page.current * request.page.size)
+                    .Take(request.page.size)
+                    .ToListAsync();
 
                 return new PageResponse<IEnumerable<Story>>
                 {

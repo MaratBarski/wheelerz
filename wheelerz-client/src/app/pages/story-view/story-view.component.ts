@@ -11,11 +11,23 @@ import { AccessibilityViewComponent } from 'src/app/components/accessibility-vie
 import { LoaderService } from 'src/app/services/loader.service'
 import { FileImageComponent } from 'src/app/components/file-image/file-image.component'
 import { BigImageComponent } from 'src/app/components/big-image/big-image.component'
+import { ImageComponent } from 'src/app/components/image/image.component'
+import { StoryImgComponent } from 'src/app/components/story-img/story-img.component'
+import { AddressComponent } from 'src/app/components/address/address.component'
 
 @Component({
   selector: 'app-story-view',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, StarsComponent, BigImageComponent, TopProfileComponent, AccessibilityViewComponent, FileImageComponent],
+  imports: [CommonModule,
+    TranslatePipe,
+    StarsComponent,
+    StoryImgComponent,
+    ImageComponent,
+    BigImageComponent,
+    TopProfileComponent,
+    AccessibilityViewComponent,
+    AddressComponent,
+    FileImageComponent],
   templateUrl: './story-view.component.html',
   styleUrls: ['./story-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

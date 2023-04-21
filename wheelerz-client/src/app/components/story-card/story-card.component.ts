@@ -6,11 +6,12 @@ import { AvatarComponent } from '../avatar/avatar.component'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { RouterModule } from '@angular/router'
 import { UserService } from 'src/app/services/user.service'
+import { ImageComponent } from '../image/image.component'
 
 @Component({
   selector: 'app-story-card',
   standalone: true,
-  imports: [CommonModule, StarsComponent, AvatarComponent, TranslatePipe, RouterModule],
+  imports: [CommonModule, StarsComponent, AvatarComponent, TranslatePipe, RouterModule,ImageComponent],
   templateUrl: './story-card.component.html',
   styleUrls: ['./story-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

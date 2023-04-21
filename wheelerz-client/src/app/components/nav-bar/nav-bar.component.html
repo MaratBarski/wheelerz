@@ -2,4 +2,5 @@
     <ng-container *ngFor="let l of links">
         <a [routerLinkActive]="['active-link']" [routerLink]="[l.link]">{{l.name|translate}}</a>
     </ng-container>
+    <ng-content></ng-content>
 </div>

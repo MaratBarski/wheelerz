@@ -9,7 +9,6 @@
 }
 .card {
     display: flex;
-    justify-content: space-between;
 }
 .image {
     border-radius: 100px;
@@ -28,10 +27,15 @@
 }
 .title {
     font-size: 1.6rem;
+    font-weight: bold;
 }
 .date {
+    display: flex;
     margin-top: 6px;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    justify-content: flex-end;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 .info {
     display: block;
@@ -41,4 +45,19 @@
 }
 .main-flex{
     align-items: center;
+}
+.info-stars{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.comment-stars{
+    width: 100%;
+}
+.address{
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+.comments{
+    margin-top: 10px;
 }

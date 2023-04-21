@@ -41,4 +41,10 @@ export interface Story extends BaseItem {
     country?: Country
     city?: State
     mobilities?: MobilityType[]
+    phone?: string
+    address?: string
+    map?: string
+    mail?: string
+    link?: string
+    mainImage?: string
 }

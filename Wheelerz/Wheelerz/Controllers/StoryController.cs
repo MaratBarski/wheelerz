@@ -70,7 +70,7 @@ namespace Wheelerz.Controllers
         public async Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector)
         {
             await _userService.UpdateLastAccess();
-            return await _storyService.Select(storySelector);
+            return await _storyService.SelectForUser(storySelector);
         }
     }
 }

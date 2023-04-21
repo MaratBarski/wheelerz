@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace Wheelerz.Models
 {
     public class Story
@@ -50,6 +51,26 @@ namespace Wheelerz.Models
         [Column("deleted")]
         public int deleted { get; set; }
 
+        [Column("phone")]
+        public string? phone { get; set; }
+
+        [Column("map")]
+        public string? map { get; set; }
+
+        [Column("address")]
+        public string? address { get; set; }
+
+        [Column("mail")]
+        public string? mail { get; set; }
+
+        [Column("link")]
+        public string? link { get; set; }
+
+        [Column("mainImage")]
+        public string? mainImage { get; set; }
+
+        [Column("mobilityNumber")]
+        public int mobilityNumber { get; set; }
         public List<Accessibility>? accessibility { get; set; }
         public List<StoryMobility>? mobilities { get; set; }
         public User? user { get; set; }

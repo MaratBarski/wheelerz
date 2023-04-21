@@ -160,3 +160,21 @@ CREATE TABLE [storyMobilities](
 	[name] [varchar](100) NOT NULL
 ) 
 go
+
+alter table stories add phone varchar(100)
+go
+alter table stories add map varchar(100)
+go
+alter table stories add [address] varchar(500)
+go
+alter table stories add [mail] varchar(200)
+go
+alter table stories add [link] varchar(200)
+
+go
+alter table users add mobilityNumber int not null default(0)
+go
+alter table stories add mobilityNumber int not null default(0)
+go
+alter table stories add mainImage varchar(100)
+go

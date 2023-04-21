@@ -1,18 +1,18 @@
-<div>
-    <!-- {{accessibility|json}} -->
+<div class="main-shadow">
+     <!-- {{accessibility|json}} -->
     <div class="title">{{accessibility.name|translate}}</div>
-    <div class="flex" *ngIf="accessibility.accessibilityItems?.length">
+    <div  *ngIf="accessibility.accessibilityItems?.length">
         <div class="item" *ngFor="let it of accessibility.accessibilityItems">
             <span class="it1">{{it.name|translate}}</span>:&nbsp;
             <span class="it2">{{it.selectedValue|translate}}</span>
         </div>
     </div>
-    <div class="images" *ngIf="accessibility.files?.length">
+    <!-- <div class="images" *ngIf="accessibility.files?.length">
         <div class="img" *ngFor="let f of accessibility.files">
             <app-big-image [files]="accessibility.files || []" [file]="f">
                 <app-file-image [fileName]="f.fileName"></app-file-image>
             </app-big-image>
         </div>
-    </div>
+    </div> -->
     <div>{{accessibility.comments}}</div>
 </div>

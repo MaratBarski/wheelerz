@@ -13,8 +13,14 @@ import { SERVER_URL } from 'src/app/consts'
 export class FileImageComponent {
   @Input() fileName!: string
   @Input() small?: string
+  @Input() isBig = false
+
+  get prefix(): string {
+    return this.isBig ? '' : 'p'
+  }
 
   get src(): string {
-    return this.small ? this.small : `${SERVER_URL}/image/p${this.fileName}`
+    return this.small ? this.small : `${SERVER_URL}/image/${this.prefix}${this.fileName}`
   }
+  
 }
