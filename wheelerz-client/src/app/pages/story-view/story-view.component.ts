@@ -19,6 +19,9 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { StoryComment } from 'src/app/models/story-comment'
 import { AvatarComponent } from 'src/app/components/avatar/avatar.component'
 import { UserService } from 'src/app/services/user.service'
+import { WizardItem } from 'src/app/models/accesability'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { PhotoGalleryComponent } from 'src/app/components/photo-gallery/photo-gallery.component'
 
 @Component({
   selector: 'app-story-view',
@@ -34,6 +37,8 @@ import { UserService } from 'src/app/services/user.service'
     AccessibilityViewComponent,
     InputCommentComponent,
     AddressComponent,
+    PhotoGalleryComponent,
+    MatDialogModule,
     FileImageComponent],
   templateUrl: './story-view.component.html',
   styleUrls: ['./story-view.component.scss'],
@@ -45,6 +50,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   loader = inject(LoaderService)
   cd = inject(ChangeDetectorRef)
   userService = inject(UserService)
+  constructor(public dialog: MatDialog) { }
 
 
   comments: StoryComment[] = []
@@ -101,5 +107,18 @@ export class StoryViewComponent implements OnInit, OnDestroy {
       this.loader.load(false)
       this.cd.markForCheck()
     })
+  }
+
+  openAcc(item: WizardItem): void {
+    const dialogRef = this.dialog.open(PhotoGalleryComponent, {
+      data: {
+        files: item.files,
+        name: item.name,
+        text: item.comments
+      }
+    })
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`)
+    // });
   }
 }

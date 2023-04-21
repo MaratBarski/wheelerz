@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     { name: 'road_trip_stories', link: 'stories' },
     { name: 'hotel_reviews', link: 'hotel-reviews' },
     { name: 'cities_accessibility', link: 'cities-accessibility' },
-    { name: 'trends', link: 'fellow-travelers' },
+   // { name: 'trends', link: 'fellow-travelers' },
   ]
 
   links$: Observable<NavLink[]> = combineLatest([

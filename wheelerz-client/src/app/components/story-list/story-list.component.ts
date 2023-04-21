@@ -57,6 +57,14 @@ export class StoryListComponent implements OnInit, OnDestroy {
     return StoryUrls[this.type].view
   }
 
+  get noDataSrc(): string {
+    return `nodata-${this.type}.svg`
+  }
+
+  get nodataText(): string {
+    return `nodata_${this.type}`
+  }
+
   updateSearchText(text: string): void {
     if (!text) text = ''
     this.storySelector.q = text.trim()

@@ -1,0 +1,23 @@
+<div class="cnt">
+    <div class="close">
+        <app-image (click)="close()" src="delete.svg"></app-image>
+    </div>
+    <div class="comments">
+        <div class="title">{{name|translate}}</div>
+        <div class="txt">{{text}}</div>
+        <div *ngIf="!text" class="no-data">{{'no_comments'|translate}}</div>
+    </div>
+    <div *ngIf="files?.length">
+        <div class="big">
+            <app-file-image [fileName]="currentFile" [isBig]="true"></app-file-image>
+        </div>
+        <div class="flex">
+            <div *ngFor="let f of files;let i = index">
+                <app-file-image (click)="setCurrent(i)" [fileName]="f"></app-file-image>
+            </div>
+        </div>
+    </div>
+    <div class="no-data" *ngIf="!files?.length">
+        {{'no_photos'|translate}}
+    </div>
+</div>

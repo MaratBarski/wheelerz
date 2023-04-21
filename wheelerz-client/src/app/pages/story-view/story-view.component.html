@@ -9,10 +9,12 @@
                     <app-stars [estimation]="story.estimation || 0"></app-stars>
                 </div>
             </div>
-            <div class="add-view">
+            <div class="add-view" *ngIf="story.address">
                 <app-image src="address.svg"></app-image>&nbsp;{{story.address}}
             </div>
-            <app-story-img [photos]="story.storyPhotos||[]"></app-story-img>
+            <ng-container *ngIf="story?.storyPhotos?.length">
+                <app-story-img [photos]="story.storyPhotos||[]"></app-story-img>
+            </ng-container>
         </div>
 
         <div class="map-address">
@@ -35,27 +37,30 @@
 
         <div>
             <div class="accs" *ngIf="story?.accessibility?.length">
-                <div *ngFor="let a of story.accessibility" class="acc">
+                <div (click)="openAcc(a)" *ngFor="let a of story.accessibility" class="acc">
                     <app-accessibility-view [accessibility]="a"></app-accessibility-view>
                 </div>
             </div>
 
+            <div class="comments">
+                <div [innerHTML]="story.comments"></div>
+            </div>
+
             <div class="comment-title">Comments</div>
             <div class="editor">
-                <app-input-comment commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false" [isFooter]="false" [form]="form"
-                    [isEditor]="false">
+                <app-input-comment commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false"
+                    [isFooter]="false" [form]="form" [isEditor]="false">
                     <div class="add-commentsd">
                         <button class="main-btn" (click)="addComment()">{{'publish'|translate}}</button>
                     </div>
                 </app-input-comment>
             </div>
 
-
             <div *ngIf="comments">
                 <div class="coment-line" *ngFor="let com of comments">
                     <div class="com-item flex">
                         <div class="avatar">
-                            <app-avatar [avatar]="com.user?.avatar"></app-avatar>
+                            <app-avatar [width]="120" [avatar]="com.user?.avatar"></app-avatar>
                         </div>
                         <div>
                             <div class="user-name">{{com.user?.firstName}}&nbsp;{{com.user?.lastName}}</div>
@@ -69,9 +74,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="comments">
-            <div [innerHTML]="story.comments"></div>
         </div>
     </div>
 </div>

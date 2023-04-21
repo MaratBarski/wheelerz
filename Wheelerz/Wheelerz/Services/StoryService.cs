@@ -111,11 +111,11 @@ namespace Wheelerz.Services
                 s.mainImage = "";
                 story.photos.ForEach((photo) =>
                 {
-                    if (s.mainImage == "") s.mainImage = photo.fileName;
+                    if (string.IsNullOrEmpty(s.mainImage)) s.mainImage = photo.fileName;
                     if (photo.id != 0) return;
 
                     var fileName = _uploadService.SaveFile(photo);
-                    if (s.mainImage == "") s.mainImage = photo.fileName;
+                    if (string.IsNullOrEmpty(s.mainImage)) s.mainImage = fileName;
 
                     s.storyPhotos.Add(new StoryPhoto
                     {

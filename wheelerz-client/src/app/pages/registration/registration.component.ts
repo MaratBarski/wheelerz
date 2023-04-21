@@ -36,7 +36,7 @@ export class RegistrationComponent {
   router = inject(Router)
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog)
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, { data: '1321' })
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`)
