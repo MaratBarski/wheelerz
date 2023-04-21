@@ -21,6 +21,7 @@ namespace Wheelerz.Services
         Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
         Task<PageResponse<IEnumerable<Story>>> SelectForUser(StorySelector storySelector);
         Task<List<StoryComment>> AddComment(StoryComment comment);
+        Task<List<StoryComment>> DeleteComment(int comment);
     }
     public class StoryService : IStoryService
     {
@@ -226,6 +227,7 @@ namespace Wheelerz.Services
                                        userComments = (from c in s.userComments
                                                        select new StoryComment
                                                        {
+                                                           isMy = c.userId == _userService.CurrenUser.id,
                                                            text = c.text,
                                                            id = c.id,
                                                            dateAdd = c.dateAdd,
@@ -436,6 +438,24 @@ namespace Wheelerz.Services
                     comment.dateAdd = DateTime.Now;
                     _data.StoryComments.Add(comment);
                     await _data.SaveChangesAsync();
+                }
+                var s = await GetStoryById(comment.storyId);
+                return s.userComments;
+            });
+        }
+
+        public Task<List<StoryComment>> DeleteComment(int id)
+        {
+            return Task.Run(async () =>
+            {
+                var comment = await _data.StoryComments.FirstOrDefaultAsync(x => x.id == id);
+                if(comment != null)
+                {
+                    if(_userService.IsValidUser(comment.userId))
+                    {
+                        _data.StoryComments.Remove(comment);
+                        await _data.SaveChangesAsync();
+                    }
                 }
                 var s = await GetStoryById(comment.storyId);
                 return s.userComments;

@@ -79,5 +79,13 @@ namespace Wheelerz.Controllers
             await _userService.UpdateLastAccess();
             return await _storyService.AddComment(comment);
         }
+
+        [HttpDelete("delete-comment/{id}")]
+        public async Task<List<StoryComment>> DeleteComment(int id)
+        {
+            await _userService.UpdateLastAccess();
+            return await _storyService.DeleteComment(id);
+        }
+
     }
 }

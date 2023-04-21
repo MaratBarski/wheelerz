@@ -29,6 +29,7 @@ namespace Wheelerz.Services
         User CurrenUser { get; }
         Task UpdateLastAccess();
         bool IsNotValidUser(int id);
+        bool IsValidUser(int id);
     }
     public class UserService : IUserService
     {
@@ -151,6 +152,10 @@ namespace Wheelerz.Services
             return (!CurrenUser.isAdmin && id != CurrenUser.id);
         }
 
+        public bool IsValidUser(int id)
+        {
+            return !IsNotValidUser(id);
+        }
         public User GetUserInfo(int id)
         {
             if (id == 0) id = CurrenUser.id;

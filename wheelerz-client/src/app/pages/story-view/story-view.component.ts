@@ -18,6 +18,7 @@ import { InputCommentComponent } from 'src/app/components/input-comment/input-co
 import { FormControl, FormGroup } from '@angular/forms'
 import { StoryComment } from 'src/app/models/story-comment'
 import { AvatarComponent } from 'src/app/components/avatar/avatar.component'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-story-view',
@@ -43,6 +44,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   activatedRoute = inject(ActivatedRoute)
   loader = inject(LoaderService)
   cd = inject(ChangeDetectorRef)
+  userService = inject(UserService)
 
 
   comments: StoryComment[] = []
@@ -82,6 +84,20 @@ export class StoryViewComponent implements OnInit, OnDestroy {
     this.loader.load(true)
     this.dataService.addComment(comment).pipe(first()).subscribe((res) => {
       this.comments = res
+      this.loader.load(false)
+      this.cd.markForCheck()
+    })
+  }
+
+  isDeleteEnable(item: StoryComment): boolean {
+    return this.userService.isAdmin || !!item.isMy
+  }
+
+  deleteComment(com: StoryComment): void {
+    if (!com.id) return
+    this.loader.load(true)
+    this.dataService.deleteComment(com.id).pipe(first()).subscribe(res => {
+      this.comments = this.comments.filter(x => x.id !== com.id)
       this.loader.load(false)
       this.cd.markForCheck()
     })

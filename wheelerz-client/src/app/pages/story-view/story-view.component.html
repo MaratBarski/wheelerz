@@ -42,7 +42,7 @@
 
             <div class="comment-title">Comments</div>
             <div class="editor">
-                <app-input-comment [areaHeight]="150" [isTitle]="false" [isFooter]="false" [form]="form"
+                <app-input-comment commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false" [isFooter]="false" [form]="form"
                     [isEditor]="false">
                     <div class="add-commentsd">
                         <button class="main-btn" (click)="addComment()">{{'publish'|translate}}</button>
@@ -52,15 +52,20 @@
 
 
             <div *ngIf="comments">
-                <div class="com-item flex" *ngFor="let com of comments">
-                    <div class="avatar">
-                        <app-avatar [avatar]="com.user?.avatar"></app-avatar>
-                    </div>
-                    <div>
-                        <div class="user-name">{{com.user?.firstName}}&nbsp;{{com.user?.lastName}}</div>
-                        <div class="comment-text">
-                            {{com.text}}
+                <div class="coment-line" *ngFor="let com of comments">
+                    <div class="com-item flex">
+                        <div class="avatar">
+                            <app-avatar [avatar]="com.user?.avatar"></app-avatar>
                         </div>
+                        <div>
+                            <div class="user-name">{{com.user?.firstName}}&nbsp;{{com.user?.lastName}}</div>
+                            <div class="comment-text">
+                                {{com.text}}
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="isDeleteEnable(com)" class="clear">
+                        <app-image (click)="deleteComment(com)" src="clear.svg"></app-image>
                     </div>
                 </div>
             </div>

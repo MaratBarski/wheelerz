@@ -24,5 +24,8 @@ namespace Wheelerz.Models
         public string? text { get; set; }
 
         public User? user { get; set; }
+
+        [NotMapped]
+        public bool isMy { get; set; }
     }
 }

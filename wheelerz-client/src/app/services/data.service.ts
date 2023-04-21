@@ -109,6 +109,10 @@ export class DataService {
     return this.post('story/add-comment', comment)
   }
 
+  deleteComment(id: number): Observable<StoryComment[]> {
+    return this.delete(`story/delete-comment/${id}`)
+  }
+
   addCountries(): void {
     this.http.get('./assets/data/countries.json')
       .subscribe((res: any) => {

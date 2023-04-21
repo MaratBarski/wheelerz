@@ -6,4 +6,5 @@ export interface StoryComment {
     text: string
     dateAdd?: Date
     storyId?: number
+    isMy?: boolean
 }

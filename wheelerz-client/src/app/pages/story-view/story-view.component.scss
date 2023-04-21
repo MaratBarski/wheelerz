@@ -1,16 +1,16 @@
 .cnt {
     margin-top: 20px;
     display: table;
-    margin:  0px auto;
+    margin: 0px auto;
 }
-.main-cnt{
+.main-cnt {
     display: table;
 }
 .name {
     font-size: 2rem;
     font-weight: bold;
 }
-.add-view{
+.add-view {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 1.2rem;
@@ -40,14 +40,14 @@
 .photo {
     margin: 4px;
 }
-.photos{
+.photos {
     margin-top: 10px;
 }
-.map-address{
+.map-address {
     display: flex;
     margin-top: 10px;
 }
-.map{
+.map {
     height: 255px;
     width: 740px;
     border: 2px solid #ccc;
@@ -57,52 +57,60 @@
     justify-items: center;
     justify-content: center;
 }
-.profile{
+.profile {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 1.4rem;
 }
-.main-shadow{
+.main-shadow {
     display: inline-flex;
     margin-top: 10px;
 }
-.comments{
+.comments {
     max-width: 200px;
     overflow: hidden;
 }
-.editor{
+.editor {
     width: 900px;
     margin-bottom: 50px;
 }
-.add-commentsd{
+.add-commentsd {
     padding-left: 10px;
     padding-right: 10px;
     display: flex;
     width: 100%;
     justify-content: end;
 }
-.com-item{
-    align-items: start;
+.coment-line {
     margin-top: 10px;
     padding-bottom: 20px;
     padding-top: 20px;
     border-bottom: 1px solid #ccc;
+}
+.com-item {
+    align-items: start;
     width: 900px;
 }
-.avatar{
+.avatar {
     margin-left: 10px;
     margin-right: 10px;
 }
-.user-name{
+.user-name {
     font-size: 1.6rem;
     font-weight: bold;
 }
-.comment-text{
+.comment-text {
     margin-top: 20px;
     font-size: 1.2rem;
 }
-.comment-title{
+.comment-title {
     font-size: 2rem;
     margin-top: 40px;
     margin-bottom: 40px;
+}
+.clear {
+    display: flex;
+    justify-content: end;
+    width: 500px;
+    cursor: pointer;
 }
