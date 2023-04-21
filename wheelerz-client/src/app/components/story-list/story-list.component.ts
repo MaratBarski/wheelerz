@@ -105,6 +105,7 @@ export class StoryListComponent implements OnInit, OnDestroy {
   select(): void {
     this.isNoData = false
     this.loader.load(true)
+    this.storySelector = {...this.storySelector}
     this.dataService.selectStories(this.storySelector).pipe(
       tap(res => {
         this.total = res.total

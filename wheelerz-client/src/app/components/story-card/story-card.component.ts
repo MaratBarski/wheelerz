@@ -22,4 +22,5 @@ export class StoryCardComponent {
   @Input() isShowAvatar = true
   @Input() editable = false
   @Output() onDelete = new EventEmitter<Story>()
+  @Input()raduius = 10
 }

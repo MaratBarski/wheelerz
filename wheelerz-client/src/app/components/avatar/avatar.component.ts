@@ -24,6 +24,7 @@ export class AvatarComponent implements OnInit {
   @Input() width = 200
   @Output() onChange = new EventEmitter<string>()
   @Input() userId = 0
+  @Input()raduius = 200
 
   openFile(): void {
     this.fileUpload.nativeElement.click()
