@@ -8,7 +8,7 @@ import { ImageComponent } from '../image/image.component'
 @Component({
   selector: 'app-photo-gallery',
   standalone: true,
-  imports: [CommonModule, FileImageComponent, MatDialogModule, TranslatePipe,ImageComponent],
+  imports: [CommonModule, FileImageComponent, MatDialogModule, TranslatePipe, ImageComponent],
   templateUrl: './photo-gallery.component.html',
   styleUrls: ['./photo-gallery.component.scss'],
   providers: [MatDialogConfig],
@@ -19,7 +19,7 @@ export class PhotoGalleryComponent {
   @Input() name = ''
   @Input() text = ''
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<PhotoGalleryComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<PhotoGalleryComponent>) {
     this.files = data.files.map((x: any) => x.fileName)
     this.name = data.name
     this.text = data.text
@@ -35,7 +35,7 @@ export class PhotoGalleryComponent {
     this.currentIndex = i
   }
 
-  close():void{
+  close(): void {
     this.dialogRef.close()
   }
 }

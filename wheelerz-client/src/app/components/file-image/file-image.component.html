@@ -1,1 +1,6 @@
-<img [src]="src">
+<div class="cnt">
+    <img #img [src]="src">
+    <div class="loading" *ngIf="isLoading">
+        <img src="./assets/img/loading.gif">
+    </div>
+</div>
