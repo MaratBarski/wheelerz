@@ -1,7 +1,7 @@
 //ng build --base-href=https://manager.ct-dent.co.il/wheelerz/
 
-//export const SERVER_URL = 'https://localhost:7059'
-export const SERVER_URL = 'https://manager.ct-dent.co.il/booking-api'
+export const SERVER_URL = 'https://localhost:7059'
+//export const SERVER_URL = 'https://manager.ct-dent.co.il/booking-api'
 
 
 export const langs = ['en', 'he'];
