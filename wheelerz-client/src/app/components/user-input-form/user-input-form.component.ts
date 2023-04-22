@@ -44,6 +44,7 @@ export class UserInputFormComponent implements OnInit {
   @Input() formTitle = 'share_your_story_with_the_community'
   @Input() css = 'story'
   @Input() isShowName = false
+  @Input() isShowMap = false  
   @Input() files: FileImage[] = []
   @Input() story: Story = {
     storyType: StoryType.story,

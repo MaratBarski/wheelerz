@@ -1,6 +1,6 @@
 <ng-container *ngIf="story$|async as story">
     <div [class.hide]="step>0">
-        <app-user-input-form formTitle="edit_story" [story]="story" [isShowName]="isHotel"
+        <app-user-input-form formTitle="edit_story" [story]="story" [isShowMap]="isHotel" [isShowName]="isHotel"
             (onPublish)="onPublish($event)"></app-user-input-form>
     </div>
     <div *ngIf="wizard" [class.hide]="step===0">

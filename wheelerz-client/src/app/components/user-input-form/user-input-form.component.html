@@ -29,7 +29,7 @@
             <app-input-comment [files]="files" (onImageUpdates)="onImageUpdates($event)"
                 [form]="form"></app-input-comment>
         </div>
-        <div class="map flex" *ngIf="userService.isAdmin">
+        <div class="map flex" *ngIf="userService.isAdmin && isShowMap">
             {{'map'|translate}}&nbsp;
             <app-file-image *ngIf="story.map" [isBig]="true" [fileName]="story.map"></app-file-image>
             <app-upload (onChange)="updateMap($event)" [multiple]="false"></app-upload>
