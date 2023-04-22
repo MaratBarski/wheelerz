@@ -10,11 +10,12 @@ import { ChairInfoComponent } from 'src/app/components/chair-info/chair-info.com
 import { ProgressBarComponent } from 'src/app/components/progress-bar/progress-bar.component'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Router } from '@angular/router'
+import { ReverseDirective } from 'src/app/directives/reverse.directive'
 
 @Component({
   selector: 'app-my-accessibility',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, MobilityTypeComponent, ChairOptionsComponent, ChairInfoComponent, ProgressBarComponent],
+  imports: [CommonModule, TranslatePipe, ReverseDirective, MobilityTypeComponent, ChairOptionsComponent, ChairInfoComponent, ProgressBarComponent],
   templateUrl: './my-accessibility.component.html',
   styleUrls: ['./my-accessibility.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -56,11 +57,11 @@ export class MyAccessibilityComponent {
         this.selectedTypes = new Set<string>(res.mobilities.map(x => x.name))
         this.chairInfo = {
           ...this.chairInfo,
-          width: res.chairInfo?.width ||0,
+          width: res.chairInfo?.width || 0,
           length: res.chairInfo?.length || 0,
           seatHeight: res.chairInfo?.seatHeight || 0
         }
-        this.selectedCm = res.chairInfo?.messure ||  this.selectedCm
+        this.selectedCm = res.chairInfo?.messure || this.selectedCm
         this.chairOptions = this.chairOptions.map(x => ({
           ...x,
           selectedKey: res.chairOptions.find(y => y.key === x.name)?.value || x.selectedKey

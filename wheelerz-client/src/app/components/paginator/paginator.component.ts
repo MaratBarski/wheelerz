@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
+import { ReverseDirective } from 'src/app/directives/reverse.directive'
 
 @Component({
   selector: 'app-paginator',
   standalone: true,
-  imports: [CommonModule,TranslatePipe],
+  imports: [CommonModule, TranslatePipe, ReverseDirective],
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,7 +1,7 @@
 <div class="cnt" *ngIf="userMobility$|async as userMobility">
     <div class="wzrd">
         <div [class.unvisible]="!noWalk || !step">
-            <img class="pointer prev-btn" (click)="next(-1)" src="./assets/img/prev.svg">
+            <img appReverse class="pointer prev-btn" (click)="next(-1)" src="./assets/img/prev.svg">
         </div>
         <div class="cntr">
             <div [class.no-display]="isHideMobType">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div>
-            <img [class.unvisible]="!noWalk || nextDisable" class="pointer next-btn" (click)="next(1)"
+            <img appReverse [class.unvisible]="!noWalk || nextDisable" class="pointer next-btn" (click)="next(1)"
                 src="./assets/img/next.svg">
             <button [class.unvisible]="!noWalk || !nextDisable" class="main-btn"
                 (click)="save()">{{'done'|translate}}</button>

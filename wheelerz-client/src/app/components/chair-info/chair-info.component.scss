@@ -11,17 +11,21 @@
     width: 400px;
     height: 400px;
     display: flex;
+    overflow: hidden;
     justify-content: center;
 }
-.radio1{
+:host ::ng-deep .img1 img {
+    width: 100%;
+}
+.radio1 {
     margin-top: 10px;
 }
-.inputs{
+.inputs {
     display: flex;
 }
-.inputs input{
+.inputs input {
     width: 50px;
 }
-.inp{
+.inp {
     margin: 10px;
 }

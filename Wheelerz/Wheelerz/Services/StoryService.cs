@@ -35,10 +35,30 @@ namespace Wheelerz.Services
             _userService = userService;
         }
 
+        private bool UpdateAndValidate(Story story)
+        {
+            if (!string.IsNullOrEmpty(story.mail)) story.mail = story.mail.Trim();
+            if (!string.IsNullOrEmpty(story.name)) story.name = story.name.Trim();
+            if (!string.IsNullOrEmpty(story.title)) story.title = story.title.Trim();
+            if (!string.IsNullOrEmpty(story.link)) story.link = story.link.Trim();
+            if (!string.IsNullOrEmpty(story.address)) story.address = story.address.Trim();
+            if (!string.IsNullOrEmpty(story.phone)) story.phone = story.phone.Trim();
+
+            if (story.storyType == 2 && string.IsNullOrEmpty(story.name)) return false;
+            if (story.storyType != 2 && string.IsNullOrEmpty(story.title)) return false;
+            if (story.cityId == 0) return false;
+            if (story.countryId == 0) return false;
+            if (story.estimation == 0) return false;
+
+            return true;
+        }
+
         public Task<Story> Add(Story story)
         {
             return Task.Run(async () =>
             {
+                if (!this.UpdateAndValidate(story)) return null;
+
                 story.lang = _userService.CurrenUser.lang;
                 story.mobilityNumber = _userService.CurrenUser.mobilityNumber;
                 story.dateAdd = DateTime.Now;
@@ -93,6 +113,8 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
+                if (!this.UpdateAndValidate(story)) return;
+
                 var s = await _data.Stories
                 .Include(x => x.storyPhotos)
                 .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)

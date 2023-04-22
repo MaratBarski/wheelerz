@@ -20,7 +20,8 @@ import { FileImageComponent } from '../file-image/file-image.component'
 @Component({
   selector: 'app-user-input-form',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     EstimationLineComponent,
     InputLineComponent,
     TranslatePipe,
@@ -44,7 +45,7 @@ export class UserInputFormComponent implements OnInit {
   @Input() formTitle = 'share_your_story_with_the_community'
   @Input() css = 'story'
   @Input() isShowName = false
-  @Input() isShowMap = false  
+  @Input() isShowMap = false
   @Input() files: FileImage[] = []
   @Input() story: Story = {
     storyType: StoryType.story,
@@ -55,6 +56,13 @@ export class UserInputFormComponent implements OnInit {
   dateTimeService = inject(DateTimeService)
 
   get isValid(): boolean {
+    if (!this.story.cityId) return false
+    if (!this.story.countryId) return false
+    if (!this.story.estimation) return false
+    if (!this.story.startDate) return false
+    if (!this.story.endDate) return false
+    if ((!this.form.get('name')?.value || this.form.get('name')?.value.trim() === '') && this.isShowName) return false
+    if ((!this.form.get('title')?.value || this.form.get('title')?.value.trim() === '') && !this.isShowName) return false
     return this.form.valid
   }
 
