@@ -471,7 +471,8 @@ namespace Wheelerz.Services
                     .Include(x => x.mobilities)
                     .Where(x => x.deleted == 0)
                     .Where(x => x.lang == _userService.CurrenUser.lang)
-                    .Where(x => x.storyType == request.type)
+                    .Where(x => x.storyType == request.type || request.type == 0)
+                    .Where(x=> request.userId == 0 || (x.userId == request.userId && request.isOnlyMy))
                     .Where(x =>
                            (request.countryId == 0 || x.countryId == request.countryId)
                         && (request.cityId == 0 || x.cityId == request.cityId)
