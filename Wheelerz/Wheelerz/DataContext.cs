@@ -22,6 +22,8 @@ namespace Wheelerz
         public DbSet<ChairInfo> ChairInfos { get; set; }
         public DbSet<ChairOption> ChairOptions { get; set; }
         public DbSet<StoryComment> StoryComments { get; set; }
+
+        public DbSet<ChairStoryInfo> ChairStoryInfos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

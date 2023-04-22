@@ -12,8 +12,8 @@
             <app-avatar (onChange)="onAvatarChanged.emit($event)" [userId]="user?.id || 0" [isEditable]="isEditable" [avatar]="user.avatar"></app-avatar>
         </div>
         <div class="acc">
-            <div class="mob flex" *ngIf="user.mobilities">
-                <div class="flex mob-item" *ngFor="let m of user.mobilities">
+            <div class="mob flex" *ngIf="mobilities">
+                <div class="flex mob-item" *ngFor="let m of mobilities">
                     <div class="mob-img">
                         <img src="./assets/img/{{m.name}}small.svg">
                     </div>
@@ -22,29 +22,29 @@
                     </div>
                 </div>
             </div>
-            <div class="mob flex" *ngIf="user.chairInfo && user.noWalk">
-                <div class="flex mob-item" *ngIf="user.chairInfo.length > 0">
+            <div class="mob flex" *ngIf="chair && noWalk">
+                <div class="flex mob-item" *ngIf="chair.length > 0">
                     <div class="mob-img">
                         <img src="./assets/img/chair_length.svg">
                     </div>
                     <div class="mob-name">
-                        {{'chair_length'|translate}}:&nbsp;{{user.chairInfo.length}}&nbsp;{{user.chairInfo.messure|translate}}
+                        {{'chair_length'|translate}}:&nbsp;{{chair.length}}&nbsp;{{chair.messure|translate}}
                     </div>
                 </div>
-                <div class="flex mob-item" *ngIf="user.chairInfo.width > 0">
+                <div class="flex mob-item" *ngIf="chair.width > 0">
                     <div class="mob-img">
                         <img src="./assets/img/chair_width.svg">
                     </div>
                     <div class="mob-name">
-                        {{'chair_width'|translate}}:&nbsp;{{user.chairInfo.width}}&nbsp;{{user.chairInfo.messure|translate}}
+                        {{'chair_width'|translate}}:&nbsp;{{chair.width}}&nbsp;{{chair.messure|translate}}
                     </div>
                 </div>
-                <div class="flex mob-item" *ngIf="user.chairInfo.seatHeight > 0">
+                <div class="flex mob-item" *ngIf="chair.seatHeight > 0">
                     <div class="mob-img">
                         <img src="./assets/img/chair_height.svg">
                     </div>
                     <div class="mob-name">
-                        {{'seat_height'|translate}}:&nbsp;{{user.chairInfo.seatHeight}}&nbsp;{{user.chairInfo.messure|translate}}
+                        {{'seat_height'|translate}}:&nbsp;{{chair.seatHeight}}&nbsp;{{chair.messure|translate}}
                     </div>
                 </div>
             </div>

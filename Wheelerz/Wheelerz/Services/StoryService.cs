@@ -66,11 +66,20 @@ namespace Wheelerz.Services
                 story.storyPhotos = new List<StoryPhoto>();
                 story.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
                 story.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
-                story.mobilities = (from m in _data.UserMobilities.Where(x => x.userId == _userService.CurrenUser.id)
-                                    select new StoryMobility()
-                                    {
-                                        name = m.name
-                                    }).ToList();
+                story.mobilities = await (from m in _data.UserMobilities.Where(x => x.userId == _userService.CurrenUser.id)
+                                          select new StoryMobility()
+                                          {
+                                              name = m.name
+                                          }).ToListAsync();
+
+                story.chairInfo = await (from m in _data.ChairInfos.Where(x => x.userId == _userService.CurrenUser.id)
+                                         select new ChairStoryInfo()
+                                         {
+                                             length = m.length,
+                                             messure = m.messure,
+                                             seatHeight = m.seatHeight,
+                                             width = m.width,
+                                         }).FirstOrDefaultAsync();
 
                 story.accessibility?.ForEach((acc) =>
                 {
@@ -262,6 +271,8 @@ namespace Wheelerz.Services
                             .Include(x => x.storyPhotos)
                             .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
                             .Include(x => x.accessibility).ThenInclude(x => x.files)
+                            .Include(x => x.mobilities)
+                            .Include(x => x.chairInfo)
                             .Include(x => x.country)
                             .Include(x => x.city)
                             .Include(x => x.user).ThenInclude(x => x.mobilities)
@@ -294,6 +305,8 @@ namespace Wheelerz.Services
                                                                lastName = c.user.lastName
                                                            }
                                                        }).ToList(),
+                                       chairInfo = s.chairInfo,
+                                       mobilities = s.mobilities,
                                        phone = s.phone,
                                        address = s.address,
                                        mail = s.mail,

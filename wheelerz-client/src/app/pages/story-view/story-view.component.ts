@@ -26,7 +26,8 @@ import { PhotoGalleryComponent } from 'src/app/components/photo-gallery/photo-ga
 @Component({
   selector: 'app-story-view',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     TranslatePipe,
     StarsComponent,
     StoryImgComponent,
@@ -39,7 +40,8 @@ import { PhotoGalleryComponent } from 'src/app/components/photo-gallery/photo-ga
     AddressComponent,
     PhotoGalleryComponent,
     MatDialogModule,
-    FileImageComponent],
+    FileImageComponent
+  ],
   templateUrl: './story-view.component.html',
   styleUrls: ['./story-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -56,6 +58,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   comments: StoryComment[] = []
   id = 0
   story$!: Observable<Story>
+  isHotel = false
   form = new FormGroup({
     comments: new FormControl('')
   })
@@ -72,6 +75,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
       return { ...res, photos: res.storyPhotos?.map(x => ({ id: x.id, small: x.small, fileName: x.fileName })) }
     }),
       tap(res => this.comments = res.userComments || []),
+      tap(res => this.isHotel = res.storyType === 2),
       tap(() => this.loader.load(false)))
   }
 

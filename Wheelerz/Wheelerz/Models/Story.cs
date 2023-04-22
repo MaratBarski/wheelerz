@@ -75,6 +75,7 @@ namespace Wheelerz.Models
         public List<StoryMobility>? mobilities { get; set; }
         public User? user { get; set; }
 
+        public ChairStoryInfo? chairInfo { get; set; }
         public List<StoryPhoto>? storyPhotos { get; set; }
         public State? city { get; set; }
         public Country? country { get; set; }

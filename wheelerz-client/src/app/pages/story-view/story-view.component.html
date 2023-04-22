@@ -17,7 +17,7 @@
             </ng-container>
         </div>
 
-        <div class="map-address">
+        <div *ngIf="isHotel" class="map-address">
             <div class="map">
                 <app-file-image *ngIf="story.map" [isBig]="true" [fileName]="story.map"></app-file-image>
             </div>
@@ -32,7 +32,7 @@
             <div>
                 <div class="profile">{{'Reviewer’s Accessibility Profile'|translate}}</div>
                 <div class="main-shadow profile-view" *ngIf="story.user">
-                    <app-top-profile [user]="story.user"></app-top-profile>
+                    <app-top-profile [chairInfo]="story.chairInfo" [mobilityTypes]="story.mobilities" [user]="story.user"></app-top-profile>
                 </div>
             </div>
         </div>

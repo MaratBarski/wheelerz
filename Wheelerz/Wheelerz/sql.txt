@@ -187,3 +187,12 @@ create table storyComments(
 	[text] ntext not null
 )
 go
+CREATE TABLE [dbo].[chairStoryInfos](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[storyId] [int] NOT NULL,
+	[width] [float] NOT NULL,
+	[length] [float] NOT NULL,
+	[seatHeight] [float] NOT NULL,
+	[messure] [varchar](20) NOT NULL
+)
+go

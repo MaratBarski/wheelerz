@@ -1,4 +1,5 @@
 import { WizardItem } from "./accesability"
+import { Chair } from "./chair"
 import { Country, State } from "./country"
 import { FileImage, StoryPhoto } from "./fileImage"
 import { StoryComment } from "./story-comment"
@@ -50,4 +51,5 @@ export interface Story extends BaseItem {
     link?: string
     mainImage?: string
     userComments?: StoryComment[]
+    chairInfo?: Chair
 }
