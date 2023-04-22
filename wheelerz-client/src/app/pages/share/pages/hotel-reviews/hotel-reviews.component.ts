@@ -51,13 +51,13 @@ export class HotelReviewsComponent implements OnDestroy , OnInit{
     this.story = story
     this.step = 1
     this.loaderService.showTopMenu(false)
-    this.shareWizardService.shoeTabs(false)
+    this.shareWizardService.showTabs(false)
   }
 
   onInit(): void {
     this.step = 0
     this.loaderService.showTopMenu(true)
-    this.shareWizardService.shoeTabs(true)
+    this.shareWizardService.showTabs(true)
   }
 
   ngOnInit(): void {

@@ -9,7 +9,7 @@ export class ShareWizardService {
   }
   private _onShowTabs = new BehaviorSubject<boolean>(true)
 
-  shoeTabs(value: boolean): void {
+  showTabs(value: boolean): void {
     this._onShowTabs.next(value)
   }
 }

@@ -79,6 +79,10 @@ namespace Wheelerz.Services
                     });
                 });
                 story.mainImage = story.storyPhotos?.FirstOrDefault()?.fileName;
+
+                if (!string.IsNullOrEmpty(story.mapStr))
+                    story.map = _uploadService.SaveFile(story.mapStr);
+
                 _data.Stories?.Add(story);
                 await _data.SaveChangesAsync();
                 return story;
@@ -89,10 +93,32 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
-                var s = await _data.Stories.Include(x => x.storyPhotos)
+                var s = await _data.Stories
+                .Include(x => x.storyPhotos)
+                .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
+                .Include(x => x.accessibility).ThenInclude(x => x.files)
+                .Include(x => x.accessibility).ThenInclude(x => x.files)
                 .FirstOrDefaultAsync(x => x.id == story.id && (_userService.CurrenUser.isAdmin || x.userId == _userService.CurrenUser.id));
 
                 if (s == null) return;
+
+                story.accessibility?.ForEach(ac =>
+                {
+                    if (ac.files == null) ac.files = new List<AccessibilityFile>();
+                    ac.files.ForEach(f =>
+                    {
+                        if (!ac.photos.Any(x => x.fileName == f.fileName)) _uploadService.DeleteFile(f.fileName);
+                    });
+                    ac.files = new List<AccessibilityFile>();
+                    ac.photos?.ForEach(photo =>
+                    {
+                        ac.files.Add(new AccessibilityFile
+                        {
+                            userId = _userService.CurrenUser.id,
+                            fileName = string.IsNullOrEmpty(photo.fileName) ? _uploadService.SaveFile(photo) : photo.fileName
+                        });
+                    });
+                });
 
                 if (story.photos == null) story.photos = new List<FileImage>();
                 if (s.storyPhotos == null) s.storyPhotos = new List<StoryPhoto>();
@@ -137,6 +163,13 @@ namespace Wheelerz.Services
                 s.mail = story.mail;
                 s.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
                 s.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
+
+                if (!string.IsNullOrEmpty(story.mapStr))
+                {
+                    if (string.IsNullOrEmpty(s.map)) _uploadService.DeleteFile(s.map);
+
+                    s.map = _uploadService.SaveFile(story.mapStr);
+                }
 
                 await _data.SaveChangesAsync();
             });
@@ -449,9 +482,9 @@ namespace Wheelerz.Services
             return Task.Run(async () =>
             {
                 var comment = await _data.StoryComments.FirstOrDefaultAsync(x => x.id == id);
-                if(comment != null)
+                if (comment != null)
                 {
-                    if(_userService.IsValidUser(comment.userId))
+                    if (_userService.IsValidUser(comment.userId))
                     {
                         _data.StoryComments.Remove(comment);
                         await _data.SaveChangesAsync();

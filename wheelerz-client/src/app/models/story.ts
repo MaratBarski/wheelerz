@@ -45,6 +45,7 @@ export interface Story extends BaseItem {
     phone?: string
     address?: string
     map?: string
+    mapStr?: string
     mail?: string
     link?: string
     mainImage?: string

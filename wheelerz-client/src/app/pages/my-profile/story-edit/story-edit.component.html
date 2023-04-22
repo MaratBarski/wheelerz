@@ -1,12 +1,10 @@
 <ng-container *ngIf="story$|async as story">
-    <ng-container *ngIf="wizard$|async as wizard">
-        <div [class.hide]="step>0">
-            <app-user-input-form formTitle="edit_story" [story]="story"
-                (onPublish)="onPublish($event)"></app-user-input-form>
-        </div>
-        <div [class.hide]="step===0">
-            <app-accessibility-wizard [showPrev]="true" (onInit)="onInit()" (onDone)="onDone($event)" [wizard]="wizard">
-            </app-accessibility-wizard>
-        </div>
-    </ng-container>
+    <div [class.hide]="step>0">
+        <app-user-input-form formTitle="edit_story" [story]="story" [isShowName]="isHotel"
+            (onPublish)="onPublish($event)"></app-user-input-form>
+    </div>
+    <div *ngIf="wizard" [class.hide]="step===0">
+        <app-accessibility-wizard [showPrev]="true" (onInit)="onInit()" (onDone)="onDone($event)" [wizard]="wizard">
+        </app-accessibility-wizard>
+    </div>
 </ng-container>

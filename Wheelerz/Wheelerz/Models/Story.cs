@@ -90,5 +90,8 @@ namespace Wheelerz.Models
         [NotMapped]
         public string? endDateDisplay { get; set; }
 
+        [NotMapped]
+        public string? mapStr { get; set; }
+
     }
 }

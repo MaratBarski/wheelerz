@@ -10,7 +10,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { UserService } from 'src/app/services/user.service'
 import { StoryUrls } from 'src/app/consts'
 import { ShareWizardService } from '../../share/share-wizard.service'
-import { WizardItem } from 'src/app/models/accesability'
+import { WizardItem, WizardRadioItem } from 'src/app/models/accesability'
 import { AccessibilityWizardService } from 'src/app/services/accessibility-wizard.service'
 import { AccessibilityWizardComponent } from 'src/app/components/accessibility-wizard/accessibility-wizard.component'
 
@@ -32,11 +32,15 @@ export class StoryEditComponent implements OnInit {
   shareWizardService = inject(ShareWizardService)
   accessibilityWizardService = inject(AccessibilityWizardService)
 
-  wizard$ = this.accessibilityWizardService.getWizard()
+  wizard?: WizardItem[]
   story$!: Observable<Story>
   story!: Story
   type = 0
   step = 0
+
+  get isHotel(): boolean {
+    return this.type === 2
+  }
 
   get storyBackUrl(): string {
     return StoryUrls[this.type].view
@@ -51,12 +55,33 @@ export class StoryEditComponent implements OnInit {
       map((res) => {
         return { ...res, photos: res.storyPhotos?.map(x => ({ id: x.id, small: x.small, fileName: x.fileName })) }
       }),
-      tap(res => this.story = res)
+      tap(res => this.story = res),
+      tap(res => {
+        this.accessibilityWizardService.getWizard().pipe(first()).subscribe(wz => {
+          this.wizard = wz
+          if (!res.accessibility) return
+          for (let i = 0; i < this.wizard.length; i++) {
+            this.wizard[i].comments = res.accessibility[i].comments
+            this.wizard[i].id = res.accessibility[i].id
+            this.wizard[i].photos = res.accessibility[i].files
+            this.wizard[i].files = res.accessibility[i].files
+            this.updateWizardItems(this.wizard[i].accessibilityItems, res.accessibility[i].accessibilityItems)
+          }
+        })
+      })
     )
   }
 
-  onPublish(s: Story): void {
-    //alert(this.type)
+  updateWizardItems(items: WizardRadioItem[] | undefined, res: WizardRadioItem[] | undefined): void {
+    if (!items) return
+    if (!res) return
+    for (let j = 0; j < items.length; j++) {
+      items[j].selectedKey = res[j].selectedKey
+      items[j].selectedValue = res[j].selectedValue
+    }
+  }
+
+  savePost(s: Story): void {
     this.loader.load(true)
     s.storyPhotos = undefined
     this.dataService.updateStory(s).pipe(first()).subscribe({
@@ -70,23 +95,29 @@ export class StoryEditComponent implements OnInit {
     })
   }
 
+  onPublish(story: Story): void {
+    if (!this.isHotel) {
+      this.savePost(story)
+      return
+    }
+    this.startWizard(story)
+  }
+
+  startWizard(story: Story): void {
+    this.story = story
+    this.step = 1
+    this.loader.showTopMenu(false)
+    this.shareWizardService.showTabs(false)
+  }
+
   onInit(): void {
     this.step = 0
     this.loader.showTopMenu(true)
-    this.shareWizardService.shoeTabs(true)
+    this.shareWizardService.showTabs(true)
   }
 
   onDone(wizard: WizardItem[]): void {
     this.story.accessibility = wizard
-    this.loader.load(true)
-    this.dataService.addStory(this.story).pipe(first()).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/hotel-reviews')
-        this.loader.load(false)
-      }, error: (er) => {
-        this.router.navigateByUrl('/hotel-reviews')
-        this.loader.load(false)
-      }
-    })
+    this.savePost(this.story)
   }
 }

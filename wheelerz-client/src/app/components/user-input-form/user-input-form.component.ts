@@ -13,6 +13,9 @@ import { CountryStateSelectorComponent } from '../country-state-selector/country
 import { Country, State } from 'src/app/models/country'
 import { DateTimeService } from 'src/app/services/date-time.service'
 import { DateSelectorComponent } from '../date-selector/date-selector.component'
+import { UserService } from 'src/app/services/user.service'
+import { UploadComponent } from '../upload/upload.component'
+import { FileImageComponent } from '../file-image/file-image.component'
 
 @Component({
   selector: 'app-user-input-form',
@@ -27,13 +30,17 @@ import { DateSelectorComponent } from '../date-selector/date-selector.component'
     RadioComponent,
     ReactiveFormsModule,
     CountryStateSelectorComponent,
-    DateSelectorComponent
+    DateSelectorComponent,
+    UploadComponent,
+    FileImageComponent
   ],
   templateUrl: './user-input-form.component.html',
   styleUrls: ['./user-input-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInputFormComponent implements OnInit {
+  userService = inject(UserService)
+
   @Input() formTitle = 'share_your_story_with_the_community'
   @Input() css = 'story'
   @Input() isShowName = false
@@ -108,5 +115,9 @@ export class UserInputFormComponent implements OnInit {
     this.story.endDate = date
     this.story.endDateDisplay = this.dateTimeService.dateToString(date)
   }
-  
+
+  updateMap(files: FileImage[]): void {
+    if (!files?.length) return
+    this.story.mapStr = files[0].big
+  }
 }

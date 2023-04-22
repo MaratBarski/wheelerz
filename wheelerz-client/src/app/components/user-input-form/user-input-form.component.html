@@ -29,6 +29,11 @@
             <app-input-comment [files]="files" (onImageUpdates)="onImageUpdates($event)"
                 [form]="form"></app-input-comment>
         </div>
+        <div class="map flex" *ngIf="userService.isAdmin">
+            {{'map'|translate}}&nbsp;
+            <app-file-image *ngIf="story.map" [isBig]="true" [fileName]="story.map"></app-file-image>
+            <app-upload (onChange)="updateMap($event)" [multiple]="false"></app-upload>
+        </div>
         <div class="buttons">
             <button (click)="cancel()" class="btn-cancel">{{'cancel'|translate}}</button>
             <button [disabled]="!isValid" class="btn-save" (click)="publish()">{{'publish'|translate}}</button>
