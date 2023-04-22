@@ -72,14 +72,15 @@ namespace Wheelerz.Services
                                               name = m.name
                                           }).ToListAsync();
 
-                story.chairInfo = await (from m in _data.ChairInfos.Where(x => x.userId == _userService.CurrenUser.id)
-                                         select new ChairStoryInfo()
-                                         {
-                                             length = m.length,
-                                             messure = m.messure,
-                                             seatHeight = m.seatHeight,
-                                             width = m.width,
-                                         }).FirstOrDefaultAsync();
+                if (_userService.CurrenUser.noWalk == 1)
+                    story.chairInfo = await (from m in _data.ChairInfos.Where(x => x.userId == _userService.CurrenUser.id)
+                                             select new ChairStoryInfo()
+                                             {
+                                                 length = m.length,
+                                                 messure = m.messure,
+                                                 seatHeight = m.seatHeight,
+                                                 width = m.width,
+                                             }).FirstOrDefaultAsync();
 
                 story.accessibility?.ForEach((acc) =>
                 {
@@ -472,7 +473,7 @@ namespace Wheelerz.Services
                     .Where(x => x.deleted == 0)
                     .Where(x => x.lang == _userService.CurrenUser.lang)
                     .Where(x => x.storyType == request.type || request.type == 0)
-                    .Where(x=> request.userId == 0 || (x.userId == request.userId && request.isOnlyMy))
+                    .Where(x => request.userId == 0 || (x.userId == request.userId && request.isOnlyMy))
                     .Where(x =>
                            (request.countryId == 0 || x.countryId == request.countryId)
                         && (request.cityId == 0 || x.cityId == request.cityId)
@@ -481,7 +482,7 @@ namespace Wheelerz.Services
                 var total = await linq.AsSplitQuery().CountAsync();
                 var list = await linq
                     .OrderByDescending(x => x.mobilityNumber & _userService.CurrenUser.mobilityNumber)
-                    .ThenByDescending(x => x.userId - _userService.CurrenUser.id)
+                    .ThenBy(x => Math.Abs(x.mobilityNumber - _userService.CurrenUser.mobilityNumber))
                     .ThenByDescending(x => x.dateAdd)
                     .ThenByDescending(x => x.endDate)
                     .Skip(request.page.current * request.page.size)

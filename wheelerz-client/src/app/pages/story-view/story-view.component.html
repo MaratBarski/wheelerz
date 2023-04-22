@@ -32,7 +32,7 @@
             <div>
                 <div class="profile">{{'Reviewer’s Accessibility Profile'|translate}}</div>
                 <div class="main-shadow profile-view" *ngIf="story.user">
-                    <app-top-profile [chairInfo]="story.chairInfo" [mobilityTypes]="story.mobilities" [user]="story.user"></app-top-profile>
+                    <app-top-profile [isShowChairInfo]="false" [chairInfo]="story.chairInfo" [mobilityTypes]="story.mobilities" [user]="story.user"></app-top-profile>
                 </div>
             </div>
         </div>

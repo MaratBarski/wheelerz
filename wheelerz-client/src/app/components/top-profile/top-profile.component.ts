@@ -19,6 +19,7 @@ export class TopProfileComponent {
   @Input() isEditable = false
   @Input() mobilityTypes?: MobilityType[]
   @Input() chairInfo?: Chair
+  @Input() isShowChairInfo = true
 
   @Output() onAvatarChanged = new EventEmitter<string>()
 
@@ -32,6 +33,6 @@ export class TopProfileComponent {
 
   get noWalk(): boolean {
     if (this.chairInfo) return true
-    return !!this.user.noWalk
+    return this.isShowChairInfo ? !!this.user.noWalk : false
   }
 }
