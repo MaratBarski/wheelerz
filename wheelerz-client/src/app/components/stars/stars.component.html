@@ -1,3 +1,8 @@
-<div [class.reverse]="translationService.isRtl" class="stars">
-    <img *ngFor="let im of stars" src="./assets/img/{{im}}.svg">
+<div class="stars">
+    <div appReverse>
+        <img *ngFor="let im of stars" src="./assets/img/{{im}}.svg">
+    </div>
+    <div class="txt">
+        {{title|translate}}
+    </div>
 </div>

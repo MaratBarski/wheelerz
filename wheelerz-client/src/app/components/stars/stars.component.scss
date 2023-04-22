@@ -1,6 +1,12 @@
 .stars {
     display: inline-flex;
+    align-items: center;
 }
 .stars img {
     margin-right: 4px;
+}
+.txt {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-weight: bold;
 }
