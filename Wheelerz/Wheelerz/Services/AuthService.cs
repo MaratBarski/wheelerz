@@ -15,7 +15,7 @@ namespace Wheelerz.Services
     {
         LoginResponse Registration(RegistrRequest user);
         LoginResponse Login(LoginRequest login);
-        User? ValidateUser(string authorization,string lang);
+        User? ValidateUser(string authorization, string lang);
     }
 
     public class AuthService : IAuthService
@@ -68,7 +68,7 @@ namespace Wheelerz.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public User? ValidateUser(string authorization,string lang)
+        public User? ValidateUser(string authorization, string lang)
         {
             if (authorization == null) return null;
             if (lang != "en" && lang != "he") lang = "en";
@@ -87,7 +87,8 @@ namespace Wheelerz.Services
         {
             if (string.IsNullOrEmpty(registr.password) || registr.password.Trim() == "") return new LoginResponse() { error = "no_password" };
             if (string.IsNullOrEmpty(registr.email) || registr.email.Trim() == "") return new LoginResponse() { error = "no_mail" };
-            //if (string.IsNullOrEmpty(registr.birthDay)) return new LoginResponse() { error = "no_birthday" };
+            if (registr.birthYear < DateTime.Now.Year - 100) return new LoginResponse() { error = "no_birthday" };
+            if (registr.birthYear > DateTime.Now.Year - 10) return new LoginResponse() { error = "no_birthday" };
 
             var email = registr.email.Trim().ToLower();
             var user = _data.Users?.Where(x => x.email == registr.email).FirstOrDefault();

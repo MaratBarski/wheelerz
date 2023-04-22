@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TopComponent } from 'src/app/components/top/top.component'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
@@ -7,28 +7,30 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { User } from 'src/app/models/user'
 import { LoginService } from 'src/app/services/login.service'
 import { Router } from '@angular/router'
+import { first } from 'rxjs'
 
 @Component({
-  selector: 'dialog-content-example-dialog',
+  selector: 'invalid-reg',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, TopComponent, TranslatePipe, UserFormComponent, MatDialogModule],
-  template: `<h1 mat-dialog-title>Error</h1>
+  template: `<h1 mat-dialog-title>{{'error'|translate}}</h1>
   <div mat-dialog-content>
-    User allready exists
+    {{'mail_exists'|translate}}
   </div>
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>{{'no'|translate}}</button>
-    <button mat-button mat-dialog-close cdkFocusInitial>{{'yes'|translate}}</button>
+    <button class='main-btn' mat-button mat-dialog-close>{{'close'|translate}}</button>
   </div>`
 })
-export class DialogContentExampleDialog { }
+export class InvalidRegistrationDialog { }
 
 @Component({
   selector: 'app-registration',
   standalone: true,
   imports: [CommonModule, TopComponent, TranslatePipe, UserFormComponent, MatDialogModule],
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent {
   constructor(public dialog: MatDialog) { }
@@ -36,11 +38,12 @@ export class RegistrationComponent {
   router = inject(Router)
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog, { data: '1321' })
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`)
-    });
+    const dialogRef = this.dialog.open(InvalidRegistrationDialog)
+    dialogRef.afterClosed()
+      .pipe(first())
+      .subscribe(result => {
+        console.log(`Dialog result: ${result}`)
+      })
   }
 
   save(event: User): void {

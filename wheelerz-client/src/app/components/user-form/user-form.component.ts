@@ -64,6 +64,9 @@ export class UserFormComponent implements OnInit {
   ]
 
   get isValid(): boolean {
+    if (!this.birthYear) return false
+    if (this.birthYear < new Date().getFullYear() - 100) return false
+    if (this.birthYear > new Date().getFullYear() - 10) return false
     return this.form.valid && this.isPasswordEq && this.isCountrySelected && this.isStateSelected
   }
 
