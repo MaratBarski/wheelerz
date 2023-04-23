@@ -47,9 +47,12 @@ namespace Wheelerz.Services
 
         public Task<List<User>> GetUsers()
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
-                return _data.Users.Include(x => x.country).Include(x => x.state).ToList();
+                return await _data.Users.Include(x => x.country)
+                .Include(x => x.state)
+                .OrderByDescending(x => x.lastVisit)
+                .ToListAsync();
             });
         }
 
@@ -103,7 +106,7 @@ namespace Wheelerz.Services
                     x.userId = userId;
                     user.mobilityNumber += Consts.MobilitiesDictionary[x.name];
                 });
-                
+
                 _data.UserMobilities.AddRange(mobilities);
                 await _data.SaveChangesAsync();
             });
@@ -279,10 +282,10 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
-                var user = await _data.Users.FirstOrDefaultAsync(x=>x.id == CurrenUser.id);
-                if(user == null) return;
+                var user = await _data.Users.FirstOrDefaultAsync(x => x.id == CurrenUser.id);
+                if (user == null) return;
 
-                user.lastVisit = DateTime.Now;  
+                user.lastVisit = DateTime.Now;
                 CurrenUser.lastVisit = DateTime.Now;
                 await _data.SaveChangesAsync();
             });

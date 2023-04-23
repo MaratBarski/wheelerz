@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject, OnInit } from '@angular/core'
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject, OnInit, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { DataService } from 'src/app/services/data.service'
 import { Observable, first, forkJoin, tap } from 'rxjs'
@@ -14,7 +14,7 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./translation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TranslationComponent implements OnInit {
+export class TranslationComponent implements OnInit, OnDestroy {
   dataService = inject(DataService)
   cd = inject(ChangeDetectorRef)
   loader = inject(LoaderService)
@@ -27,7 +27,13 @@ export class TranslationComponent implements OnInit {
 
   ngOnInit(): void {
     this.load()
+    this.loader.showTopMenu(false)
+    //this.dataService.translateAll('en')
     //this.dataService.translateAll('he')
+  }
+
+  ngOnDestroy(): void {
+    this.loader.showTopMenu(true)
   }
 
   load(): void {

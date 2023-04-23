@@ -34,7 +34,7 @@ namespace Wheelerz.Filters
             var user = context.HttpContext.Items["login"];
             if (user == null)
                 context.HttpContext.Response.StatusCode = 401;
-            else if ((user as User).isAdmin)
+            else if (!(user as User).isAdmin)
                 context.HttpContext.Response.StatusCode = 401;
         }
     }

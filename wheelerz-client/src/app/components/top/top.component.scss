@@ -14,7 +14,7 @@
     align-items: center;
     display: flex;
 }
-.mn{
+.mn {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -33,8 +33,8 @@
     display: flex;
     flex-direction: column;
 }
-.top-menu div:hover{
-    background-color: #F1EAF2;
+.top-menu div:hover {
+    background-color: #f1eaf2;
 }
 .top-menu div {
     padding: 12px;
@@ -53,4 +53,16 @@
     padding: 8px 20px;
     margin-right: 20px;
     margin-left: 20px;
+}
+.admin-links {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.admin-links a {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+.admin-links a:hover {
+    text-decoration: underline;
 }
