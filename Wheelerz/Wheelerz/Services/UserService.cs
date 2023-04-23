@@ -250,7 +250,8 @@ namespace Wheelerz.Services
                     x.firstName.Contains(request.q) ||
                     x.lastName.Contains(request.q) ||
                     x.email.Contains(request.q)
-                 ));
+                 ))
+                .OrderByDescending(x=>x.lastVisit);
 
                 var total = await linq.AsSplitQuery().CountAsync();
                 var res = await linq.Skip(request.page.current * request.page.size).Take(request.page.size)
