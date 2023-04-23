@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable, map, of } from 'rxjs'
+import { Observable, map, of, tap } from 'rxjs'
 import { Country, State } from '../models/country'
 import { SERVER_URL } from '../consts'
 import { Story } from '../models/story'
@@ -20,12 +20,20 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
+  private _countries?: Country[];
+  private _cities: { [key: number]: State[] } = {}
+
   getCoutries(exists = false, type = 0): Observable<Country[]> {
+    if (this._countries?.length) return of(this._countries)
     return this.http.get<Country[]>(`${SERVER_URL}/country/countries/?exists=${exists}&type=${type}`)
+      .pipe(tap(res => this._countries = res))
   }
 
   getStates(countryId: number, exists = false, type = 0): Observable<State[]> {
-    return countryId ? this.http.get<State[]>(`${SERVER_URL}/country/states/${countryId}/?exists=${exists}&type=${type}`) : of([]);
+    if (this._cities[countryId]?.length) return of(this._cities[countryId])
+    return countryId ? this.http.get<State[]>(`${SERVER_URL}/country/states/${countryId}/?exists=${exists}&type=${type}`)
+      .pipe(tap(res => this._cities[countryId] = res))
+      : of([]);
   }
 
   post<T>(url: string, data: any): Observable<T> {

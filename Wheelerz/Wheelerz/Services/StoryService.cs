@@ -419,8 +419,7 @@ namespace Wheelerz.Services
                            (request.countryId == 0 || x.countryId == request.countryId)
                         && (request.cityId == 0 || x.cityId == request.cityId)
                     )
-                    .Where(x => request.byStoryMob ? ids.Contains(x.id) : ids.Contains(x.userId))
-                    ;
+                    .Where(x => request.byStoryMob ? ids.Contains(x.id) : ids.Contains(x.userId));
 
                 if (!string.IsNullOrEmpty(request.q))
                     linq = linq.Where(x => string.IsNullOrEmpty(request.q) ||
@@ -467,6 +466,7 @@ namespace Wheelerz.Services
             return Task.Run(async () =>
             {
                 var linq = _data.Stories
+                    .Include(x => x.user)
                     .Include(x => x.city)
                     .Include(x => x.country)
                     .Include(x => x.mobilities)
@@ -497,6 +497,20 @@ namespace Wheelerz.Services
                     .Skip(request.page.current * request.page.size)
                     .Take(request.page.size)
                     .ToListAsync();
+
+                list.ForEach(x =>
+                {
+                    if (x.user != null)
+                    {
+                        x.user.password = null;
+                        x.user.key = null;
+                        x.user.stories = null;
+                        x.user.role = 0;
+                        x.user.mobilities = null;
+                        x.user.chairInfo = null;
+                        x.user.chairOptions = null;
+                    }
+                });
 
                 return new PageResponse<IEnumerable<Story>>
                 {

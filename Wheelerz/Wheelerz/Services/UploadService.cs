@@ -1,5 +1,7 @@
 ﻿using Wheelerz.Models;
 
+#pragma warning disable CS8604
+
 namespace Wheelerz.Services
 {
     public interface IUploadService
@@ -8,9 +10,9 @@ namespace Wheelerz.Services
         string SaveFile(string content);
         void SaveFile(string content, string name);
         void DeleteFile(string fileName);
-        string GetFileText(string image);
-        string GetImageText(string fileName);
-        byte[] GetImageBytes(string fileName);
+        Task<string> GetFileText(string image);
+        Task<string> GetImageText(string fileName);
+        Task<byte[]> GetImageBytes(string fileName);
         string SaveFile(FileImage fi);
     }
     public class UploadService : IUploadService
@@ -33,27 +35,36 @@ namespace Wheelerz.Services
             return fileName;
         }
 
-        public string GetImageText(string fileName)
+        public Task<string> GetImageText(string fileName)
         {
-            return this.GetFileText(fileName).Replace("data:image/jpeg;base64,", "");
-        }
-
-        public byte[] GetImageBytes(string fileName)
-        {
-            var str = GetImageText(fileName);
-            var bytes = Convert.FromBase64String(str);
-            return bytes;
-        }
-
-        public string GetFileText(string image)
-        {
-            var filePath = Path.Combine(GetUploadDir(), image);
-            if (!System.IO.File.Exists(filePath)) filePath = Path.Combine(GetUploadDir(), "pno.no");
-
-            using (StreamReader sr = new StreamReader(filePath))
+            return Task.Run(async () =>
             {
-                return sr.ReadToEnd();
-            }
+                var str = await GetFileText(fileName);
+                return str.Replace("data:image/jpeg;base64,", "");
+            });
+        }
+
+        public Task<byte[]> GetImageBytes(string fileName)
+        {
+            return Task.Run(async () =>
+            {
+                var str = await GetImageText(fileName);
+                var bytes = Convert.FromBase64String(str);
+                return bytes;
+            });
+        }
+
+        public Task<string> GetFileText(string image)
+        {
+            return Task.Run(async () =>
+            {
+                var filePath = Path.Combine(GetUploadDir(), image);
+                if (!System.IO.File.Exists(filePath)) filePath = Path.Combine(GetUploadDir(), "pno.no");
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    return await sr.ReadToEndAsync();
+                }
+            });
         }
 
         public string GetUploadDir()

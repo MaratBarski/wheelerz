@@ -15,9 +15,10 @@ namespace Wheelerz.Controllers
             _uploadService = uploadService;
         }
         [HttpGet("{image}")]
-        public IActionResult GetImage(string image)
+        public async Task<IActionResult> GetImage(string image)
         {
-            return File(_uploadService.GetImageBytes(image), "image/jpeg");
+            var bytes = await _uploadService.GetImageBytes(image);
+            return File(bytes, "image/jpeg");
         }
     }
 }

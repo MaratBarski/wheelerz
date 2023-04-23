@@ -50,8 +50,8 @@ export class StoryListComponent implements OnInit, OnDestroy {
   @Input() isShowAvatar = true
   @Input() searchByUser = false
 
+  //user$!: Observable<User>
   storySelector!: StorySelector
-  user$!: Observable<User>
   isNoData = false
 
   destroy = new Subject<void>()
@@ -82,25 +82,36 @@ export class StoryListComponent implements OnInit, OnDestroy {
     this.select()
   }
 
-  loadProfile(): void {
-    this.user$ = this.dataService.getMyProfile()
-      .pipe(tap(res => {
-        this.storySelector = {
-          cityId: 0,
-          countryId: 0,
-          mobilities: this.searchByUser ? {} : (res.mobilities || []).reduce((prev, cur) => ({ ...prev, [cur.name]: true }), {}),
-          type: this.type,
-          page: { current: 0, size: 50 },
-          userId: this.userId,
-          isOnlyMy: this.searchByUser,
-          isMyInclude: true
-        }
-        this.select()
-      }))
-  }
+  // loadProfile(): void {
+  //   this.user$ = this.dataService.getMyProfile()
+  //     .pipe(tap(res => {
+  //       this.storySelector = {
+  //         cityId: 0,
+  //         countryId: 0,
+  //         mobilities: this.searchByUser ? {} : (res.mobilities || []).reduce((prev, cur) => ({ ...prev, [cur.name]: true }), {}),
+  //         type: this.type,
+  //         page: { current: 0, size: 50 },
+  //         userId: this.userId,
+  //         isOnlyMy: this.searchByUser,
+  //         isMyInclude: true
+  //       }
+  //       this.select()
+  //     }))
+  // }
 
   ngOnInit(): void {
-    this.loadProfile()
+    //this.loadProfile()
+    this.storySelector = {
+      cityId: 0,
+      countryId: 0,
+      mobilities: {},
+      type: this.type,
+      page: { current: 0, size: 50 },
+      userId: this.userId,
+      isOnlyMy: this.searchByUser,
+      isMyInclude: true
+    }
+    this.select()
   }
 
   ngOnDestroy(): void {

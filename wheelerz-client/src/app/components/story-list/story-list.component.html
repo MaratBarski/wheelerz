@@ -1,4 +1,4 @@
-<div class="cnt" *ngIf="user$|async as user">
+<div class="cnt" *ngIf="stories">
     <app-story-selector *ngIf="!searchByUser" (onApply)="onApplySelector($event)"
         [storySelector]="storySelector"></app-story-selector>
     <app-search-box *ngIf="searchByUser" [text]="storySelector.q || ''"
