@@ -196,3 +196,12 @@ CREATE TABLE [dbo].[chairStoryInfos](
 	[messure] [varchar](20) NOT NULL
 )
 go
+alter table stories alter column comments ntext null
+go
+create table translations(
+	id int not null identity(1,1),
+	[key] varchar(500) not null,
+	[lang] varchar(10) not null,
+	[text] [ntext] not null
+)
+go

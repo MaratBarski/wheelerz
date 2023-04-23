@@ -47,6 +47,7 @@ export class UserInputFormComponent implements OnInit {
   @Input() isShowName = false
   @Input() isShowMap = false
   @Input() files: FileImage[] = []
+  @Input() isAddPhotoEnable = false
   @Input() story: Story = {
     storyType: StoryType.story,
     estimation: 0

@@ -1,0 +1,17 @@
+.table{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+.table td,
+.table th{
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+.table textarea{
+    width: 500px;
+}
+.table input{
+    width: 200px;
+}

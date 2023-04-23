@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="form-input">
-            <app-input-comment [files]="files" (onImageUpdates)="onImageUpdates($event)"
+            <app-input-comment [isAddPhotoEnable]="isAddPhotoEnable" [files]="files" (onImageUpdates)="onImageUpdates($event)"
                 [form]="form"></app-input-comment>
         </div>
         <div class="map flex" *ngIf="userService.isAdmin && isShowMap">

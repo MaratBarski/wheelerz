@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, first, map } from 'rxjs';
-import { deflang, langs } from '../consts';
+import { SERVER_URL, deflang, langs } from '../consts';
 
 
 @Injectable({
@@ -57,7 +57,8 @@ export class TranslationService {
     if (langs.indexOf(lang) === -1) return;
     this._loaded = false;
     localStorage.setItem('lang', lang);
-    this.http.get(`./assets/translations/${lang}.json`)
+    //this.http.get(`./assets/translations/${lang}.json`)
+    this.http.get(`${SERVER_URL}/translation/get/`)
       .pipe(first())
       .subscribe(res => {
         this.translation = res;

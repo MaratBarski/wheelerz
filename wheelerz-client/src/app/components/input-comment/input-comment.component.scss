@@ -55,7 +55,7 @@
     width: 80px;
 }
 .admin-inputs {
-    color: #fff;
+    color: #000;
     display: flex;
     justify-content: space-between;
 }
@@ -66,4 +66,6 @@
 .admin-inputs input{
     height: 20px;
     width: 300px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

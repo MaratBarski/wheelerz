@@ -24,15 +24,20 @@ export class AvatarComponent implements OnInit {
   @Input() width = 200
   @Output() onChange = new EventEmitter<string>()
   @Input() userId = 0
-  @Input()raduius = 200
+  @Input() raduius = 200
+  @Input() isBig = false
 
   openFile(): void {
     this.fileUpload.nativeElement.click()
   }
 
+  get prefix(): string {
+    return this.isBig ? '' : 'p'
+  }
+
   ngOnInit(): void {
     if (this.avatar)
-      this.avatar = `${SERVER_URL}/image/p${this.avatar}`
+      this.avatar = `${SERVER_URL}/image/${this.prefix}${this.avatar}`
   }
 
   async changeFile(event: any) {

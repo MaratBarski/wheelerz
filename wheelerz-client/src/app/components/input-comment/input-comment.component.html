@@ -1,4 +1,20 @@
 <div [formGroup]="form">
+    <ng-container *ngIf="userService.isAdmin && isFooter">
+        <div class="admin-inputs">
+            <div>
+                Phone:<input formControlName="phone">
+            </div>
+            <div>
+                Address:<input formControlName="address">
+            </div>
+            <div>
+                Email:<input formControlName="mail">
+            </div>
+            <div>
+                Url:<input formControlName="link">
+            </div>
+        </div>
+    </ng-container>
     <div class="main">
         <div class="comments">
             <div *ngIf="isTitle"><input [placeholder]="titlePlaceholder|translate" class="title" type="text" formControlName="title"></div>
@@ -10,23 +26,7 @@
             </div>
         </div>
         <div class="footer">
-            <ng-container *ngIf="userService.isAdmin && isFooter">
-                <img (click)="openAttachment()" src="./assets/img/camera-white.svg">
-                <div class="admin-inputs">
-                    <div>
-                        Phone:<input formControlName="phone">
-                    </div>
-                    <div>
-                        Address:<input formControlName="address">
-                    </div>
-                    <div>
-                        Email:<input formControlName="mail">
-                    </div>
-                    <div>
-                        Url:<input formControlName="link">
-                    </div>
-                </div>
-            </ng-container>
+            <img *ngIf="isAddPhotoEnable||userService.isAdmin" (click)="openAttachment()" src="./assets/img/camera-white.svg">
             <ng-content></ng-content>
         </div>
     </div>

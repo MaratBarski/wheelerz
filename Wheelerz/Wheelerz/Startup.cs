@@ -34,6 +34,7 @@ namespace Wheelerz
             services.AddTransient<IStoryService, StoryService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUploadService, UploadService>();
+            services.AddTransient<ITranslationService, TranslationService>();
 
             services.AddDbContext<DataContext>(db =>
             {

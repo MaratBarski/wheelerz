@@ -1,0 +1,21 @@
+<div class="cnt">
+    <div class="edit" *ngIf="editable || userService.isAdmin">
+        <button class="edit-btn" routerLink="/my-profile/story/{{story.id}}">{{'edit'|translate}}</button>
+        <button class="delete-btn" (click)="onDelete.emit(story)">{{'delete'|translate}}</button>
+    </div>
+    <div class="card pointer" routerLink="/story-info/{{story.id}}">
+        <div class="inner">
+            <div *ngIf="isShowAvatar" class="image">
+                <app-avatar [isBig]="true" [width]="700" [raduius]="raduius" [avatar]="story.mainImage"></app-avatar>
+            </div>
+            <div class="info">
+                <div class="country">{{story.city?.name}},{{story.country?.name}}</div>
+                <div class="est"><app-stars [estimation]="story.estimation || 0"></app-stars></div>
+                <div *ngIf="story.user">
+                    <app-top-profile [isNameOnTop]="false" [mobilityTypes]="story.mobilities"
+                        [user]="story.user"></app-top-profile>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

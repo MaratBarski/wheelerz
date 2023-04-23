@@ -39,6 +39,7 @@ export class InputCommentComponent {
   @Input() isTitle = true
   @Input() isFooter = true
   @Input() areaHeight = 300
+  @Input() isAddPhotoEnable = false
   @Input() editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,

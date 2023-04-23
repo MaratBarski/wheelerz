@@ -42,6 +42,10 @@ export class StoryEditComponent implements OnInit {
     return this.type === 2
   }
 
+  get isAddPhotoEnable(): boolean {
+    return !this.isHotel
+  }
+
   get storyBackUrl(): string {
     return StoryUrls[this.type].view
   }

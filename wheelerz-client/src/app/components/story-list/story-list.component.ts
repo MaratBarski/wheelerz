@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, inject } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { StoryCardComponent } from '../story-card/story-card.component'
@@ -14,6 +14,7 @@ import { StorySelector } from 'src/app/models/story-selector'
 import { User } from 'src/app/models/user'
 import { SearchBoxComponent } from '../search-box/search-box.component'
 import { NoDataComponent } from '../no-data/no-data.component'
+import { PostViewComponent } from '../post-view/post-view.component'
 
 @Component({
   selector: 'app-story-list',
@@ -22,6 +23,7 @@ import { NoDataComponent } from '../no-data/no-data.component'
     CommonModule,
     TranslatePipe,
     StoryCardComponent,
+    PostViewComponent,
     PaginatorComponent,
     StorySelectorComponent,
     SearchBoxComponent,
@@ -38,6 +40,9 @@ export class StoryListComponent implements OnInit, OnDestroy {
   router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
   changeDetectorRef = inject(ChangeDetectorRef)
+
+  @ViewChild('hotelTemplate') hotelTemplate!: TemplateRef<any>
+  @ViewChild('cityTemplate') cityTemplate!: TemplateRef<any>
 
   @Input() type = 1
   @Input() userId = 0
@@ -63,6 +68,11 @@ export class StoryListComponent implements OnInit, OnDestroy {
 
   get nodataText(): string {
     return `nodata_${this.type}`
+  }
+
+  getCurrentTemplate(type: number): TemplateRef<any> {
+    if (type === 2) return this.hotelTemplate
+    return this.cityTemplate
   }
 
   updateSearchText(text: string): void {
@@ -105,7 +115,7 @@ export class StoryListComponent implements OnInit, OnDestroy {
   select(): void {
     this.isNoData = false
     this.loader.load(true)
-    this.storySelector = {...this.storySelector}
+    this.storySelector = { ...this.storySelector }
     this.dataService.selectStories(this.storySelector).pipe(
       tap(res => {
         this.total = res.total

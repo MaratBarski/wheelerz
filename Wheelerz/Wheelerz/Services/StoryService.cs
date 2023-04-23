@@ -479,6 +479,15 @@ namespace Wheelerz.Services
                         && (request.cityId == 0 || x.cityId == request.cityId)
                     );
 
+                if (!string.IsNullOrEmpty(request.q))
+                    linq = linq.Where(x => string.IsNullOrEmpty(request.q) ||
+               (
+                  (x.name != null && x.name.Contains(request.q))
+                   || (x.title != null && x.title.Contains(request.q))
+                   || (x.country != null && x.country.name != null && x.country.name.Contains(request.q))
+                   || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
+               ));
+
                 var total = await linq.AsSplitQuery().CountAsync();
                 var list = await linq
                     .OrderByDescending(x => x.mobilityNumber & _userService.CurrenUser.mobilityNumber)

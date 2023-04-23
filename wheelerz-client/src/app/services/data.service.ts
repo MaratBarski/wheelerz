@@ -11,6 +11,7 @@ import { PageResponse } from '../models/page-request'
 import { StorySelector } from '../models/story-selector'
 import { UserSelector } from '../models/user-selector'
 import { StoryComment } from '../models/story-comment'
+import { Translation } from '../models/translation'
 
 @Injectable({
   providedIn: 'root'
@@ -111,6 +112,28 @@ export class DataService {
 
   deleteComment(id: number): Observable<StoryComment[]> {
     return this.delete(`story/delete-comment/${id}`)
+  }
+
+  getTranslations(lang: string = ''): Observable<Translation[]> {
+    return this.get(`translation/all?lang=${lang}`)
+  }
+
+  updateTranslation(t: { key: string, lang: string, text: string }): Observable<any> {
+    return this.post('translation', t)
+  }
+
+  deleteTranslation(key: string): Observable<any> {
+    return this.delete(`translation/${key}`)
+  }
+
+  translateAll(lang: string) {
+    this.http.get('./assets/translations/' + lang + '.json').subscribe((res: any) => {
+      const tr = res
+      Object.keys(tr).forEach(k => {
+        const t = { key: k, text: tr[k], lang: lang }
+        this.post('translation', t).subscribe()
+      })
+    })
   }
 
   addCountries(): void {

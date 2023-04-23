@@ -11,16 +11,16 @@ import { ImageComponent } from '../image/image.component'
 @Component({
   selector: 'app-story-card',
   standalone: true,
-  imports: [CommonModule, StarsComponent, AvatarComponent, TranslatePipe, RouterModule,ImageComponent],
+  imports: [CommonModule, StarsComponent, AvatarComponent, TranslatePipe, RouterModule, ImageComponent],
   templateUrl: './story-card.component.html',
   styleUrls: ['./story-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StoryCardComponent {
-  userService= inject(UserService)
+  userService = inject(UserService)
   @Input() story!: Story
   @Input() isShowAvatar = true
   @Input() editable = false
   @Output() onDelete = new EventEmitter<Story>()
-  @Input()raduius = 10
+  @Input() raduius = 10
 }

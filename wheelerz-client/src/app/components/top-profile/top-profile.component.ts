@@ -20,6 +20,7 @@ export class TopProfileComponent {
   @Input() mobilityTypes?: MobilityType[]
   @Input() chairInfo?: Chair
   @Input() isShowChairInfo = true
+  @Input() isNameOnTop = true
 
   @Output() onAvatarChanged = new EventEmitter<string>()
 

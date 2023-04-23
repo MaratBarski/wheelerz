@@ -6,8 +6,9 @@
     <ng-container *ngIf="stories">
         <ng-container *ngFor="let story of stories">
             <div class="story">
-                <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
-                    [story]="story"></app-story-card>
+                <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)" [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
+                <!-- <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
+                    [story]="story"></app-story-card> -->
             </div>
         </ng-container>
     </ng-container>
@@ -21,3 +22,14 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #hotelTemplate let-story>
+    <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
+        [story]="story"></app-story-card>
+</ng-template>
+
+<ng-template #cityTemplate let-story>
+    <app-post-view [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
+        [story]="story"></app-post-view>
+</ng-template>
