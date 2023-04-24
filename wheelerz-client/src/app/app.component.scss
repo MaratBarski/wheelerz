@@ -3,6 +3,17 @@
     margin: 0 auto;
     padding-top: 20px;
 }
+.nav-bar{
+    position: sticky;
+    z-index: 105;
+    top: 20px;
+    background-color: #fff;
+    border-radius: 100px 100px 0px 0px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .loading {
     position: fixed;
     width: 100%;

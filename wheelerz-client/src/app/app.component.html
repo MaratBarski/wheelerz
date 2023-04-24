@@ -6,7 +6,7 @@
 <div *ngIf="isLoaded" [style.direction]="direction">
     <app-top *ngIf="userService.isLogedIn"></app-top>
     <div [class.main]="userService.isLogedIn">
-        <div *ngIf="userService.isLogedIn && (loaderService.onShowTopMenu | async)">
+        <div class="nav-bar" *ngIf="userService.isLogedIn && (loaderService.onShowTopMenu | async)">
             <app-nav-bar [links]="(links$|async)||[]">
                 <a [routerLink]="addUrl" class="add-btn">
                     +&nbsp;{{addText|translate}}

@@ -54,7 +54,6 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   userService = inject(UserService)
   constructor(public dialog: MatDialog) { }
 
-
   comments: StoryComment[] = []
   id = 0
   story$!: Observable<Story>
@@ -66,7 +65,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.id = +(this.activatedRoute.snapshot.paramMap.get('id') || '0')
     this.loadStory()
-    this.loader.showTopMenu(false)
+    //this.loader.showTopMenu(false)
   }
 
   loadStory(): void {
