@@ -30,7 +30,9 @@ namespace Wheelerz.Controllers
         [HttpGet("get")]
         public async Task<Dictionary<string, string>> Get()
         {
-            var lang = Util.GetQueryParam(Request, "lang", _userService.CurrenUser.lang);
+            var lang = Util.GetQueryParam(Request, "lang",
+                _userService.CurrenUser?.lang != null ?
+                _userService.CurrenUser.lang : "en");
             return await _translationService.Get(lang);
         }
 

@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { StoryCardComponent } from '../story-card/story-card.component'
 import { DataService } from 'src/app/services/data.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Story } from 'src/app/models/story'
-import { Observable, Subject, first, map, takeUntil, tap } from 'rxjs'
+import {  Subject, first, map, tap } from 'rxjs'
 import { PaginatorComponent } from '../paginator/paginator.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StoryUrls } from 'src/app/consts'
 import { StorySelectorComponent } from '../story-selector/story-selector.component'
 import { StorySelector } from 'src/app/models/story-selector'
-import { User } from 'src/app/models/user'
 import { SearchBoxComponent } from '../search-box/search-box.component'
 import { NoDataComponent } from '../no-data/no-data.component'
 import { PostViewComponent } from '../post-view/post-view.component'
@@ -33,7 +32,7 @@ import { PostViewComponent } from '../post-view/post-view.component'
   styleUrls: ['./story-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StoryListComponent implements OnInit, OnDestroy {
+export class StoryListComponent implements OnInit {
 
   dataService = inject(DataService)
   loader = inject(LoaderService)
@@ -49,12 +48,11 @@ export class StoryListComponent implements OnInit, OnDestroy {
   @Input() editable = false
   @Input() isShowAvatar = true
   @Input() searchByUser = false
+  @Input() pageSize = 50
 
-  //user$!: Observable<User>
   storySelector!: StorySelector
   isNoData = false
 
-  destroy = new Subject<void>()
   total = 0
   stories!: Story[]
 
@@ -82,40 +80,18 @@ export class StoryListComponent implements OnInit, OnDestroy {
     this.select()
   }
 
-  // loadProfile(): void {
-  //   this.user$ = this.dataService.getMyProfile()
-  //     .pipe(tap(res => {
-  //       this.storySelector = {
-  //         cityId: 0,
-  //         countryId: 0,
-  //         mobilities: this.searchByUser ? {} : (res.mobilities || []).reduce((prev, cur) => ({ ...prev, [cur.name]: true }), {}),
-  //         type: this.type,
-  //         page: { current: 0, size: 50 },
-  //         userId: this.userId,
-  //         isOnlyMy: this.searchByUser,
-  //         isMyInclude: true
-  //       }
-  //       this.select()
-  //     }))
-  // }
-
   ngOnInit(): void {
-    //this.loadProfile()
     this.storySelector = {
       cityId: 0,
       countryId: 0,
       mobilities: {},
       type: this.type,
-      page: { current: 0, size: 50 },
+      page: { current: 0, size: this.pageSize },
       userId: this.userId,
       isOnlyMy: this.searchByUser,
       isMyInclude: true
     }
     this.select()
-  }
-
-  ngOnDestroy(): void {
-    this.destroy.next()
   }
 
   onPageChange(value: number): void {

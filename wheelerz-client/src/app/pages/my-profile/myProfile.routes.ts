@@ -29,5 +29,9 @@ export const MY_PROFILE_ROUTES: Routes = [
     {
         path: 'edit-profile/:id',
         loadComponent: () => import('./profile-edit/profile-edit.component').then(c => c.ProfileEditComponent)
-    }
+    },
+    {
+        path: 'change-pwd',
+        loadComponent: () => import('./change-password/change-password.component').then(c => c.ChangePasswordComponent),
+    },
 ];

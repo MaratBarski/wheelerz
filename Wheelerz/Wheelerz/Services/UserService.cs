@@ -30,6 +30,7 @@ namespace Wheelerz.Services
         Task UpdateLastAccess();
         bool IsNotValidUser(int id);
         bool IsValidUser(int id);
+        Task<ChairInfo> GetCharInfoToCm(int id);
     }
     public class UserService : IUserService
     {
@@ -101,6 +102,9 @@ namespace Wheelerz.Services
                 var forRemove = _data.UserMobilities.Where(x => x.userId == userId);
                 _data.UserMobilities.RemoveRange(forRemove);
                 user.mobilityNumber = 0;
+
+                if (0 == user.noWalk) user.chairNumber = 0;
+
                 mobilities.ForEach(x =>
                 {
                     x.userId = userId;
@@ -132,9 +136,15 @@ namespace Wheelerz.Services
                 var user = await _data.Users.FirstOrDefaultAsync(x => x.id == userId);
                 if (user == null) return;
 
+                user.chairNumber = 0;
                 var forDelete = _data.ChairOptions.Where(x => x.userId == userId);
                 _data.ChairOptions.RemoveRange(forDelete);
-                options.ForEach(x => { x.userId = userId; });
+                options.OrderBy(x => x.key).ToList()
+                .ForEach(x =>
+                {
+                    user.chairNumber |= Consts.ChairDictionary[x.key][x.value];
+                    x.userId = userId;
+                });
                 _data.ChairOptions.AddRange(options);
                 await _data.SaveChangesAsync();
             });
@@ -251,7 +261,7 @@ namespace Wheelerz.Services
                     x.lastName.Contains(request.q) ||
                     x.email.Contains(request.q)
                  ))
-                .OrderByDescending(x=>x.lastVisit);
+                .OrderByDescending(x => x.lastVisit);
 
                 var total = await linq.AsSplitQuery().CountAsync();
                 var res = await linq.Skip(request.page.current * request.page.size).Take(request.page.size)
@@ -289,6 +299,23 @@ namespace Wheelerz.Services
                 user.lastVisit = DateTime.Now;
                 CurrenUser.lastVisit = DateTime.Now;
                 await _data.SaveChangesAsync();
+            });
+        }
+
+        public Task<ChairInfo> GetCharInfoToCm(int id)
+        {
+            return Task.Run(async () =>
+            {
+                var ci = await _data.ChairInfos.FirstOrDefaultAsync(x => x.userId == id);
+                if (ci == null) return new ChairInfo { messure = "cm", width = 0, length = 0, seatHeight = 0 };
+                double kf = (ci.messure == "inch") ? 2.54 : 1;
+                return new ChairInfo()
+                {
+                    messure = "cm",
+                    length = ci.length * kf,
+                    width = ci.width * kf,
+                    seatHeight = ci.seatHeight * kf
+                };
             });
         }
     }

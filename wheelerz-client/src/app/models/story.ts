@@ -52,4 +52,8 @@ export interface Story extends BaseItem {
     mainImage?: string
     userComments?: StoryComment[]
     chairInfo?: Chair
+    chairNumber?: number
+    width?: number
+    length?: number
+    height?: number
 }

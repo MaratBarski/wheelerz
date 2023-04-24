@@ -27,6 +27,9 @@
                     </div>
                 </div>
             </div>
+            <div class="chair-number">
+                <app-chair-options-view [value]="chairNumber"></app-chair-options-view>
+            </div>
             <div class="mob flex" *ngIf="chair && noWalk">
                 <div class="flex mob-item" *ngIf="chair.length > 0">
                     <div class="mob-img">

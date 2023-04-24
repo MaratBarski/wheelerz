@@ -29,6 +29,7 @@ import { UserService } from 'src/app/services/user.service'
 export class InputCommentComponent {
   userService = inject(UserService)
 
+  @Input() maxFileCount = 4
   @Input() form!: FormGroup
   @Input() controlName = 'comments'
   @Input() titlePlaceholder = 'title'
@@ -40,6 +41,7 @@ export class InputCommentComponent {
   @Input() isFooter = true
   @Input() areaHeight = 300
   @Input() isAddPhotoEnable = false
+  @Input() isForceAddPhotoDisable = false
   @Input() editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -121,6 +123,10 @@ export class InputCommentComponent {
 
   @ViewChild('file') file!: ElementRef<HTMLInputElement>
 
+  get isFilesOverSize(): boolean {
+    return this.files.length >= this.maxFileCount
+  }
+
   imageService = inject(ImageService)
   changeDetectorRef = inject(ChangeDetectorRef)
 
@@ -143,6 +149,8 @@ export class InputCommentComponent {
       const url = await this.imageService.getPreview(event.target.files[i])
       this.files = [...this.files, url]
     }
+    if (!this.userService.isAdmin)
+      this.files.splice(0, this.files.length - this.maxFileCount)
     this.file.nativeElement.value = ''
     this.changeDetectorRef.markForCheck()
     this.onImageUpdates.emit(this.files)

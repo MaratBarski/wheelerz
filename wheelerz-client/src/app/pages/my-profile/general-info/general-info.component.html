@@ -1,6 +1,6 @@
 <ng-container *ngIf="user$|async as user">
     <app-top-profile [isEditable]="true" [user]="user"></app-top-profile>
     <div class="stories">
-        <app-story-list [searchByUser]="true" [type]="0" [userId]="user.id || 0"  [editable]="true"></app-story-list>
+        <app-story-list  [pageSize]="50" [searchByUser]="true" [type]="0" [userId]="user.id || 0"  [editable]="true"></app-story-list>
     </div>
 </ng-container> 

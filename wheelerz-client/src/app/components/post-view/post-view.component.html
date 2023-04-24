@@ -12,7 +12,7 @@
                 <div class="country">{{story.city?.name}},{{story.country?.name}}</div>
                 <div class="est"><app-stars [estimation]="story.estimation || 0"></app-stars></div>
                 <div *ngIf="story.user">
-                    <app-top-profile [isNameOnTop]="false" [mobilityTypes]="story.mobilities"
+                    <app-top-profile [chairInfo]="story|storyToChair" [chairNumber]="story.chairNumber" [isNameOnTop]="false" [mobilityTypes]="story.mobilities"
                         [user]="story.user"></app-top-profile>
                 </div>
             </div>

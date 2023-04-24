@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wheelerz.DTO;
 using Wheelerz.Models;
 using Wheelerz.Services;
 
@@ -25,6 +26,12 @@ namespace Wheelerz.Controllers
         public LoginResponse Registr(RegistrRequest user)
         {
             return _authService.Registration(user);
+        }
+
+        [HttpPost("change-password")]
+        public async Task<ChangePasswordResponse> ChangePassword(ChangePassword pwd)
+        {
+            return await _authService.ChangePassword(pwd);
         }
     }
 }

@@ -205,3 +205,33 @@ create table translations(
 	[text] [ntext] not null
 )
 go
+alter table stories add chairNumber int not null default(0)
+go
+alter table users add chairNumber int not null default(0)
+go
+alter table [stories] add width float not null default(0)
+go
+alter table [stories] add [length] float not null default(0)
+go
+alter table [stories] add [height] float not null default(0)
+
+
+
+
+
+
+
+
+
+
+
+
+--delete from  stories
+--delete from [accessibilities]
+--delete from [accessibilityFiles]
+--delete from [accessibilityItems]
+--delete from [chairStoryInfos]
+--delete from [storyComments]
+--delete from [storyPhotos]
+--delete from [chairStoryInfos]
+--delete from [chairInfo

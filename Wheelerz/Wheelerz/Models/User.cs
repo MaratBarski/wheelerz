@@ -67,9 +67,11 @@ namespace Wheelerz.Models
         [ForeignKey("stateId")]
         public State? state { get; set; }
 
-        [ForeignKey("mobilityNumber")]
+        [Column("mobilityNumber")]
         public int mobilityNumber { get; set; }
 
+        [Column("chairNumber")]
+        public int chairNumber { get; set; }
         public List<UserMobility>? mobilities { get; set; }
         public ChairInfo? chairInfo { get; set; }
         public List<ChairOption>? chairOptions { get; set; }

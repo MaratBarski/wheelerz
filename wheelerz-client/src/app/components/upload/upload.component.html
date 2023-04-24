@@ -1,5 +1,5 @@
 <div class="cnt">
-    <div (click)="openAttachment()" class="upload">
+    <div *ngIf="!isFilesOverSize || userService.isAdmin" (click)="openAttachment()" class="upload">
         <img src="./assets/img/camera-white.svg">
     </div>
     <div class="images" *ngIf="files">

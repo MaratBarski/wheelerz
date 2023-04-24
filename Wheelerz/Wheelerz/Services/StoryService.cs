@@ -60,7 +60,14 @@ namespace Wheelerz.Services
                 if (!this.UpdateAndValidate(story)) return null;
 
                 story.lang = _userService.CurrenUser.lang;
+                var ci = await _userService.GetCharInfoToCm(_userService.CurrenUser.id);
+                story.width = ci.width;
+                story.height = ci.seatHeight;
+                story.length = ci.length;
+
                 story.mobilityNumber = _userService.CurrenUser.mobilityNumber;
+                story.chairNumber = _userService.CurrenUser.chairNumber;
+
                 story.dateAdd = DateTime.Now;
                 story.key = Guid.NewGuid().ToString();
                 story.storyPhotos = new List<StoryPhoto>();
@@ -489,9 +496,17 @@ namespace Wheelerz.Services
                ));
 
                 var total = await linq.AsSplitQuery().CountAsync();
+                var ci = await _userService.GetCharInfoToCm(_userService.CurrenUser.id);
                 var list = await linq
-                    .OrderByDescending(x => x.mobilityNumber & _userService.CurrenUser.mobilityNumber)
+                    .OrderBy(x => ci.width - x.width)
+                    .ThenBy(x => ci.length - x.length)
+                    .ThenBy(x => ci.seatHeight - x.height)
+                    .ThenByDescending(x => x.chairNumber == _userService.CurrenUser.chairNumber ? 1 : 0)
+                    .ThenByDescending(x => x.chairNumber & _userService.CurrenUser.chairNumber)
+                    .ThenBy(x => x.chairNumber | _userService.CurrenUser.chairNumber)
+                    .ThenByDescending(x => x.mobilityNumber & _userService.CurrenUser.mobilityNumber)
                     .ThenBy(x => Math.Abs(x.mobilityNumber - _userService.CurrenUser.mobilityNumber))
+                    .ThenByDescending(x => x.estimation)
                     .ThenByDescending(x => x.dateAdd)
                     .ThenByDescending(x => x.endDate)
                     .Skip(request.page.current * request.page.size)

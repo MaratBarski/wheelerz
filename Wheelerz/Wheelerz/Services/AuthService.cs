@@ -1,7 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Wheelerz.DTO;
 using Wheelerz.Helpers;
 using Wheelerz.Models;
 
@@ -16,6 +18,7 @@ namespace Wheelerz.Services
         LoginResponse Registration(RegistrRequest user);
         LoginResponse Login(LoginRequest login);
         User? ValidateUser(string authorization, string lang);
+        Task<ChangePasswordResponse> ChangePassword(ChangePassword pwd);
     }
 
     public class AuthService : IAuthService
@@ -121,6 +124,25 @@ namespace Wheelerz.Services
                 email = newUser.email,
                 token = GenerateJSONWebToken(newUser),
             };
+        }
+
+        public Task<ChangePasswordResponse> ChangePassword(ChangePassword pwd)
+        {
+            return Task.Run(async () =>
+            {
+                var user = await _data.Users.FirstOrDefaultAsync(x => x.email == pwd.email);
+                if (user == null) return new ChangePasswordResponse() { message = "user_not found" };
+                if (user.password != EncryptionHelper.Encrypt(pwd.oldPwd)) return new ChangePasswordResponse() { message = "invalid_password" };
+                if (pwd.newPwd != pwd.confirmPwd || pwd.confirmPwd.Trim() == "") return new ChangePasswordResponse() { message = "confirmr_password_error" };
+                var newPwd = EncryptionHelper.Encrypt(pwd.newPwd.Trim());
+                user.password = newPwd;
+                await _data.SaveChangesAsync();
+                return new ChangePasswordResponse
+                {
+                    message = "passord_changed"
+                };
+            });
+
         }
     }
 }

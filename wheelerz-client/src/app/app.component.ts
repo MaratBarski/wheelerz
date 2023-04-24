@@ -6,7 +6,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 import { StarsComponent } from './components/stars/stars.component'
 import { TopComponent } from './components/top/top.component'
 import { TranslationService } from './services/translation.service'
-import { combineLatest, Observable, Subject, of, takeUntil, map, filter } from 'rxjs'
+import { combineLatest, Observable, Subject, of, takeUntil, map, filter, delay } from 'rxjs'
 import { TranslateAsyncPipe, TranslatePipe } from './pipes/translate.pipe'
 import { UserService } from './services/user.service'
 import { LoaderService } from './services/loader.service'
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     { name: 'road_trip_stories', link: 'stories' },
     { name: 'hotel_reviews', link: 'hotel-reviews' },
     { name: 'cities_accessibility', link: 'cities-accessibility' },
-   // { name: 'trends', link: 'fellow-travelers' },
+    // { name: 'trends', link: 'fellow-travelers' },
   ]
 
   links$: Observable<NavLink[]> = combineLatest([
@@ -75,5 +75,10 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.changeDetectorRef.markForCheck()
       })
+    this.loaderService.onShowTopMenu.pipe(
+      delay(10),
+      takeUntil(this.destroy)
+      )
+    .subscribe(() => this.changeDetectorRef.markForCheck())
   }
 }

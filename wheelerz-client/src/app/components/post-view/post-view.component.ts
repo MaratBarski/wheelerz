@@ -8,11 +8,13 @@ import { AvatarComponent } from '../avatar/avatar.component'
 import { ImageComponent } from '../image/image.component'
 import { StarsComponent } from '../stars/stars.component'
 import { TopProfileComponent } from '../top-profile/top-profile.component'
+import { ChairOptionsViewComponent } from '../chair-options-view/chair-options-view.component'
+import { StoryToChairPipe } from 'src/app/pipes/story-to-chair.pipe'
 
 @Component({
   selector: 'app-post-view',
   standalone: true,
-  imports: [CommonModule, RouterModule, TranslatePipe, AvatarComponent, ImageComponent, StarsComponent, TopProfileComponent],
+  imports: [CommonModule, StoryToChairPipe, RouterModule, ChairOptionsViewComponent, TranslatePipe, AvatarComponent, ImageComponent, StarsComponent, TopProfileComponent],
   templateUrl: './post-view.component.html',
   styleUrls: ['./post-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

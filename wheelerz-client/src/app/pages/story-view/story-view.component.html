@@ -50,7 +50,7 @@
 
             <div class="comment-title">Comments</div>
             <div class="editor">
-                <app-input-comment commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false"
+                <app-input-comment [isForceAddPhotoDisable]="true" commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false"
                     [isFooter]="false" [form]="form" [isEditor]="false">
                     <div class="add-commentsd">
                         <button class="main-btn" (click)="addComment()">{{'publish'|translate}}</button>

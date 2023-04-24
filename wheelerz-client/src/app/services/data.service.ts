@@ -12,6 +12,7 @@ import { StorySelector } from '../models/story-selector'
 import { UserSelector } from '../models/user-selector'
 import { StoryComment } from '../models/story-comment'
 import { Translation } from '../models/translation'
+import { ChangePassowrd } from '../models/change-pwd'
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,10 @@ export class DataService {
 
   getTranslations(lang: string = ''): Observable<Translation[]> {
     return this.get(`translation/all?lang=${lang}`)
+  }
+
+  changePassword(pwd: ChangePassowrd): Observable<any> {
+    return this.post('auth/change-password', pwd)
   }
 
   updateTranslation(t: { key: string, lang: string, text: string }): Observable<any> {

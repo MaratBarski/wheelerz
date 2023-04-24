@@ -24,6 +24,15 @@ namespace Wheelerz.Models
         [Column("cityId")]
         public int cityId { get; set; }
 
+        [Column("width")]
+        public double width { get; set; }
+
+        [Column("length")]
+        public double length { get; set; }
+
+        [Column("height")]
+        public double height { get; set; }
+
         [Column("title")]
         public string? title { get; set; }
 
@@ -71,6 +80,9 @@ namespace Wheelerz.Models
 
         [Column("mobilityNumber")]
         public int mobilityNumber { get; set; }
+
+        [Column("chairNumber")]
+        public int chairNumber { get; set; }
         public List<Accessibility>? accessibility { get; set; }
         public List<StoryMobility>? mobilities { get; set; }
         public User? user { get; set; }

@@ -15,8 +15,15 @@ export class PaginatorComponent {
   @Input() current = 0
   @Input() total = 0
   @Input() size = 1
+  @Input() showOnePage = false
 
   @Output() onPageChange = new EventEmitter<number>()
+
+  get isShow(): boolean {
+    if (!this.total) return false
+    if (this.showOnePage) return true
+    return this.total > this.size
+  }
 
   get isFirst(): boolean {
     return this.current === 0

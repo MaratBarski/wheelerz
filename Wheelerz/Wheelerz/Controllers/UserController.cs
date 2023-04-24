@@ -49,8 +49,8 @@ namespace Wheelerz.Controllers
         [HttpPost("mobility")]
         public async Task UpdateMobility(MobilityDto mobility)
         {
-            await _userService.UpdateMobilityAsync(_userService.CurrenUser.id, mobility.mobilities);
             await _userService.UpdateChairOptionsAsync(_userService.CurrenUser.id, mobility.chairOptions);
+            await _userService.UpdateMobilityAsync(_userService.CurrenUser.id, mobility.mobilities);
             await _userService.UpdateChairInfoAsync(_userService.CurrenUser.id, mobility.chairInfo);
         }
 
@@ -89,6 +89,7 @@ namespace Wheelerz.Controllers
         {
             return new { count = _userService.GetMobilities(_userService.CurrenUser.id).Count() };
         }
+
 
     }
 }
