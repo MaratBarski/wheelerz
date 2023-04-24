@@ -17,6 +17,10 @@
 }
 .inner {
     background-color: #fff;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .image {
     border-radius: 100px;

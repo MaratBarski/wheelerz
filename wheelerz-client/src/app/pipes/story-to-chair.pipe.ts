@@ -8,7 +8,8 @@ import { Chair } from '../models/chair';
 })
 export class StoryToChairPipe implements PipeTransform {
 
-  transform(value: Story): Chair {
+  transform(value: Story): Chair | undefined {
+    if (!value.chairNumber) return undefined
     return {
       seatHeight: Math.ceil(value.height || 0),
       width: Math.ceil(value.width || 0),
