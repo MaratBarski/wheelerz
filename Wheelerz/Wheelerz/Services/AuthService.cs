@@ -15,8 +15,8 @@ namespace Wheelerz.Services
 {
     public interface IAuthService
     {
-        LoginResponse Registration(RegistrRequest user);
-        LoginResponse Login(LoginRequest login);
+        Task<LoginResponse> Registration(RegistrRequest user);
+        Task<LoginResponse> Login(LoginRequest login);
         User? ValidateUser(string authorization, string lang);
         Task<ChangePasswordResponse> ChangePassword(ChangePassword pwd);
     }
@@ -31,23 +31,26 @@ namespace Wheelerz.Services
         {
             _data = dataContext;
         }
-        public LoginResponse Login(LoginRequest login)
+        public Task<LoginResponse> Login(LoginRequest login)
         {
-            if (string.IsNullOrEmpty(login.password) || login.password.Trim() == "") return new LoginResponse() { error = "no_password" };
-            if (string.IsNullOrEmpty(login.email) || login.email.Trim() == "") return new LoginResponse() { error = "no_mail" };
-            var user = _data.Users?.Where(x => x.email == login.email.Trim().ToLower()).FirstOrDefault();
-            if (user == null) return new LoginResponse() { error = "email_not_found" };
-            if (user.password != EncryptionHelper.Encrypt(login.password)) return new LoginResponse() { error = "invalid_password" };
-
-            return new LoginResponse()
+            return Task.Run(async () =>
             {
-                key = user.key,
-                firstName = user.firstName,
-                lastName = user.lastName,
-                email = user.email,
-                token = GenerateJSONWebToken(user),
-                role = user.role,
-            };
+                if (string.IsNullOrEmpty(login.password) || login.password.Trim() == "") return new LoginResponse() { error = "no_password" };
+                if (string.IsNullOrEmpty(login.email) || login.email.Trim() == "") return new LoginResponse() { error = "no_mail" };
+                var user = await _data.Users?.Where(x => x.email == login.email.Trim().ToLower()).FirstOrDefaultAsync();
+                if (user == null) return new LoginResponse() { error = "email_not_found" };
+                if (user.password != EncryptionHelper.Encrypt(login.password)) return new LoginResponse() { error = "invalid_password" };
+
+                return new LoginResponse()
+                {
+                    key = user.key,
+                    firstName = user.firstName,
+                    lastName = user.lastName,
+                    email = user.email,
+                    token = GenerateJSONWebToken(user),
+                    role = user.role,
+                };
+            });
         }
 
         private static string GenerateJSONWebToken(User userInfo)
@@ -80,50 +83,53 @@ namespace Wheelerz.Services
             var dictionary = token.Claims.ToDictionary(x => x.Type, x => x.Value);
             var id = int.Parse(dictionary["id"]);
 
-            var user = _data.Users?.Where(x => x.id == id).FirstOrDefault();
+            var user = _data.Users?.FirstOrDefault(x => x.id == id);
             user.lang = lang;
 
             return user;
         }
 
-        public LoginResponse Registration(RegistrRequest registr)
+        public Task<LoginResponse> Registration(RegistrRequest registr)
         {
-            if (string.IsNullOrEmpty(registr.password) || registr.password.Trim() == "") return new LoginResponse() { error = "no_password" };
-            if (string.IsNullOrEmpty(registr.email) || registr.email.Trim() == "") return new LoginResponse() { error = "no_mail" };
-            if (registr.birthYear < DateTime.Now.Year - 100) return new LoginResponse() { error = "no_birthday" };
-            if (registr.birthYear > DateTime.Now.Year - 10) return new LoginResponse() { error = "no_birthday" };
-
-            var email = registr.email.Trim().ToLower();
-            var user = _data.Users?.Where(x => x.email == registr.email).FirstOrDefault();
-            if (user != null) return new LoginResponse() { error = "email_already_exists" };
-
-            var newUser = new User()
+            return Task.Run(async () =>
             {
-                email = registr.email,
-                key = Guid.NewGuid().ToString(),
-                password = EncryptionHelper.Encrypt(registr.password.Trim()),
-                phone = registr.phone,
-                lastName = registr.lastName,
-                firstName = registr.firstName,
-                birthDay = DateTime.Now,
-                birthYear = registr.birthYear,
-                lastVisit = DateTime.Now,
-                sex = registr.sex,
-                countryId = registr.countryId,
-                stateId = registr.stateId,
-                registrDate = DateTime.Now,
-                role = 0,
-            };
-            _data.Users?.Add(newUser);
-            _data.SaveChanges();
-            return new LoginResponse()
-            {
-                key = newUser.key,
-                firstName = newUser.firstName,
-                lastName = newUser.lastName,
-                email = newUser.email,
-                token = GenerateJSONWebToken(newUser),
-            };
+                if (string.IsNullOrEmpty(registr.password) || registr.password.Trim() == "") return new LoginResponse() { error = "no_password" };
+                if (string.IsNullOrEmpty(registr.email) || registr.email.Trim() == "") return new LoginResponse() { error = "no_mail" };
+                if (registr.birthYear < DateTime.Now.Year - 100) return new LoginResponse() { error = "no_birthday" };
+                if (registr.birthYear > DateTime.Now.Year - 10) return new LoginResponse() { error = "no_birthday" };
+
+                var email = registr.email.Trim().ToLower();
+                var user = await _data.Users?.FirstOrDefaultAsync(x => x.email == registr.email);
+                if (user != null) return new LoginResponse() { error = "email_already_exists" };
+
+                var newUser = new User()
+                {
+                    email = registr.email,
+                    key = Guid.NewGuid().ToString(),
+                    password = EncryptionHelper.Encrypt(registr.password.Trim()),
+                    phone = registr.phone,
+                    lastName = registr.lastName,
+                    firstName = registr.firstName,
+                    birthDay = DateTime.Now,
+                    birthYear = registr.birthYear,
+                    lastVisit = DateTime.Now,
+                    sex = registr.sex,
+                    countryId = registr.countryId,
+                    stateId = registr.stateId,
+                    registrDate = DateTime.Now,
+                    role = 0,
+                };
+                _data.Users?.Add(newUser);
+                await _data.SaveChangesAsync();
+                return new LoginResponse()
+                {
+                    key = newUser.key,
+                    firstName = newUser.firstName,
+                    lastName = newUser.lastName,
+                    email = newUser.email,
+                    token = GenerateJSONWebToken(newUser),
+                };
+            });
         }
 
         public Task<ChangePasswordResponse> ChangePassword(ChangePassword pwd)

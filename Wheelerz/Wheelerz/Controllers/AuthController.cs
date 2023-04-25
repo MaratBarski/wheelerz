@@ -17,15 +17,15 @@ namespace Wheelerz.Controllers
         }
 
         [HttpPost("login")]
-        public LoginResponse Login(LoginRequest login)
+        public async Task<LoginResponse> Login(LoginRequest login)
         {
-            return _authService.Login(login);
+            return await _authService.Login(login);
         }
 
         [HttpPost("registr")]
-        public LoginResponse Registr(RegistrRequest user)
+        public async Task<LoginResponse> Registr(RegistrRequest user)
         {
-            return _authService.Registration(user);
+            return await _authService.Registration(user);
         }
 
         [HttpPost("change-password")]

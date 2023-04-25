@@ -18,21 +18,21 @@ namespace Wheelerz.Controllers
         }
 
         [HttpGet("countries")]
-        public IEnumerable<Country> GetCountries()
+        public async Task<IEnumerable<Country>> GetCountries()
         {
             //var exists = bool.Parse(Util.GetQueryParam(Request, "exists", false));
             var exists = false;
             var type = int.Parse(Util.GetQueryParam(Request, "type", 0));
-            return _countryService.GetCountries(exists, type);
+            return await _countryService.GetCountries(exists, type);
         }
 
         [HttpGet("states/{countryId}")]
-        public IEnumerable<State> GetStates(int countryId)
+        public async Task<IEnumerable<State>> GetStates(int countryId)
         {
             //var exists = bool.Parse(Util.GetQueryParam(Request, "exists", false));
             var exists = false;
             var type = int.Parse(Util.GetQueryParam(Request, "type", 0));
-            return _countryService.GetStates(countryId, exists, type);
+            return await _countryService.GetStates(countryId, exists, type);
         }
 
         [HttpPost]

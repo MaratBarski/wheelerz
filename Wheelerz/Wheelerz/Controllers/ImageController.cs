@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Wheelerz.Services;
 
 namespace Wheelerz.Controllers
@@ -14,6 +13,7 @@ namespace Wheelerz.Controllers
         {
             _uploadService = uploadService;
         }
+
         [HttpGet("{image}")]
         public async Task<IActionResult> GetImage(string image)
         {

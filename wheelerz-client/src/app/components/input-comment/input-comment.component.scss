@@ -55,16 +55,23 @@
     width: 80px;
 }
 .admin-inputs {
-    color: #000;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: #b00;
     display: flex;
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+    background-color: #fff;
     justify-content: space-between;
 }
-.admin-inputs div{
+.admin-inputs div {
     margin-left: 10px;
     margin-right: 10px;
 }
-.admin-inputs input{
-    height: 20px;
+.admin-inputs input {
+    height: 40px;
     width: 300px;
     margin-top: 10px;
     margin-bottom: 20px;

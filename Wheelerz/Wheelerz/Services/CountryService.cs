@@ -1,12 +1,13 @@
-﻿using Wheelerz.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Wheelerz.Models;
 
 namespace Wheelerz.Services
 {
     public interface ICountryService
     {
         void AddAll(IEnumerable<Country> countries);
-        IEnumerable<Country> GetCountries(bool exists = false,int type = 0);
-        IEnumerable<State> GetStates(int coutryId, bool exists = false, int type = 0);
+        Task<List<Country>> GetCountries(bool exists = false, int type = 0);
+        Task<List<State>> GetStates(int coutryId, bool exists = false, int type = 0);
     }
     public class CountryService : ICountryService
     {
@@ -15,24 +16,31 @@ namespace Wheelerz.Services
         {
             this._data = data;
         }
-        public IEnumerable<Country> GetCountries(bool exists = false, int type = 0)
+        public Task<List<Country>> GetCountries(bool exists = false, int type = 0)
         {
-            if (exists)
+            return Task.Run(async () =>
             {
-                var ids = _data.Stories.Where(x => x.deleted == 0 && (type == 0 || x.storyType == type)).Select(x => x.countryId).Distinct().ToList();
-                return _data.Countries.Where(x => ids.Contains(x.id)).OrderBy(x => x.name).ToList();
-            }
-            return _data.Countries.OrderBy(x => x.name).ToList();
+                if (exists)
+                {
+                    var ids = await _data.Stories.Where(x => x.deleted == 0 && (type == 0 || x.storyType == type)).Select(x => x.countryId).Distinct().ToListAsync();
+                    return await _data.Countries.Where(x => ids.Contains(x.id)).OrderBy(x => x.name).ToListAsync();
+                }
+                return await _data.Countries.OrderBy(x => x.name).ToListAsync();
+            });
+
         }
 
-        public IEnumerable<State> GetStates(int coutryId, bool exists = false, int type = 0)
+        public Task<List<State>> GetStates(int coutryId, bool exists = false, int type = 0)
         {
-            if (exists)
+            return Task.Run(async () =>
             {
-                var ids = _data.Stories.Where(x => x.deleted == 0 && (type == 0 || x.storyType == type)).Select(x => x.cityId).Distinct().ToList();
-                return _data.States.Where(x => x.countryId == coutryId && ids.Contains(x.id)).OrderBy(x => x.name).ToList();
-            }
-            return _data.States.Where(x => x.countryId == coutryId).OrderBy(x => x.name).ToList();
+                if (exists)
+                {
+                    var ids = await _data.Stories.Where(x => x.deleted == 0 && (type == 0 || x.storyType == type)).Select(x => x.cityId).Distinct().ToListAsync();
+                    return await _data.States.Where(x => x.countryId == coutryId && ids.Contains(x.id)).OrderBy(x => x.name).ToListAsync();
+                }
+                return await _data.States.Where(x => x.countryId == coutryId).OrderBy(x => x.name).ToListAsync();
+            });
         }
 
         public void AddAll(IEnumerable<Country> countries)

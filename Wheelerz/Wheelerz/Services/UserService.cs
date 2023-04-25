@@ -7,6 +7,7 @@ using Wheelerz.Models;
 #pragma warning disable CS8603
 #pragma warning disable CS8602
 #pragma warning disable CS8604
+#pragma warning disable CS8619
 
 namespace Wheelerz.Services
 {
@@ -17,11 +18,11 @@ namespace Wheelerz.Services
         Task<List<int>> GetUserIds(StorySelector request);
         Task<User> GetUserProfileAsyns(int id);
         string ChangeAvatar(FileImage file, int userId);
-        List<UserMobility> GetMobilities(int userId);
+        Task<List<UserMobility>> GetMobilities(int userId);
         Task UpdateChairInfoAsync(int userId, ChairInfo info);
         Task UpdateChairOptionsAsync(int userId, List<ChairOption> options);
-        ChairInfo GetChairInfo(int id);
-        List<ChairOption> GetChairOptions(int id);
+        Task<ChairInfo> GetChairInfo(int id);
+        Task<List<ChairOption>> GetChairOptions(int id);
         Task<PageResponse<IEnumerable<User>>> GetUsers(UserSelector request);
         User GetUserInfo(int id);
         void UpdateUserInfo(int id, RegistrRequest user);
@@ -73,9 +74,13 @@ namespace Wheelerz.Services
             });
         }
 
-        public List<UserMobility> GetMobilities(int userId)
+        public Task<List<UserMobility>> GetMobilities(int userId)
         {
-            return _data.UserMobilities.Where(x => x.userId == userId).ToList();
+            return Task.Run(async () =>
+            {
+                return await _data.UserMobilities.Where(x => x.userId == userId).ToListAsync();
+            });
+
         }
 
         public string ChangeAvatar(FileImage file, int userId)
@@ -150,14 +155,21 @@ namespace Wheelerz.Services
             });
         }
 
-        public ChairInfo GetChairInfo(int userId)
+        public Task<ChairInfo> GetChairInfo(int userId)
         {
-            return _data.ChairInfos.FirstOrDefault(x => x.userId == userId);
+            return Task.Run(async () =>
+            {
+                return await _data.ChairInfos.FirstOrDefaultAsync(x => x.userId == userId);
+            });
         }
 
-        public List<ChairOption> GetChairOptions(int userId)
+        public Task<List<ChairOption>> GetChairOptions(int userId)
         {
-            return _data.ChairOptions.Where(x => x.userId == userId).ToList();
+            return Task.Run(async () =>
+            {
+                return await _data.ChairOptions.Where(x => x.userId == userId).ToListAsync();
+            });
+          
         }
 
         public bool IsNotValidUser(int id)
@@ -293,6 +305,8 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
+                if (CurrenUser == null) return;
+
                 var user = await _data.Users.FirstOrDefaultAsync(x => x.id == CurrenUser.id);
                 if (user == null) return;
 

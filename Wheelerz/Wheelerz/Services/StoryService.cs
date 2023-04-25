@@ -4,6 +4,7 @@ using Wheelerz.Helpers;
 using Wheelerz.Models;
 
 #pragma warning disable CS8620
+#pragma warning disable CS8602
 #pragma warning disable CS8603
 #pragma warning disable CS8604
 #pragma warning disable CS8619

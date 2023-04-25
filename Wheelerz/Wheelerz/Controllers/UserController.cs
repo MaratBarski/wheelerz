@@ -55,13 +55,13 @@ namespace Wheelerz.Controllers
         }
 
         [HttpGet("mobility")]
-        public MobilityDto GetMobility()
+        public async Task<MobilityDto> GetMobility()
         {
             var res = new MobilityDto()
             {
-                mobilities = _userService.GetMobilities(_userService.CurrenUser.id),
-                chairInfo = _userService.GetChairInfo(_userService.CurrenUser.id),
-                chairOptions = _userService.GetChairOptions(_userService.CurrenUser.id),
+                mobilities = await _userService.GetMobilities(_userService.CurrenUser.id),
+                chairInfo = await _userService.GetChairInfo(_userService.CurrenUser.id),
+                chairOptions = await _userService.GetChairOptions(_userService.CurrenUser.id),
             };
             return res;
         }
@@ -85,9 +85,9 @@ namespace Wheelerz.Controllers
         }
 
         [HttpGet("hasmob")]
-        public dynamic CheckMobs()
+        public async Task<dynamic> CheckMobs()
         {
-            return new { count = _userService.GetMobilities(_userService.CurrenUser.id).Count() };
+            return new { count = (await _userService.GetMobilities(_userService.CurrenUser.id)).Count() };
         }
 
 
