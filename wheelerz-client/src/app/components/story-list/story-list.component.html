@@ -1,12 +1,14 @@
 <div class="cnt" *ngIf="stories">
-    <app-story-selector *ngIf="!searchByUser" (onApply)="onApplySelector($event)"
-        [storySelector]="storySelector"></app-story-selector>
+    <div *ngIf="!searchByUser" class="top-search">
+        <app-story-selector (onApply)="onApplySelector($event)" [storySelector]="storySelector"></app-story-selector>
+    </div>
     <app-search-box *ngIf="searchByUser" [text]="storySelector.q || ''"
         (onSearch)="updateSearchText($event)"></app-search-box>
     <ng-container *ngIf="stories">
         <ng-container *ngFor="let story of stories">
             <div class="story">
-                <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)" [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
+                <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)"
+                    [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
                 <!-- <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
                     [story]="story"></app-story-card> -->
             </div>

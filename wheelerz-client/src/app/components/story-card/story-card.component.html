@@ -1,8 +1,4 @@
 <div class="cnt">
-    <div class="edit" *ngIf="editable || userService.isAdmin">
-        <button class="edit-btn" routerLink="/my-profile/story/{{story.id}}">{{'edit'|translate}}</button>
-        <button class="delete-btn" (click)="onDelete.emit(story)">{{'delete'|translate}}</button>
-    </div>
     <div class="card pointer" routerLink="/story-info/{{story.id}}">
         <div class="main-flex">
             <div *ngIf="isShowAvatar" class="image">
@@ -14,8 +10,8 @@
                 <div class="info">
                     <div class="title">{{story.name || story.title}}</div>
                     <div class="address">
-                        <app-image src="address.svg"></app-image>
-                        &nbsp;{{story.address}},&nbsp;{{story.city?.name}},&nbsp;{{story.country?.name}}
+                        <div class="add-image"><app-image src="address.svg"></app-image></div>
+                        <span *ngIf="story.address">{{story.address}},&nbsp;</span>{{story.city?.name}},&nbsp;{{story.country?.name}}
                     </div>
                 </div>
                 <div>
@@ -33,4 +29,6 @@
             </div>
         </div>
     </div>
+    <app-edit-delete [editable]="editable" [post]="story" editUrl="/my-profile/story/{{story.id}}"
+        (onDelete)="onDelete.emit($event)"></app-edit-delete>
 </div>

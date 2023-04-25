@@ -1,11 +1,12 @@
 .cnt {
     box-shadow: 4px 4px #888888;
-    height: 220px;
+    height: 280px;
     overflow: hidden;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
+    width: 1200px;
 }
 .card {
     display: flex;
@@ -14,16 +15,6 @@
     border-radius: 100px;
     margin-left: 10px;
     margin-right: 10px;
-}
-.edit {
-    display: flex;
-    justify-content: end;
-}
-.edit-btn,
-.delete-btn {
-    cursor: pointer;
-    margin-left: 4px;
-    margin-right: 4px;
 }
 .title {
     font-size: 1.6rem;
@@ -55,9 +46,16 @@
     width: 100%;
 }
 .address{
+    display: flex;
     margin-top: 20px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+}
+.add-image{
+    margin-left: 4px;
+    margin-right: 4px;
 }
 .comments{
     margin-top: 10px;
+    overflow: auto;
+    height: 180px;
 }

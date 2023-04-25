@@ -48,7 +48,7 @@
                 <div [innerHTML]="story.comments"></div>
             </div>
 
-            <div class="comment-title">Comments</div>
+            <div class="comment-title">{{'comments'|translate}}</div>
             <div class="editor">
                 <app-input-comment [isForceAddPhotoDisable]="true" commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false"
                     [isFooter]="false" [form]="form" [isEditor]="false">

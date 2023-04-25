@@ -31,13 +31,13 @@ export class CountryStateSelectorComponent implements OnInit {
   @Input() storyType = 0
 
   ngOnInit(): void {
-    this.countries$ = this.dataService.getCoutries(this.exists, this.storyType).pipe(map(res => ([{ name: 'Select Country', id: 0 }, ...res])), tap(res => this.countries = res))
+    this.countries$ = this.dataService.getCoutries(this.exists, this.storyType).pipe(map(res => ([{ name: '', id: 0 }, ...res])), tap(res => this.countries = res))
     this.loadStates()
   }
 
   loadStates(): void {
     this.states$ = this.dataService.getStates(this.selectedCountry, this.exists, this.storyType)
-      .pipe(map(res => ([{ name: 'Select State', id: 0, countryId: 0 }, ...res])), tap(res => this.states = res))
+      .pipe(map(res => ([{ name: '', id: 0, countryId: 0 }, ...res])), tap(res => this.states = res))
   }
 
   changeCountry(): void {

@@ -1,0 +1,8 @@
+<div class="edit" *ngIf="editable || userService.isAdmin">
+    <div class="item pointer edit-btn">
+        <app-image [routerLink]="editUrl" src="edit.svg"></app-image>
+    </div>
+    <div class="item pointer">
+        <app-image (click)="onDelete.emit(post)" src="clear.svg"></app-image>
+    </div>
+</div>
