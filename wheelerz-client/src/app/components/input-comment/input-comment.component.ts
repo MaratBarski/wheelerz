@@ -46,10 +46,10 @@ export class InputCommentComponent {
     editable: true,
     spellcheck: true,
     height: '300px',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
+    width: '1160px',
+    //minHeight: '0',
+    //maxHeight: 'auto',
+    //minWidth: '1000',
     translate: 'yes',
     enableToolbar: true,
     showToolbar: true,
@@ -149,8 +149,8 @@ export class InputCommentComponent {
       const url = await this.imageService.getPreview(event.target.files[i])
       this.files = [...this.files, url]
     }
-    if (!this.userService.isAdmin)
-      this.files.splice(0, this.files.length - this.maxFileCount)
+    if (!this.userService.isAdmin) this.files.splice(0, this.files.length - this.maxFileCount)
+
     this.file.nativeElement.value = ''
     this.changeDetectorRef.markForCheck()
     this.onImageUpdates.emit(this.files)
