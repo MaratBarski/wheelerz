@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { UrlTree } from '@angular/router';
-import { Observable, first, tap } from 'rxjs';
+import { BehaviorSubject, Observable, first, tap } from 'rxjs';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { SERVER_URL } from '../consts';
@@ -22,6 +22,11 @@ export class LoginService {
     return !this.userService.isLogedIn
   }
 
+  get onLogin(): Observable<boolean> {
+    return this._onLogin.asObservable()
+  }
+  private _onLogin = new BehaviorSubject<boolean>(this.isLogedIn)
+
   registr(data: User): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${SERVER_URL}/auth/registr`, data).pipe(first())
   }
@@ -35,6 +40,7 @@ export class LoginService {
   }
 
   logOut(): void {
+    this._onLogin.next(false)
     this.userService.logOut()
   }
 
@@ -49,5 +55,6 @@ export class LoginService {
     if (data.error) return
 
     this.userService.login(data)
+    this._onLogin.next(true)
   }
 }

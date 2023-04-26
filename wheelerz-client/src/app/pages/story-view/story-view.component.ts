@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ChangeDetectorRef, OnDestroy, OnIni
 import { CommonModule } from '@angular/common'
 import { DataService } from 'src/app/services/data.service'
 import { ActivatedRoute } from '@angular/router'
-import { Observable, first, map, tap } from 'rxjs'
+import { Observable, Subject, first, map, takeUntil, tap } from 'rxjs'
 import { Story } from 'src/app/models/story'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { TopProfileComponent } from 'src/app/components/top-profile/top-profile.component'
@@ -22,6 +22,8 @@ import { UserService } from 'src/app/services/user.service'
 import { WizardItem } from 'src/app/models/accesability'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { PhotoGalleryComponent } from 'src/app/components/photo-gallery/photo-gallery.component'
+import { SocketService } from 'src/app/services/socket.service'
+import { Rooms } from 'src/app/models/topic'
 
 @Component({
   selector: 'app-story-view',
@@ -52,7 +54,11 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   loader = inject(LoaderService)
   cd = inject(ChangeDetectorRef)
   userService = inject(UserService)
+  socket = inject(SocketService)
+
   constructor(public dialog: MatDialog) { }
+
+  private destroy = new Subject<void>()
 
   comments: StoryComment[] = []
   id = 0
@@ -66,6 +72,21 @@ export class StoryViewComponent implements OnInit, OnDestroy {
     this.id = +(this.activatedRoute.snapshot.paramMap.get('id') || '0')
     this.loadStory()
     //this.loader.showTopMenu(false)
+
+    this.socket.subscribe(`${Rooms.deleteComment}-${this.id}`)
+      .pipe(takeUntil(this.destroy))
+      .subscribe(res => {
+        this.comments = this.comments.filter(x => x.id !== res.data)
+        this.cd.markForCheck()
+      })
+
+    this.socket.subscribe(`${Rooms.addComment}-${this.id}`)
+      .pipe(takeUntil(this.destroy))
+      .subscribe(res => {
+        this.comments = res.data
+        this.cd.markForCheck()
+      })
+
   }
 
   loadStory(): void {
@@ -80,6 +101,9 @@ export class StoryViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.loader.showTopMenu(true)
+    this.destroy.next()
+    this.socket.unsubscribe(`${Rooms.deleteComment}-${this.id}`)
+    this.socket.unsubscribe(`${Rooms.addComment}-${this.id}`)
   }
 
   addComment(): void {
@@ -105,7 +129,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   deleteComment(com: StoryComment): void {
     if (!com.id) return
     this.loader.load(true)
-    this.dataService.deleteComment(com.id).pipe(first()).subscribe(res => {
+    this.dataService.deleteComment(com.id, this.id).pipe(first()).subscribe(res => {
       this.comments = this.comments.filter(x => x.id !== com.id)
       this.loader.load(false)
       this.cd.markForCheck()

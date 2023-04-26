@@ -42,16 +42,16 @@ namespace Wheelerz.Controllers
         [HttpPost("avatar")]
         public string ChangeAvatar(FileImage file)
         {
-            var id = int.Parse(Util.GetQueryParam(Request, "uid", _userService.CurrenUser.id));
+            var id = int.Parse(Util.GetQueryParam(Request, "uid", _userService.CurrentUser.id));
             return _userService.ChangeAvatar(file, id);
         }
 
         [HttpPost("mobility")]
         public async Task UpdateMobility(MobilityDto mobility)
         {
-            await _userService.UpdateChairOptionsAsync(_userService.CurrenUser.id, mobility.chairOptions);
-            await _userService.UpdateMobilityAsync(_userService.CurrenUser.id, mobility.mobilities);
-            await _userService.UpdateChairInfoAsync(_userService.CurrenUser.id, mobility.chairInfo);
+            await _userService.UpdateChairOptionsAsync(_userService.CurrentUser.id, mobility.chairOptions);
+            await _userService.UpdateMobilityAsync(_userService.CurrentUser.id, mobility.mobilities);
+            await _userService.UpdateChairInfoAsync(_userService.CurrentUser.id, mobility.chairInfo);
         }
 
         [HttpGet("mobility")]
@@ -59,9 +59,9 @@ namespace Wheelerz.Controllers
         {
             var res = new MobilityDto()
             {
-                mobilities = await _userService.GetMobilities(_userService.CurrenUser.id),
-                chairInfo = await _userService.GetChairInfo(_userService.CurrenUser.id),
-                chairOptions = await _userService.GetChairOptions(_userService.CurrenUser.id),
+                mobilities = await _userService.GetMobilities(_userService.CurrentUser.id),
+                chairInfo = await _userService.GetChairInfo(_userService.CurrentUser.id),
+                chairOptions = await _userService.GetChairOptions(_userService.CurrentUser.id),
             };
             return res;
         }
@@ -75,7 +75,7 @@ namespace Wheelerz.Controllers
         [HttpPut]
         public void Update(RegistrRequest user)
         {
-            _userService.UpdateUserInfo(_userService.CurrenUser.id, user);
+            _userService.UpdateUserInfo(_userService.CurrentUser.id, user);
         }
 
         [HttpDelete("{id}")]
@@ -87,7 +87,7 @@ namespace Wheelerz.Controllers
         [HttpGet("hasmob")]
         public async Task<dynamic> CheckMobs()
         {
-            return new { count = (await _userService.GetMobilities(_userService.CurrenUser.id)).Count() };
+            return new { count = (await _userService.GetMobilities(_userService.CurrentUser.id)).Count() };
         }
 
 

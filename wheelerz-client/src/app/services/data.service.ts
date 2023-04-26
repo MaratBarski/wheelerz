@@ -119,8 +119,8 @@ export class DataService {
     return this.post('story/add-comment', comment)
   }
 
-  deleteComment(id: number): Observable<StoryComment[]> {
-    return this.delete(`story/delete-comment/${id}`)
+  deleteComment(id: number, storyId: number): Observable<StoryComment[]> {
+    return this.delete(`story/delete-comment/${id}/${storyId}`)
   }
 
   getTranslations(lang: string = ''): Observable<Translation[]> {

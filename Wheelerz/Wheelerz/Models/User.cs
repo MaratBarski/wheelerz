@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.SignalR;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Wheelerz.Models
@@ -85,5 +86,16 @@ namespace Wheelerz.Models
         [NotMapped]
         public string lang { get; set; } = "en";
 
+        [NotMapped]
+        [JsonIgnore]
+        public HashSet<string>? groups { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public IClientProxy? socket { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public string? connectionId { get; set; }
     }
 }

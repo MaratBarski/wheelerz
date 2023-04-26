@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Wheelerz.DTO;
 using Wheelerz.Filters;
+using Wheelerz.Helpers;
 using Wheelerz.Models;
 using Wheelerz.Services;
 
 #pragma warning disable CS8602
 #pragma warning disable CS8600
 #pragma warning disable CS8604 
+#pragma warning disable CS8603
 
 namespace Wheelerz.Controllers
 {
@@ -17,18 +20,22 @@ namespace Wheelerz.Controllers
     {
         private readonly IStoryService _storyService;
         private readonly IUserService _userService;
-        public StoryController(IStoryService storyService, IUserService userService)
+        private readonly IHubContext<ChatHub> _chatHub;
+        private readonly IChatService _chatService;
+        public StoryController(IStoryService storyService, IUserService userService, IHubContext<ChatHub> chatHub, IChatService chatService)
         {
             _storyService = storyService;
             _userService = userService;
+            _chatHub = chatHub;
+            _chatService = chatService;
         }
 
         [HttpPost]
         public async Task<Story> Add(Story story)
         {
-            if (story.storyType < 1 || story.storyType > 5) throw new ArgumentException();
+            if (story.storyType < 1 || story.storyType > 5) return null;
 
-            story.userId = _userService.CurrenUser.id;
+            story.userId = _userService.CurrentUser.id;
             story.accessibility?.ForEach(x =>
            {
                x.userId = story.userId;
@@ -36,7 +43,11 @@ namespace Wheelerz.Controllers
                x.files?.ForEach(z => z.userId = story.userId);
            });
 
-            return await _storyService.Add(story);
+            var res = await _storyService.Add(story);
+
+            _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_STORY, story);
+            
+            return res;
         }
 
         [HttpPost("search")]
@@ -77,14 +88,21 @@ namespace Wheelerz.Controllers
         public async Task<List<StoryComment>> AddComment(StoryComment comment)
         {
             await _userService.UpdateLastAccess();
-            return await _storyService.AddComment(comment);
+            var newComment = await _storyService.AddComment(comment);
+
+            _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, newComment);
+
+            return newComment;
         }
 
-        [HttpDelete("delete-comment/{id}")]
-        public async Task<List<StoryComment>> DeleteComment(int id)
+        [HttpDelete("delete-comment/{id}/{storyId}")]
+        public async Task<List<StoryComment>> DeleteComment(int id, int storyId)
         {
             await _userService.UpdateLastAccess();
-            return await _storyService.DeleteComment(id);
+
+            _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.DELETE_COMMENT + "-" + storyId, id);
+
+            return await _storyService.DeleteComment(id, storyId);
         }
 
     }

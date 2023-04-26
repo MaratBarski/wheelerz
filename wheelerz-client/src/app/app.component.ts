@@ -11,6 +11,11 @@ import { TranslateAsyncPipe, TranslatePipe } from './pipes/translate.pipe'
 import { UserService } from './services/user.service'
 import { LoaderService } from './services/loader.service'
 import { NavLink } from './models/navigation'
+import { SocketService } from './services/socket.service'
+import { OnlineUsersComponent } from './components/online-users/online-users.component'
+import { Rooms } from './models/topic'
+import { LoginService } from './services/login.service'
+import { IS_SOCKET_DISABLE } from './consts'
 
 @Component({
   selector: 'app-root',
@@ -26,10 +31,11 @@ import { NavLink } from './models/navigation'
     StarsComponent,
     TranslateAsyncPipe,
     TranslatePipe,
-    RouterModule
+    RouterModule,
+    OnlineUsersComponent
   ],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
   private destroy = new Subject<void>()
@@ -37,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
   userService = inject(UserService)
   loaderService = inject(LoaderService)
   translationService = inject(TranslationService)
+  socketService = inject(SocketService)
+  loginService = inject(LoginService)
 
   addText = 'Add review'
   addUrl = ''
@@ -57,6 +65,10 @@ export class AppComponent implements OnInit, OnDestroy {
     return [...links]
   }))
 
+  get isSocketEnable(): boolean {
+    return !IS_SOCKET_DISABLE
+  }
+
   get isLoaded(): boolean {
     return this.translationService.isLoaded
   }
@@ -67,6 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy.next()
+    this.socketService.unsubscribe(Rooms.addStory)
   }
 
   ngOnInit(): void {
@@ -78,7 +91,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loaderService.onShowTopMenu.pipe(
       delay(10),
       takeUntil(this.destroy)
-      )
-    .subscribe(() => this.changeDetectorRef.markForCheck())
+    ).subscribe(() => this.changeDetectorRef.markForCheck())
+
+    this.loginService.onLogin.pipe(
+      takeUntil(this.destroy)
+    ).subscribe(res => {
+      if (res)
+        this.socketService.subscribe(Rooms.addStory)
+          .pipe(takeUntil(this.destroy))
+          .subscribe(res => {
+            console.log(res)
+          })
+      else
+        this.socketService.unsubscribe(Rooms.addStory)
+    })
   }
 }

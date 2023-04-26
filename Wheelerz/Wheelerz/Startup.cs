@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Features;
+﻿using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Wheelerz.Middlewares;
@@ -29,6 +27,10 @@ namespace Wheelerz
                 o.MemoryBufferThreshold = 50000000;
             });
 
+            services.AddSignalR();
+            //services.AddTransient<ChatHub>();
+            services.AddSingleton<IChatService, ChatService>();
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICountryService, CountryService>();
             services.AddTransient<IStoryService, StoryService>();
@@ -52,10 +54,17 @@ namespace Wheelerz
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+            //app.UseCors(builder => builder
+            //        .AllowAnyOrigin()
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        );
+
             app.UseCors(builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .WithMethods("GET", "POST", "PUT", "DELETE")
+                    .AllowCredentials());
 
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
@@ -75,7 +84,16 @@ namespace Wheelerz
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chatHub", options =>
+                {
+                });
             });
+
+            //app.Map("/chatHub", map =>
+            //{
+            //    map.UseForwardedHeaders();
+            //});
+
         }
     }
 }

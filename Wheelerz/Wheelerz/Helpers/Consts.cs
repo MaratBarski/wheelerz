@@ -7,6 +7,13 @@
         public const string crutch = "crutch";
         public const string scooter = "scooter";
 
+        public const bool IS_SOCKET_DISABLE = false;
+        public const string ALL_CONNECTIONS = "all-connactions";
+        public const string ONLINE_USERS = "online-users";
+        public const string ADD_STORY = "add-story";
+        public const string DELETE_COMMENT = "delete-comment";
+        public const string ADD_COMMENT = "add-comment";
+
         public static List<string> Mobilities = new List<string> { wheelchair, walker, crutch, scooter };
 
         public static Dictionary<string, int> MobilitiesDictionary = new Dictionary<string, int>()

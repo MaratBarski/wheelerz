@@ -76,7 +76,7 @@ namespace Wheelerz.Services
 
         public User? ValidateUser(string authorization, string lang)
         {
-            if (authorization == null) return null;
+            if (authorization == null || authorization == "null") return null;
             if (lang != "en" && lang != "he") lang = "en";
 
             var token = new JwtSecurityTokenHandler().ReadJwtToken(authorization);

@@ -22,7 +22,7 @@ namespace Wheelerz.Services
         Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
         Task<PageResponse<IEnumerable<Story>>> SelectForUser(StorySelector storySelector);
         Task<List<StoryComment>> AddComment(StoryComment comment);
-        Task<List<StoryComment>> DeleteComment(int comment);
+        Task<List<StoryComment>> DeleteComment(int comment,int storyId);
     }
     public class StoryService : IStoryService
     {
@@ -60,28 +60,28 @@ namespace Wheelerz.Services
             {
                 if (!this.UpdateAndValidate(story)) return null;
 
-                story.lang = _userService.CurrenUser.lang;
-                var ci = await _userService.GetCharInfoToCm(_userService.CurrenUser.id);
+                story.lang = _userService.CurrentUser.lang;
+                var ci = await _userService.GetCharInfoToCm(_userService.CurrentUser.id);
                 story.width = ci.width;
                 story.height = ci.seatHeight;
                 story.length = ci.length;
 
-                story.mobilityNumber = _userService.CurrenUser.mobilityNumber;
-                story.chairNumber = _userService.CurrenUser.chairNumber;
+                story.mobilityNumber = _userService.CurrentUser.mobilityNumber;
+                story.chairNumber = _userService.CurrentUser.chairNumber;
 
                 story.dateAdd = DateTime.Now;
                 story.key = Guid.NewGuid().ToString();
                 story.storyPhotos = new List<StoryPhoto>();
                 story.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
                 story.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
-                story.mobilities = await (from m in _data.UserMobilities.Where(x => x.userId == _userService.CurrenUser.id)
+                story.mobilities = await (from m in _data.UserMobilities.Where(x => x.userId == _userService.CurrentUser.id)
                                           select new StoryMobility()
                                           {
                                               name = m.name
                                           }).ToListAsync();
 
-                if (_userService.CurrenUser.noWalk == 1)
-                    story.chairInfo = await (from m in _data.ChairInfos.Where(x => x.userId == _userService.CurrenUser.id)
+                if (_userService.CurrentUser.noWalk == 1)
+                    story.chairInfo = await (from m in _data.ChairInfos.Where(x => x.userId == _userService.CurrentUser.id)
                                              select new ChairStoryInfo()
                                              {
                                                  length = m.length,
@@ -138,7 +138,7 @@ namespace Wheelerz.Services
                 .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
                 .Include(x => x.accessibility).ThenInclude(x => x.files)
                 .Include(x => x.accessibility).ThenInclude(x => x.files)
-                .FirstOrDefaultAsync(x => x.id == story.id && (_userService.CurrenUser.isAdmin || x.userId == _userService.CurrenUser.id));
+                .FirstOrDefaultAsync(x => x.id == story.id && (_userService.CurrentUser.isAdmin || x.userId == _userService.CurrentUser.id));
 
                 if (s == null) return;
 
@@ -154,7 +154,7 @@ namespace Wheelerz.Services
                     {
                         ac.files.Add(new AccessibilityFile
                         {
-                            userId = _userService.CurrenUser.id,
+                            userId = _userService.CurrentUser.id,
                             fileName = string.IsNullOrEmpty(photo.fileName) ? _uploadService.SaveFile(photo) : photo.fileName
                         });
                     });
@@ -163,7 +163,7 @@ namespace Wheelerz.Services
                 if (story.photos == null) story.photos = new List<FileImage>();
                 if (s.storyPhotos == null) s.storyPhotos = new List<StoryPhoto>();
 
-                s.lang = _userService.CurrenUser.lang;
+                s.lang = _userService.CurrentUser.lang;
 
                 s.storyPhotos.ForEach((photo) =>
                 {
@@ -225,7 +225,7 @@ namespace Wheelerz.Services
                 //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
                 //.Include(x => x.accessibility).ThenInclude(x => x.files)
                 .Where(x => x.deleted == 0)
-                .Where(x => x.lang == _userService.CurrenUser.lang)
+                .Where(x => x.lang == _userService.CurrentUser.lang)
                 .Where(x => request.type == 0 || x.storyType == request.type)
                 .Where(x => request.userId == 0 || x.userId == request.userId)
                 .Where(x => string.IsNullOrEmpty(request.q) ||
@@ -302,7 +302,7 @@ namespace Wheelerz.Services
                                        userComments = (from c in s.userComments
                                                        select new StoryComment
                                                        {
-                                                           isMy = c.userId == _userService.CurrenUser.id,
+                                                           isMy = c.userId == _userService.CurrentUser.id,
                                                            text = c.text,
                                                            id = c.id,
                                                            dateAdd = c.dateAdd,
@@ -361,7 +361,7 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
-                var story = _data.Stories.FirstOrDefault(x => x.id == storyId && (_userService.CurrenUser.isAdmin || x.userId == _userService.CurrenUser.id));
+                var story = _data.Stories.FirstOrDefault(x => x.id == storyId && (_userService.CurrentUser.isAdmin || x.userId == _userService.CurrentUser.id));
                 if (story == null) return;
                 story.deleted = 1;
                 await _data.SaveChangesAsync();
@@ -420,7 +420,7 @@ namespace Wheelerz.Services
                     .Include(x => x.country)
                     .Include(x => x.mobilities)
                     .Where(x => x.deleted == 0)
-                    .Where(x => x.lang == _userService.CurrenUser.lang)
+                    .Where(x => x.lang == _userService.CurrentUser.lang)
                     .Where(x => request.type == 0 || x.storyType == request.type)
                     .Where(x => request.userId == 0 || x.userId == request.userId)
                     .Where(x =>
@@ -479,7 +479,7 @@ namespace Wheelerz.Services
                     .Include(x => x.country)
                     .Include(x => x.mobilities)
                     .Where(x => x.deleted == 0)
-                    .Where(x => x.lang == _userService.CurrenUser.lang)
+                    .Where(x => x.lang == _userService.CurrentUser.lang)
                     .Where(x => x.storyType == request.type || request.type == 0)
                     .Where(x => request.userId == 0 || (x.userId == request.userId && request.isOnlyMy))
                     .Where(x =>
@@ -497,16 +497,16 @@ namespace Wheelerz.Services
                ));
 
                 var total = await linq.AsSplitQuery().CountAsync();
-                var ci = await _userService.GetCharInfoToCm(_userService.CurrenUser.id);
+                var ci = await _userService.GetCharInfoToCm(_userService.CurrentUser.id);
                 var list = await linq
                     .OrderBy(x => ci.width - x.width)
                     .ThenBy(x => ci.length - x.length)
                     .ThenBy(x => ci.seatHeight - x.height)
-                    .ThenByDescending(x => x.chairNumber == _userService.CurrenUser.chairNumber ? 1 : 0)
-                    .ThenByDescending(x => x.chairNumber & _userService.CurrenUser.chairNumber)
-                    .ThenBy(x => x.chairNumber | _userService.CurrenUser.chairNumber)
-                    .ThenByDescending(x => x.mobilityNumber & _userService.CurrenUser.mobilityNumber)
-                    .ThenBy(x => Math.Abs(x.mobilityNumber - _userService.CurrenUser.mobilityNumber))
+                    .ThenByDescending(x => x.chairNumber == _userService.CurrentUser.chairNumber ? 1 : 0)
+                    .ThenByDescending(x => x.chairNumber & _userService.CurrentUser.chairNumber)
+                    .ThenBy(x => x.chairNumber | _userService.CurrentUser.chairNumber)
+                    .ThenByDescending(x => x.mobilityNumber & _userService.CurrentUser.mobilityNumber)
+                    .ThenBy(x => Math.Abs(x.mobilityNumber - _userService.CurrentUser.mobilityNumber))
                     .ThenByDescending(x => x.estimation)
                     .ThenByDescending(x => x.dateAdd)
                     .ThenByDescending(x => x.endDate)
@@ -543,7 +543,7 @@ namespace Wheelerz.Services
                 var story = await _data.States.FirstOrDefaultAsync(x => x.id == comment.storyId);
                 if (story != null)
                 {
-                    comment.userId = _userService.CurrenUser.id;
+                    comment.userId = _userService.CurrentUser.id;
                     comment.dateAdd = DateTime.Now;
                     _data.StoryComments.Add(comment);
                     await _data.SaveChangesAsync();
@@ -553,7 +553,7 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task<List<StoryComment>> DeleteComment(int id)
+        public Task<List<StoryComment>> DeleteComment(int id,int storyId)
         {
             return Task.Run(async () =>
             {
@@ -566,7 +566,7 @@ namespace Wheelerz.Services
                         await _data.SaveChangesAsync();
                     }
                 }
-                var s = await GetStoryById(comment.storyId);
+                var s = await GetStoryById(storyId);
                 return s.userComments;
             });
         }

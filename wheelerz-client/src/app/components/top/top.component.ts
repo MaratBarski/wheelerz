@@ -4,6 +4,7 @@ import { TranslationService } from 'src/app/services/translation.service'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { RouterModule } from '@angular/router'
 import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service'
 @Component({
   selector: 'app-top',
   standalone: true,
@@ -16,6 +17,7 @@ export class TopComponent {
   menuModes = [false, false];
   translationService = inject(TranslationService)
   userService = inject(UserService);
+  loginService = inject(LoginService)
   @Input() isLogin = true
 
   isShow(i: number): boolean {
@@ -38,6 +40,6 @@ export class TopComponent {
   }
 
   logout(): void {
-    this.userService.logOut()
+    this.loginService.logOut()
   }
 }

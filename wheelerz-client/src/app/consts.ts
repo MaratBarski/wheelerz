@@ -3,7 +3,7 @@
 export const SERVER_URL = 'https://localhost:7059'
 //export const SERVER_URL = 'https://manager.ct-dent.co.il/booking-api'
 
-
+export const IS_SOCKET_DISABLE = true
 export const langs = ['en', 'he'];
 export const deflang = 'en';
 

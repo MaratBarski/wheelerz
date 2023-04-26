@@ -27,7 +27,7 @@ namespace Wheelerz.Services
         User GetUserInfo(int id);
         void UpdateUserInfo(int id, RegistrRequest user);
         void DeleteUser(int id);
-        User CurrenUser { get; }
+        User CurrentUser { get; }
         Task UpdateLastAccess();
         bool IsNotValidUser(int id);
         bool IsValidUser(int id);
@@ -39,7 +39,7 @@ namespace Wheelerz.Services
         private readonly IUploadService _uploadService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public User CurrenUser => _httpContextAccessor.HttpContext.Items["login"] as User;
+        public User CurrentUser => _httpContextAccessor.HttpContext.Items["login"] as User;
         public UserService(DataContext data, IUploadService uploadService, IHttpContextAccessor httpContextAccessor)
         {
             _data = data;
@@ -60,7 +60,7 @@ namespace Wheelerz.Services
 
         public Task<User> GetUserProfileAsyns(int id)
         {
-            if (id == 0) id = CurrenUser.id;
+            if (id == 0) id = CurrentUser.id;
             if (IsNotValidUser(id)) throw new Exception("auth");
 
             return Task.Run(async () =>
@@ -85,7 +85,7 @@ namespace Wheelerz.Services
 
         public string ChangeAvatar(FileImage file, int userId)
         {
-            if (userId == 0) userId = CurrenUser.id;
+            if (userId == 0) userId = CurrentUser.id;
             if (IsNotValidUser(userId)) return "";
             var user = _data.Users.FirstOrDefault(x => x.id == userId);
             if (user == null) return null;
@@ -174,7 +174,7 @@ namespace Wheelerz.Services
 
         public bool IsNotValidUser(int id)
         {
-            return (!CurrenUser.isAdmin && id != CurrenUser.id);
+            return (!CurrentUser.isAdmin && id != CurrentUser.id);
         }
 
         public bool IsValidUser(int id)
@@ -183,7 +183,7 @@ namespace Wheelerz.Services
         }
         public User GetUserInfo(int id)
         {
-            if (id == 0) id = CurrenUser.id;
+            if (id == 0) id = CurrentUser.id;
             if (IsNotValidUser(id)) return null;
             var user = _data.Users.FirstOrDefault(x => x.id == id);
             user.password = "";
@@ -218,7 +218,7 @@ namespace Wheelerz.Services
                 if (request.isOnlyMy)
                     linq = linq.Where(x => x.id == request.userId);
                 else
-                    linq = linq.Where(x => request.isMyInclude || x.id != CurrenUser.id);
+                    linq = linq.Where(x => request.isMyInclude || x.id != CurrentUser.id);
 
                 var users = await linq.ToListAsync();
 
@@ -292,7 +292,7 @@ namespace Wheelerz.Services
 
         public void DeleteUser(int id)
         {
-            if (id == 0) id = CurrenUser.id;
+            if (id == 0) id = CurrentUser.id;
             if (IsNotValidUser(id)) return;
 
             var user = _data.Users.FirstOrDefault(x => x.id == id);
@@ -305,13 +305,13 @@ namespace Wheelerz.Services
         {
             return Task.Run(async () =>
             {
-                if (CurrenUser == null) return;
+                if (CurrentUser == null) return;
 
-                var user = await _data.Users.FirstOrDefaultAsync(x => x.id == CurrenUser.id);
+                var user = await _data.Users.FirstOrDefaultAsync(x => x.id == CurrentUser.id);
                 if (user == null) return;
 
                 user.lastVisit = DateTime.Now;
-                CurrenUser.lastVisit = DateTime.Now;
+                CurrentUser.lastVisit = DateTime.Now;
                 await _data.SaveChangesAsync();
             });
         }
