@@ -6,4 +6,5 @@ export interface LoginResponse {
     email?: string
     token?: string
     role?: number
+    permission?: number
 }

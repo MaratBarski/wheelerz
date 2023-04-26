@@ -5,6 +5,7 @@ import { LoginResponse } from '../models/login-response'
 
 const TOKEN = 'token'
 const ROLE = 'role'
+const PERMISSION = 'permissions'
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class UserService {
     if (!user.token) return
     localStorage.setItem(TOKEN, user.token)
     localStorage.setItem(ROLE, `${user.role}`)
+    localStorage.setItem(PERMISSION, `${user.permission}`)
     this.router.navigateByUrl('/home')
   }
 
@@ -35,6 +37,14 @@ export class UserService {
 
   get isAdmin(): boolean {
     return localStorage.getItem(ROLE) === '1'
+  }
+
+  get permission(): number {
+    return +(localStorage.getItem(PERMISSION) || 0)
+  }
+
+  hasPermission(permission: number): boolean {
+    return this.permission === 0 ? true : !(this.permission & permission)
   }
 
   canActivate(next: ActivatedRouteSnapshot):

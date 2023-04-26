@@ -12,7 +12,6 @@ import { UserService } from './services/user.service'
 import { LoaderService } from './services/loader.service'
 import { NavLink } from './models/navigation'
 import { SocketService } from './services/socket.service'
-import { OnlineUsersComponent } from './components/online-users/online-users.component'
 import { Rooms } from './models/topic'
 import { LoginService } from './services/login.service'
 import { IS_SOCKET_DISABLE } from './consts'
@@ -32,7 +31,6 @@ import { IS_SOCKET_DISABLE } from './consts'
     TranslateAsyncPipe,
     TranslatePipe,
     RouterModule,
-    OnlineUsersComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

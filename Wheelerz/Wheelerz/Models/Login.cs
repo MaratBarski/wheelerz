@@ -15,6 +15,7 @@
         public string email { get; set; } = string.Empty;
         public string token { get; set; } = string.Empty;
         public int role { get; set; }
+        public int permission { get; set; }
     }
 
     public class RegistrRequest
@@ -26,7 +27,7 @@
         public int birthYear { get; set; }
         public string confirmPassword { get; set; } = string.Empty;
         public string phone { get; set; } = string.Empty;
-        public int countryId { get;set; }
+        public int countryId { get; set; }
         public int stateId { get; set; }
         public int sex { get; set; }
         public string? birthDayDisplay { get; set; }

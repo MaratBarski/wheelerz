@@ -32,6 +32,7 @@ namespace Wheelerz.Controllers
         }
 
         [HttpPost]
+        [PermissionFilter(Permissions.AddStory)]
         public async Task<Story> Add(Story story)
         {
             if (story.storyType < 1 || story.storyType > 5) return null;
@@ -46,8 +47,7 @@ namespace Wheelerz.Controllers
 
             var res = await _storyService.Add(story);
 
-            if (!Consts.IS_SOCKET_DISABLE)
-                _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_STORY, story);
+            _chatService.Send(_userService.CurrentUser.lang, Consts.ADD_STORY, story);
 
             return res;
         }
@@ -87,13 +87,13 @@ namespace Wheelerz.Controllers
         }
 
         [HttpPost("add-comment")]
+        [PermissionFilter(Permissions.AddComment)]
         public async Task<List<StoryComment>> AddComment(StoryComment comment)
         {
             await _userService.UpdateLastAccess();
             var newComment = await _storyService.AddComment(comment);
 
-            if (!Consts.IS_SOCKET_DISABLE)
-                _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, newComment);
+            _chatService.Send(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, newComment);
 
             return newComment;
         }
@@ -103,8 +103,7 @@ namespace Wheelerz.Controllers
         {
             await _userService.UpdateLastAccess();
 
-            if (!Consts.IS_SOCKET_DISABLE)
-                _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.DELETE_COMMENT + "-" + storyId, id);
+            _chatService.Send(_userService.CurrentUser.lang, Consts.DELETE_COMMENT + "-" + storyId, id);
 
             return await _storyService.DeleteComment(id, storyId);
         }

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common'
 import { SocketService } from 'src/app/services/socket.service'
 import { Rooms } from 'src/app/models/topic'
 import { Subject, takeUntil } from 'rxjs'
+import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 
 @Component({
   selector: 'app-online-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './online-users.component.html',
   styleUrls: ['./online-users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

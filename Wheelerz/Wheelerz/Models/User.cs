@@ -13,6 +13,9 @@ namespace Wheelerz.Models
         [Column("role")]
         public int role { get; set; }
 
+        [Column("permission")]
+        public int permission { get; set; }
+
         [Column("countryId")]
         public int countryId { get; set; }
 

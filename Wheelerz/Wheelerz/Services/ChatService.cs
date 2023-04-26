@@ -7,39 +7,55 @@ using Wheelerz.Models;
 
 namespace Wheelerz.Services
 {
+    public delegate void SendToGroupDelegate(string lang, string group, object message, bool sendToAll = false);
     public interface IChatService
     {
-        Task SendToGroup(string lang, string group, object message, bool sendToAll = false);
         void AddUser(User user);
         void RemoveUser(string connectionId);
         void AddToGroup(string group, string connectionId);
         void RemoveFromGroup(string group, string connectionId);
+        void Send(string lang, string group, object message, bool sendToAll = false);
     }
     public class ChatService : IChatService
     {
         private List<User> _users = new();
         private Object _lock = new();
 
-        public Task SendToGroup(string lang, string group, object message, bool sendToAll = false)
+        public ChatService()
         {
-            return Task.Run(async () =>
-           {
-               if (Consts.IS_SOCKET_DISABLE) return;
+            _onSendToGroup += ChatService_onSendToGroup;
+        }
 
-               var users = _users.Where(x => x.lang == lang && sendToAll || (x.groups != null && x.groups.Contains(group)));
-               foreach (var us in users)
-               {
-                   try
-                   {
-                       await us.socket.SendAsync("message", new { room = group, data = message });
-                   }
-                   catch { }
-               }
-               //.ForEach(async (user) =>
-               //{
-               //    await user.socket.SendAsync("message", new { room = group, data = message });
-               //});
-           });
+        private void ChatService_onSendToGroup(string lang, string group, object message, bool sendToAll = false)
+        {
+            SendToGroup(lang, group, message, sendToAll);
+        }
+
+        private event SendToGroupDelegate _onSendToGroup;
+
+        public void Send(string lang, string group, object message, bool sendToAll = false)
+        {
+            if (Consts.IS_SOCKET_DISABLE) return;
+
+            _onSendToGroup(lang, group, message, sendToAll);
+        }
+
+        private async void SendToGroup(string lang, string group, object message, bool sendToAll = false)
+        {
+            if (Consts.IS_SOCKET_DISABLE) return;
+            try
+            {
+                var users = _users.Where(x => x.lang == lang && sendToAll || (x.groups != null && x.groups.Contains(group)));
+                foreach (var us in users)
+                {
+                    try
+                    {
+                        await us.socket.SendAsync("message", new { room = group, data = message });
+                    }
+                    catch { }
+                }
+            }
+            catch { }
         }
 
         public void AddToGroup(string group, string connectionId)

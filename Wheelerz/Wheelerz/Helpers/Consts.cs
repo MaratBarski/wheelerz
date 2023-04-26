@@ -1,5 +1,10 @@
 ﻿namespace Wheelerz.Helpers
 {
+    public enum Permissions
+    {
+        AddStory = 2,
+        AddComment = 2 * 2
+    }
     public static class Consts
     {
         public const string wheelchair = "wheelchair";

@@ -32,6 +32,7 @@ namespace Wheelerz.Services
         bool IsNotValidUser(int id);
         bool IsValidUser(int id);
         Task<ChairInfo> GetCharInfoToCm(int id);
+
     }
     public class UserService : IUserService
     {
@@ -169,7 +170,7 @@ namespace Wheelerz.Services
             {
                 return await _data.ChairOptions.Where(x => x.userId == userId).ToListAsync();
             });
-          
+
         }
 
         public bool IsNotValidUser(int id)

@@ -214,7 +214,10 @@ go
 alter table [stories] add [length] float not null default(0)
 go
 alter table [stories] add [height] float not null default(0)
-
+go
+alter table users add permission int not null default(0)
+go
+alter table stories add approved int not null default(0)
 
 
 

@@ -49,6 +49,7 @@ namespace Wheelerz.Services
                     email = user.email,
                     token = GenerateJSONWebToken(user),
                     role = user.role,
+                    permission = user.permission,
                 };
             });
         }

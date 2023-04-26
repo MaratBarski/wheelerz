@@ -12,6 +12,9 @@ namespace Wheelerz.Models
         [Column("userId")]
         public int userId { get; set; }
 
+        [Column("approved")]
+        public int approved { get; set; }
+
         [Column("key")]
         public string? key { get; set; }
 

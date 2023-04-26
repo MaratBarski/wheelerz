@@ -11,6 +11,7 @@ export interface User {
     stateId?: number
     country?: Country
     state?: State
+    permission?: number
     sex?: number
     firstName?: string
     lastName?: string

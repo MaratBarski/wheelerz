@@ -11,11 +11,13 @@ import { TopProfileComponent } from 'src/app/components/top-profile/top-profile.
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component'
 import { AvatarComponent } from 'src/app/components/avatar/avatar.component'
 import { RouterModule } from '@angular/router'
+import { PermissionDirective } from 'src/app/directives/permission.directive'
+import { OnlineUsersComponent } from 'src/app/components/online-users/online-users.component'
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, RouterModule, PaginatorComponent, TopProfileComponent, SearchBoxComponent, AvatarComponent],
+  imports: [CommonModule, TranslatePipe, OnlineUsersComponent, PermissionDirective, RouterModule, PaginatorComponent, TopProfileComponent, SearchBoxComponent, AvatarComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

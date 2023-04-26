@@ -30,6 +30,7 @@ namespace Wheelerz
             services.AddSignalR();
             //services.AddTransient<ChatHub>();
             services.AddSingleton<IChatService, ChatService>();
+            services.AddSingleton<IPermissionsService, PermissionsService>();
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICountryService, CountryService>();
