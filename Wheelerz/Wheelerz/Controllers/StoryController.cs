@@ -10,6 +10,7 @@ using Wheelerz.Services;
 #pragma warning disable CS8600
 #pragma warning disable CS8604 
 #pragma warning disable CS8603
+#pragma warning disable CS4014
 
 namespace Wheelerz.Controllers
 {
@@ -45,8 +46,9 @@ namespace Wheelerz.Controllers
 
             var res = await _storyService.Add(story);
 
-            _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_STORY, story);
-            
+            if (!Consts.IS_SOCKET_DISABLE)
+                _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_STORY, story);
+
             return res;
         }
 
@@ -90,7 +92,8 @@ namespace Wheelerz.Controllers
             await _userService.UpdateLastAccess();
             var newComment = await _storyService.AddComment(comment);
 
-            _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, newComment);
+            if (!Consts.IS_SOCKET_DISABLE)
+                _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, newComment);
 
             return newComment;
         }
@@ -100,7 +103,8 @@ namespace Wheelerz.Controllers
         {
             await _userService.UpdateLastAccess();
 
-            _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.DELETE_COMMENT + "-" + storyId, id);
+            if (!Consts.IS_SOCKET_DISABLE)
+                _chatService.SendToGroup(_userService.CurrentUser.lang, Consts.DELETE_COMMENT + "-" + storyId, id);
 
             return await _storyService.DeleteComment(id, storyId);
         }

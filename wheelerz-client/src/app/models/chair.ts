@@ -7,14 +7,14 @@ export interface Chair {
 
 export const ChairOptionsDictionary: Record<number, string> = {
     //[2]: 'type_of_wheelchair_manual',
-    //[2 * 2]: 'type_of_wheelchair_manual_motorized',
+    [2 * 2]: 'type_of_wheelchair_manual_motorized',
     [2 * 2 * 2]: 'assistance_yes',
     //[2 * 2 * 2 * 2]: 'assistance_no',
     [2 * 2 * 2 * 2 * 2]: 'can_you_walk_yes',
     //[2 * 2 * 2 * 2 * 2 * 2]: 'can_you_walk_no',
     [2 * 2 * 2 * 2 * 2 * 2 * 2]: 'private_bath_chair_yes',
     //[2 * 2 * 2 * 2 * 2 * 2 * 2 * 2]: 'private_bath_chair_no',
-    [2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2]: 'contact_travelers_yes',
+    //[2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2]: 'contact_travelers_yes',
     //[2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2]: 'contact_travelers_no'
 }
 

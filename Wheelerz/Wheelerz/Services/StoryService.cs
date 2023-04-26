@@ -499,9 +499,9 @@ namespace Wheelerz.Services
                 var total = await linq.AsSplitQuery().CountAsync();
                 var ci = await _userService.GetCharInfoToCm(_userService.CurrentUser.id);
                 var list = await linq
-                    .OrderBy(x => ci.width - x.width)
-                    .ThenBy(x => ci.length - x.length)
-                    .ThenBy(x => ci.seatHeight - x.height)
+                    .OrderBy(x => ci.width > x.width ? 1 : -1)
+                    .ThenBy(x => ci.length > x.length ? 1 : -1)
+                    .ThenBy(x => ci.seatHeight > x.height ? 1 : -1)
                     .ThenByDescending(x => x.chairNumber == _userService.CurrentUser.chairNumber ? 1 : 0)
                     .ThenByDescending(x => x.chairNumber & _userService.CurrentUser.chairNumber)
                     .ThenBy(x => x.chairNumber | _userService.CurrentUser.chairNumber)
