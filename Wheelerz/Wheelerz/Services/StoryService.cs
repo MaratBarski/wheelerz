@@ -355,7 +355,7 @@ namespace Wheelerz.Services
                                                             key = a.key,
                                                         }).ToList()
                                    }).FirstOrDefaultAsync();
-                if (story.user != null)
+                if (story?.user != null)
                 {
                     story.user.password = null;
                     story.user.key = null;

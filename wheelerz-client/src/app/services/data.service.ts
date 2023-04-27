@@ -90,8 +90,8 @@ export class DataService {
     return this.delete(`story/${id}`)
   }
 
-  updateProfile(user: User): Observable<any> {
-    return this.put('user', user)
+  updateProfile(user: User, id = 0): Observable<any> {
+    return this.put(`user?id=${id}`, user)
   }
 
   getUserInfo(id: any = 0): Observable<User> {

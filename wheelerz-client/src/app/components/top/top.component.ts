@@ -37,6 +37,7 @@ export class TopComponent {
 
   setLeng(lang: string): void {
     this.translationService.setTranslation(lang)
+    window.location.href = './'
   }
 
   logout(): void {

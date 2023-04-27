@@ -3,7 +3,9 @@
     public enum Permissions
     {
         AddStory = 2,
-        AddComment = 2 * 2
+        AddComment = 2 * 2,
+        DeleteStory = 2 * 2 * 2,
+        UpdateStory = 2 * 2 * 2 * 2
     }
     public static class Consts
     {

@@ -75,7 +75,9 @@ namespace Wheelerz.Controllers
         [HttpPut]
         public void Update(RegistrRequest user)
         {
-            _userService.UpdateUserInfo(_userService.CurrentUser.id, user);
+            var id = int.Parse(Util.GetQueryParam(Request, "id", _userService.CurrentUser.id));
+            if (id == 0) id = _userService.CurrentUser.id;
+            _userService.UpdateUserInfo(id, user);
         }
 
         [HttpDelete("{id}")]

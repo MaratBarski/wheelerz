@@ -197,6 +197,11 @@ namespace Wheelerz.Services
             if (u == null) return;
             if (_data.Users.Any(x => x.email == user.email && x.id != id)) return;
 
+            if(u.role == 0 && CurrentUser.isAdmin)
+            {
+                u.permission = user.permission;
+            }
+
             u.stateId = user.stateId;
             u.countryId = user.countryId;
             u.sex = user.sex;

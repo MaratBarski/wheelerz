@@ -44,6 +44,7 @@ export class UserService {
   }
 
   hasPermission(permission: number): boolean {
+    if (this.isAdmin) return true
     return this.permission === 0 ? true : !(this.permission & permission)
   }
 

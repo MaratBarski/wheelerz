@@ -31,5 +31,6 @@
         public int stateId { get; set; }
         public int sex { get; set; }
         public string? birthDayDisplay { get; set; }
+        public int permission { get; set; }
     }
 }
