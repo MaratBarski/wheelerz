@@ -1,0 +1,9 @@
+<div *ngIf="map">
+    <div class="cnt">
+        {{'lat'|translate}}
+        <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lat">
+        {{'lng'|translate}}
+        <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lng">
+    </div>
+    <div #divmap class="map"></div>
+</div>

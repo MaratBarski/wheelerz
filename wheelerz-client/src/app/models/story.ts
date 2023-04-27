@@ -56,4 +56,5 @@ export interface Story extends BaseItem {
     width?: number
     length?: number
     height?: number
+    gmap?: string
 }

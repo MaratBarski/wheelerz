@@ -26,14 +26,15 @@
             </div>
         </div>
         <div class="form-input">
-            <app-input-comment [isAddPhotoEnable]="isAddPhotoEnable" [files]="files" (onImageUpdates)="onImageUpdates($event)"
-                [form]="form">
+            <app-input-comment [isAddPhotoEnable]="isAddPhotoEnable" [files]="files"
+                (onImageUpdates)="onImageUpdates($event)" [form]="form">
             </app-input-comment>
         </div>
         <div class="map flex" *ngIf="userService.isAdmin && isShowMap">
             {{'map'|translate}}&nbsp;
             <app-file-image *ngIf="story.map" [isBig]="true" [fileName]="story.map"></app-file-image>
             <app-upload (onChange)="updateMap($event)" [multiple]="false"></app-upload>
+            <app-map-edit (onChange)="changeGmap($event)" [gmap]="story.gmap"></app-map-edit>
         </div>
         <div class="buttons">
             <button (click)="cancel()" class="btn-cancel">{{'cancel'|translate}}</button>

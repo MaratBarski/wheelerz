@@ -16,6 +16,7 @@ import { DateSelectorComponent } from '../date-selector/date-selector.component'
 import { UserService } from 'src/app/services/user.service'
 import { UploadComponent } from '../upload/upload.component'
 import { FileImageComponent } from '../file-image/file-image.component'
+import { MapEditComponent } from '../map-edit/map-edit.component'
 
 @Component({
   selector: 'app-user-input-form',
@@ -33,7 +34,8 @@ import { FileImageComponent } from '../file-image/file-image.component'
     CountryStateSelectorComponent,
     DateSelectorComponent,
     UploadComponent,
-    FileImageComponent
+    FileImageComponent,
+    MapEditComponent
   ],
   templateUrl: './user-input-form.component.html',
   styleUrls: ['./user-input-form.component.scss'],
@@ -129,5 +131,9 @@ export class UserInputFormComponent implements OnInit {
   updateMap(files: FileImage[]): void {
     if (!files?.length) return
     this.story.mapStr = files[0].big
+  }
+
+  changeGmap(value: string): void {
+    this.story.gmap = value
   }
 }

@@ -1,0 +1,7 @@
+<ng-container>
+    <div #divmap *ngIf="isGmap" class="map"></div>
+    <div *ngIf="mapFile && !isGmap" class="map">
+        <app-file-image [isBig]="true" [fileName]="mapFile"></app-file-image>
+    </div>
+    <div *ngIf="noMap" class="map"></div>
+</ng-container>

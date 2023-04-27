@@ -81,6 +81,9 @@ namespace Wheelerz.Models
         [Column("mainImage")]
         public string? mainImage { get; set; }
 
+        [Column("gmap")]
+        public string? gmap { get; set; }
+
         [Column("mobilityNumber")]
         public int mobilityNumber { get; set; }
 

@@ -204,6 +204,7 @@ namespace Wheelerz.Services
                 s.mail = story.mail;
                 s.startDate = Util.ParseDate(story.startDateDisplay, story.startDate);
                 s.endDate = Util.ParseDate(story.endDateDisplay, story.endDate);
+                s.gmap = story.gmap;
 
                 if (!string.IsNullOrEmpty(story.mapStr))
                 {
@@ -315,6 +316,7 @@ namespace Wheelerz.Services
                                                                lastName = c.user.lastName
                                                            }
                                                        }).ToList(),
+                                       gmap = s.gmap,
                                        userId = s.userId,
                                        chairInfo = s.chairInfo,
                                        mobilities = s.mobilities,

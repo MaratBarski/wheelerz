@@ -24,6 +24,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { PhotoGalleryComponent } from 'src/app/components/photo-gallery/photo-gallery.component'
 import { SocketService } from 'src/app/services/socket.service'
 import { Rooms } from 'src/app/models/topic'
+import { MapComponent } from 'src/app/components/map/map.component'
 
 @Component({
   selector: 'app-story-view',
@@ -42,7 +43,8 @@ import { Rooms } from 'src/app/models/topic'
     AddressComponent,
     PhotoGalleryComponent,
     MatDialogModule,
-    FileImageComponent
+    FileImageComponent,
+    MapComponent
   ],
   templateUrl: './story-view.component.html',
   styleUrls: ['./story-view.component.scss'],

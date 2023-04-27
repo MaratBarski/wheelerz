@@ -19,7 +19,7 @@
 
         <div *ngIf="isHotel" class="map-address">
             <div class="map">
-                <app-file-image *ngIf="story.map" [isBig]="true" [fileName]="story.map"></app-file-image>
+                <app-map [gmap]="story.gmap" [mapFile]="story.map"></app-map>
             </div>
             <div style="width: 6px;"></div>
             <div>
