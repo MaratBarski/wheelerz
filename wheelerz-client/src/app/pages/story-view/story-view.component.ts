@@ -91,6 +91,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
 
   loadStory(): void {
     this.loader.load(true)
+    this.cd.markForCheck()
     this.story$ = this.dataService.getStoryById(this.id).pipe(map((res) => {
       return { ...res, photos: res.storyPhotos?.map(x => ({ id: x.id, small: x.small, fileName: x.fileName })) }
     }),

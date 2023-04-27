@@ -4,6 +4,7 @@ import * as signalr from '@microsoft/signalr';
 import { LoginService } from './login.service';
 import { IS_SOCKET_DISABLE, SERVER_URL } from '../consts';
 import { BehaviorSubject, Observable, Subject, filter, first } from 'rxjs';
+import { Rooms } from '../models/topic';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +30,13 @@ export class SocketService {
 
   connection?: signalr.HubConnection;
 
-  subjects: { [key: string]: Subject<any> } = {}
+  subjects: { [key: string]: Subject<any> } = {
+    [Rooms.userNewComment]: new Subject<any>()
+  }
 
   async unsubscribe(room: string) {
     this.invoke('LeaveRoom', room)
-    
+
     this.subjects[room].complete()
     delete this.subjects[room]
 
@@ -54,7 +57,7 @@ export class SocketService {
 
   invoke(func: string, room: string): void {
     if (IS_SOCKET_DISABLE) return
-    
+
     this.onConnect
       .pipe(filter(res => res), first())
       .subscribe(async () => {
@@ -81,6 +84,12 @@ export class SocketService {
     this.connection?.on('message', ((res) => {
       this.subjects[res.room].next(res)
     }))
+
+    this.connection?.on('notification', ((res) => {
+      this.subjects[Rooms.userNewComment].next(res)
+      console.log(res)
+    }))
+
     this.connection?.on('Connected', ((res) => {
       console.log(res)
     }));

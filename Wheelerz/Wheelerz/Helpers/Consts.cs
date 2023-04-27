@@ -19,6 +19,9 @@
         public const string DELETE_COMMENT = "delete-comment";
         public const string ADD_COMMENT = "add-comment";
 
+        public const string USER_NEW_COMMENT = "user-new-comment";
+
+
         public static List<string> Mobilities = new List<string> { wheelchair, walker, crutch, scooter };
 
         public static Dictionary<string, int> MobilitiesDictionary = new Dictionary<string, int>()

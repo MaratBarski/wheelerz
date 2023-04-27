@@ -91,11 +91,16 @@ namespace Wheelerz.Controllers
         public async Task<List<StoryComment>> AddComment(StoryComment comment)
         {
             await _userService.UpdateLastAccess();
-            var newComment = await _storyService.AddComment(comment);
+            var story = await _storyService.AddComment(comment);
 
-            _chatService.Send(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, newComment);
+            if (!Consts.IS_SOCKET_DISABLE)
+            {
+                _chatService.Send(_userService.CurrentUser.lang, Consts.ADD_COMMENT + "-" + comment.storyId, story.userComments);
+                if (story.userId != _userService.CurrentUser.id)
+                    _chatService.SendToUser(story.userId, Consts.USER_NEW_COMMENT, comment.storyId);
+            }
 
-            return newComment;
+            return story.userComments;
         }
 
         [HttpDelete("delete-comment/{id}/{storyId}")]

@@ -8,6 +8,7 @@ using Wheelerz.Models;
 namespace Wheelerz.Services
 {
     public delegate void SendToGroupDelegate(string lang, string group, object message, bool sendToAll = false);
+    public delegate void SendToUserDelegate(int userId, string group, object message);
     public interface IChatService
     {
         void AddUser(User user);
@@ -15,15 +16,25 @@ namespace Wheelerz.Services
         void AddToGroup(string group, string connectionId);
         void RemoveFromGroup(string group, string connectionId);
         void Send(string lang, string group, object message, bool sendToAll = false);
+        void SendToUser(int userId, string group, object message);
     }
     public class ChatService : IChatService
     {
         private List<User> _users = new();
         private Object _lock = new();
 
+        private event SendToGroupDelegate _onSendToGroup;
+        private event SendToUserDelegate _onSendToUser;
+
         public ChatService()
         {
             _onSendToGroup += ChatService_onSendToGroup;
+            _onSendToUser += ChatService__onSendToUser;
+        }
+
+        private void ChatService__onSendToUser(int userId, string group, object message)
+        {
+            SendToSpecUser(userId, group, message);
         }
 
         private void ChatService_onSendToGroup(string lang, string group, object message, bool sendToAll = false)
@@ -31,21 +42,24 @@ namespace Wheelerz.Services
             SendToGroup(lang, group, message, sendToAll);
         }
 
-        private event SendToGroupDelegate _onSendToGroup;
-
         public void Send(string lang, string group, object message, bool sendToAll = false)
         {
             if (Consts.IS_SOCKET_DISABLE) return;
 
             _onSendToGroup(lang, group, message, sendToAll);
         }
+        public void SendToUser(int userId, string group, object message)
+        {
+            if (Consts.IS_SOCKET_DISABLE) return;
 
+            _onSendToUser(userId, group, message);
+        }
         private async void SendToGroup(string lang, string group, object message, bool sendToAll = false)
         {
             if (Consts.IS_SOCKET_DISABLE) return;
             try
             {
-                var users = _users.Where(x => x.lang == lang && sendToAll || (x.groups != null && x.groups.Contains(group)));
+                var users = _users.Where(x => x.lang == lang && sendToAll || (x.groups != null && x.groups.Contains(group))).ToList();
                 foreach (var us in users)
                 {
                     try
@@ -54,6 +68,25 @@ namespace Wheelerz.Services
                     }
                     catch { }
                 }
+            }
+            catch { }
+        }
+
+        private async void SendToSpecUser(int userId,string group,object message)
+        {
+            if (Consts.IS_SOCKET_DISABLE) return;
+            try
+            {
+                var users = _users.Where(x => x.id == userId).ToList();
+                foreach(var user in users)
+                {
+                    try
+                    {
+                        await user.socket.SendAsync("notification", new { room = group, data = message });
+                    }
+                    catch { }
+                }    
+                    
             }
             catch { }
         }
