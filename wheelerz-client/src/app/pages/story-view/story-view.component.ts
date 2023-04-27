@@ -86,7 +86,6 @@ export class StoryViewComponent implements OnInit, OnDestroy {
         this.comments = res.data
         this.cd.markForCheck()
       })
-
   }
 
   loadStory(): void {

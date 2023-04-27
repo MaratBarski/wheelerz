@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import * as signalr from '@microsoft/signalr';
 import { LoginService } from './login.service';
 import { IS_SOCKET_DISABLE, SERVER_URL } from '../consts';
-import { BehaviorSubject, Observable, Subject, filter, first } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, Subject, filter, first, of } from 'rxjs';
 import { Rooms } from '../models/topic';
 
 @Injectable({
@@ -34,7 +34,7 @@ export class SocketService {
     [Rooms.userNewComment]: new Subject<any>()
   }
 
-  async unsubscribe(room: string) {
+  unsubscribe(room: string): void {
     this.invoke('LeaveRoom', room)
 
     this.subjects[room].complete()
