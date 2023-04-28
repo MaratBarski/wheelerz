@@ -5,6 +5,7 @@ export interface Gmap {
     },
     zoom: number
     mapId: string
+    marker?: string
 }
 
 export const GetDefaultGmap = (): Gmap => {

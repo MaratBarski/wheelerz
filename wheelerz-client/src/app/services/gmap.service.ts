@@ -27,7 +27,7 @@ export class GmapService {
     const beachMarker = new google.maps.Marker({
       position: position,
       m,
-      title: "Marker"
+      title: map.marker || ''
     });
 
     beachMarker.setMap(m);
