@@ -7,4 +7,13 @@
 }
 .cnt {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+.cnt div{
+    margin: 10px;
+}
+.map-main{
+    display: flex;
 }
