@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Wheelerz.Models;
 
+#pragma warning disable CS8618
+
 namespace Wheelerz
 {
     public class DataContext : DbContext
     {
-#pragma warning disable CS8618
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
