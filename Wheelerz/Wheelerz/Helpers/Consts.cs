@@ -63,8 +63,8 @@
                 },
                 {
                     "contact_travelers",new Dictionary<string, int>{
-                        {"yes",        2*2*2*2*2*2*2*2*2 },
-                        {"no",         2*2*2*2*2*2*2*2*2*2 }
+                        {"yes",        0 },
+                        {"no",         0 }
                     }
                 }
             };

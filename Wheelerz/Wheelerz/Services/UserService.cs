@@ -148,8 +148,14 @@ namespace Wheelerz.Services
                 options.OrderBy(x => x.key).ToList()
                 .ForEach(x =>
                 {
-                    user.chairNumber |= Consts.ChairDictionary[x.key][x.value];
-                    x.userId = userId;
+                    if (Consts.ChairDictionary.ContainsKey(x.key))
+                    {
+                        if (Consts.ChairDictionary[x.key].ContainsKey(x.value))
+                        {
+                            user.chairNumber |= Consts.ChairDictionary[x.key][x.value];
+                            x.userId = userId;
+                        }
+                    }
                 });
                 _data.ChairOptions.AddRange(options);
                 await _data.SaveChangesAsync();
