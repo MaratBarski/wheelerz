@@ -5,7 +5,7 @@ import { Country, State } from '../models/country'
 import { SERVER_URL } from '../consts'
 import { Story } from '../models/story'
 import { User } from '../models/user'
-import { FileImage } from '../models/fileImage'
+import { AccessibilityPhoto, FileImage } from '../models/fileImage'
 import { MobilityDto, UserMobility } from '../models/user-accessibility'
 import { PageResponse } from '../models/page-request'
 import { StorySelector } from '../models/story-selector'
@@ -80,6 +80,14 @@ export class DataService {
 
   getStoryById(id: number): Observable<Story> {
     return this.get<Story>(`Story/${id}`)
+  }
+
+  getAccessibilityFiles(id: number): Observable<AccessibilityPhoto[]> {
+    return this.get<AccessibilityPhoto[]>(`Story/accessibility-files/${id}`)
+  }
+
+  getStoryComments(id: number): Observable<StoryComment[]> {
+    return this.get<StoryComment[]>(`Story/story-comments/${id}`)
   }
 
   updateStory(story: Story): Observable<any> {

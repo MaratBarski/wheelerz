@@ -23,7 +23,9 @@ namespace Wheelerz.Services
         Task<PageResponse<IEnumerable<Story>>> Select(StorySelector storySelector);
         Task<PageResponse<IEnumerable<Story>>> SelectForUser(StorySelector storySelector);
         Task<Story> AddComment(StoryComment comment);
-        Task<List<StoryComment>> DeleteComment(int comment,int storyId);
+        Task<List<StoryComment>> DeleteComment(int comment, int storyId);
+        Task<List<StoryComment>> GetComments(int storyId);
+        Task<List<AccessibilityFile>> GetAccessibilityFileFiles(int accessibilityId);
     }
     public class StoryService : IStoryService
     {
@@ -279,19 +281,19 @@ namespace Wheelerz.Services
             return Task.Run(async () =>
             {
                 var story = await (from s in _data.Stories
-                            .Where(x=>x.id == id && x.deleted == 0)
-                            .Include(x => x.storyPhotos)
-                            .Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
-                            .Include(x => x.accessibility).ThenInclude(x => x.files)
-                            .Include(x => x.mobilities)
-                            .Include(x => x.chairInfo)
-                            .Include(x => x.country)
-                            .Include(x => x.city)
-                            .Include(x => x.user).ThenInclude(x => x.mobilities)
-                            .Include(x => x.user).ThenInclude(x => x.country)
-                            .Include(x => x.user).ThenInclude(x => x.state)
-                            .Include(x => x.userComments).ThenInclude(x => x.user)
-                            .Include(x => x.user).ThenInclude(x => x.chairInfo)
+                            .Where(x => x.id == id && x.deleted == 0)
+                                       //.Include(x => x.storyPhotos)
+                                       //.Include(x => x.accessibility).ThenInclude(x => x.accessibilityItems)
+                                       //.Include(x => x.accessibility).ThenInclude(x => x.files)
+                                       //.Include(x => x.mobilities)
+                                       //.Include(x => x.chairInfo)
+                                       //.Include(x => x.country)
+                                       //.Include(x => x.city)
+                                       //.Include(x => x.user).ThenInclude(x => x.mobilities)
+                                       //.Include(x => x.user).ThenInclude(x => x.country)
+                                       //.Include(x => x.user).ThenInclude(x => x.state)
+                                       //.Include(x => x.userComments).ThenInclude(x => x.user)
+                                       //.Include(x => x.user).ThenInclude(x => x.chairInfo)
                                    select new Story
                                    {
                                        storyPhotos = (from p in s.storyPhotos
@@ -301,21 +303,22 @@ namespace Wheelerz.Services
                                                           fileName = p.fileName,
                                                           small = ""
                                                       }).ToList(),
-                                       userComments = (from c in s.userComments
-                                                       select new StoryComment
-                                                       {
-                                                           isMy = c.userId == _userService.CurrentUser.id,
-                                                           text = c.text,
-                                                           id = c.id,
-                                                           dateAdd = c.dateAdd,
-                                                           user = c.user ?? new User
-                                                           {
-                                                               avatar = c.user.avatar,
-                                                               id = c.user.id,
-                                                               firstName = c.user.firstName,
-                                                               lastName = c.user.lastName
-                                                           }
-                                                       }).ToList(),
+                                       userComments = new List<StoryComment>(),
+                                       //userComments = (from c in s.userComments
+                                       //                select new StoryComment
+                                       //                {
+                                       //                    isMy = c.userId == _userService.CurrentUser.id,
+                                       //                    text = c.text,
+                                       //                    id = c.id,
+                                       //                    dateAdd = c.dateAdd,
+                                       //                    user = c.user ?? new User
+                                       //                    {
+                                       //                        avatar = c.user.avatar,
+                                       //                        id = c.user.id,
+                                       //                        firstName = c.user.firstName,
+                                       //                        lastName = c.user.lastName
+                                       //                    }
+                                       //                }).ToList(),
                                        gmap = s.gmap,
                                        userId = s.userId,
                                        chairInfo = s.chairInfo,
@@ -344,12 +347,13 @@ namespace Wheelerz.Services
                                        accessibility = (from a in s.accessibility
                                                         select new Accessibility
                                                         {
-                                                            files = (from f in a.files
-                                                                     select new AccessibilityFile
-                                                                     {
-                                                                         fileName = f.fileName,
-                                                                         id = f.id,
-                                                                     }).ToList(),
+                                                            files = new List<AccessibilityFile>(),
+                                                            //files = (from f in a.files
+                                                            //         select new AccessibilityFile
+                                                            //         {
+                                                            //             fileName = f.fileName,
+                                                            //             id = f.id,
+                                                            //         }).ToList(),
                                                             accessibilityItems = a.accessibilityItems,
                                                             name = a.name,
                                                             comments = a.comments,
@@ -551,7 +555,7 @@ namespace Wheelerz.Services
             return Task.Run(async () =>
             {
                 var story = await _data.Stories.FirstOrDefaultAsync(x => x.id == comment.storyId && x.deleted == 0);
-                
+
                 if (story != null)
                 {
                     comment.userId = _userService.CurrentUser.id;
@@ -563,7 +567,7 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task<List<StoryComment>> DeleteComment(int id,int storyId)
+        public Task<List<StoryComment>> DeleteComment(int id, int storyId)
         {
             return Task.Run(async () =>
             {
@@ -578,6 +582,41 @@ namespace Wheelerz.Services
                 }
                 var s = await GetStoryById(storyId);
                 return s.userComments;
+            });
+        }
+
+        public Task<List<StoryComment>> GetComments(int storyId)
+        {
+            return Task.Run(async () =>
+            {
+                return await (from c in _data.StoryComments.Where(x => x.storyId == storyId && x.deleted == 0)
+                              select new StoryComment
+                              {
+                                  isMy = c.userId == _userService.CurrentUser.id,
+                                  text = c.text,
+                                  id = c.id,
+                                  dateAdd = c.dateAdd,
+                                  user = c.user ?? new User
+                                  {
+                                      avatar = c.user.avatar,
+                                      id = c.user.id,
+                                      firstName = c.user.firstName,
+                                      lastName = c.user.lastName
+                                  }
+                              }).ToListAsync();
+            });
+        }
+
+        public Task<List<AccessibilityFile>> GetAccessibilityFileFiles(int accessibilityId)
+        {
+            return Task.Run(async () =>
+            {
+                return await (from f in _data.AccessibilityFiles.Where(x => x.accessibilityId == accessibilityId)
+                              select new AccessibilityFile
+                              {
+                                  fileName = f.fileName,
+                                  id = f.id,
+                              }).ToListAsync();
             });
         }
     }

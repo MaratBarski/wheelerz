@@ -513,22 +513,6 @@
                         "value": "doesnt_exist"
                     }                    
                 ]
-            },
-            {
-                "name": "is_there_an_accessible_bathroom",
-                "key": "5",
-                "selectedKey": "k1",
-                "selectedValue": "yes",
-                "items": [
-                    {
-                        "key": "k1",
-                        "value": "yes"
-                    },
-                    {
-                        "key": "k2",
-                        "value": "no"
-                    }
-                ]
             }
         ]
     },

@@ -73,6 +73,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.id = +(this.activatedRoute.snapshot.paramMap.get('id') || '0')
     this.loadStory()
+    this.loadComments()
     //this.loader.showTopMenu(false)
 
     this.socket.subscribe(`${Rooms.deleteComment}-${this.id}`)
@@ -90,13 +91,18 @@ export class StoryViewComponent implements OnInit, OnDestroy {
       })
   }
 
+  loadComments(): void {
+    this.dataService.getStoryComments(this.id)
+      .pipe(tap(() => this.cd.markForCheck()), first())
+      .subscribe(res => this.comments = res)
+  }
+
   loadStory(): void {
     this.loader.load(true)
     this.cd.markForCheck()
     this.story$ = this.dataService.getStoryById(this.id).pipe(map((res) => {
       return { ...res, photos: res.storyPhotos?.map(x => ({ id: x.id, small: x.small, fileName: x.fileName })) }
     }),
-      tap(res => this.comments = res.userComments || []),
       tap(res => this.isHotel = res.storyType === 2),
       tap(() => this.loader.load(false)))
   }
@@ -118,7 +124,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
     this.form.patchValue({ comments: '' })
     this.loader.load(true)
     this.dataService.addComment(comment).pipe(first()).subscribe((res) => {
-      this.comments = res
+      this.loadComments()
       this.loader.load(false)
       this.cd.markForCheck()
     })
@@ -139,15 +145,25 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   }
 
   openAcc(item: WizardItem): void {
-    const dialogRef = this.dialog.open(PhotoGalleryComponent, {
-      data: {
-        files: item.files,
-        name: item.name,
-        text: item.comments
-      }
-    })
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`)
-    // });
+    if (!item.id) return
+
+    this.loader.load(true)
+    this.cd.markForCheck()
+    this.dataService.getAccessibilityFiles(item.id)
+      .pipe(
+        first(),
+        tap(() => this.loader.load(false))
+      )
+      .subscribe(res => {
+        item = { ...item, files: res }
+        this.dialog.open(PhotoGalleryComponent, {
+          data: {
+            files: item.files,
+            name: item.name,
+            text: item.comments
+          }
+        })
+        this.cd.markForCheck()
+      })
   }
 }

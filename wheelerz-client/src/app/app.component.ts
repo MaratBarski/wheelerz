@@ -81,15 +81,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.translationService.loadTranslation
-      .pipe(takeUntil(this.destroy))
-      .subscribe(res => {
-        this.changeDetectorRef.markForCheck()
-      })
-    this.loaderService.onShowTopMenu.pipe(
-      delay(10),
-      takeUntil(this.destroy)
-    ).subscribe(() => this.changeDetectorRef.markForCheck())
+    combineLatest([
+      this.translationService.loadTranslation,
+      this.loaderService.onShowTopMenu,
+      this.loaderService.loading
+    ])
+    .pipe( delay(10),takeUntil(this.destroy))
+    .subscribe(() => {
+      this.changeDetectorRef.markForCheck()
+    })
 
     this.loginService.onLogin.pipe(
       takeUntil(this.destroy)

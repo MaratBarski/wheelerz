@@ -66,6 +66,18 @@ namespace Wheelerz.Controllers
             return await _storyService.GetStoryById(id);
         }
 
+        [HttpGet("story-comments/{id}")]
+        public async Task<IEnumerable<StoryComment>> GetStoryComments(int id)
+        {
+            return await _storyService.GetComments(id);
+        }
+
+        [HttpGet("accessibility-files/{id}")]
+        public async Task<List<AccessibilityFile>> GetAccessibilityFileFiles(int id)
+        {
+            return await _storyService.GetAccessibilityFileFiles(id);
+        }
+
         [HttpPut]
         public async Task Update(Story story)
         {
