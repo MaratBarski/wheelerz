@@ -7,11 +7,17 @@ using Wheelerz.Middlewares;
 using Wheelerz.Rewrite;
 using Wheelerz.Services;
 
+#pragma warning disable SYSLIB0020
+
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 services.AddCors();
-services.AddMvc(options => options.EnableEndpointRouting = false);
+
+services.AddMvc(options => options.EnableEndpointRouting = false)
+    .AddJsonOptions(options => { 
+        options.JsonSerializerOptions.IgnoreNullValues = true;
+    });
 
 services.Configure<FormOptions>(o =>
 {
