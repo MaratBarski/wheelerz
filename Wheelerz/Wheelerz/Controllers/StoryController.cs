@@ -59,11 +59,11 @@ namespace Wheelerz.Controllers
             return await _storyService.GetStories(request);
         }
 
-        [HttpGet("{id}")]
-        public async Task<Story> GetStory(int id)
+        [HttpGet("{id}/{withFiles}")]
+        public async Task<Story> GetStory(int id, bool withFiles)
         {
             await _userService.UpdateLastAccess();
-            return await _storyService.GetStoryById(id);
+            return await _storyService.GetStoryById(id, withFiles);
         }
 
         [HttpGet("story-comments/{id}")]

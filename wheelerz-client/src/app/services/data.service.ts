@@ -78,8 +78,8 @@ export class DataService {
     return this.get<MobilityDto>('User/mobility')
   }
 
-  getStoryById(id: number): Observable<Story> {
-    return this.get<Story>(`Story/${id}`)
+  getStoryById(id: number, withFiles = false): Observable<Story> {
+    return this.get<Story>(`Story/${id}/${withFiles}`)
   }
 
   getAccessibilityFiles(id: number): Observable<AccessibilityPhoto[]> {

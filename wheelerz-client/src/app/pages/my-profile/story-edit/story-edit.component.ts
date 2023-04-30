@@ -52,7 +52,7 @@ export class StoryEditComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +(this.activatedRoute.snapshot.paramMap.get('id') || '0')
-    this.story$ = this.dataService.getStoryById(id).pipe(
+    this.story$ = this.dataService.getStoryById(id, true).pipe(
       tap(res => {
         if (this.userService.isAdmin) this.type = res.storyType || 0
       }),

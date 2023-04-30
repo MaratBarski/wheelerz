@@ -16,7 +16,7 @@ namespace Wheelerz.Services
     {
         Task<Story> Add(Story story);
         Task<PageResponse<IEnumerable<Story>>> GetStories(StoryRequest request);
-        Task<Story> GetStoryById(int id);
+        Task<Story> GetStoryById(int id, bool withFiles);
         Task Update(Story story);
         Task Delete(int storyId);
         Task<List<int>> GetStoryIds(StorySelector request);
@@ -276,7 +276,7 @@ namespace Wheelerz.Services
             });
         }
 
-        public Task<Story> GetStoryById(int id)
+        public Task<Story> GetStoryById(int id, bool withFiles)
         {
             return Task.Run(async () =>
             {
@@ -347,13 +347,14 @@ namespace Wheelerz.Services
                                        accessibility = (from a in s.accessibility
                                                         select new Accessibility
                                                         {
-                                                            files = new List<AccessibilityFile>(),
-                                                            //files = (from f in a.files
-                                                            //         select new AccessibilityFile
-                                                            //         {
-                                                            //             fileName = f.fileName,
-                                                            //             id = f.id,
-                                                            //         }).ToList(),
+                                                            files = withFiles ?
+                                                                (from f in a.files
+                                                                 select new AccessibilityFile
+                                                                 {
+                                                                     fileName = f.fileName,
+                                                                     id = f.id,
+                                                                 }).ToList() :
+                                                                new List<AccessibilityFile>(),
                                                             accessibilityItems = a.accessibilityItems,
                                                             name = a.name,
                                                             comments = a.comments,
@@ -563,7 +564,7 @@ namespace Wheelerz.Services
                     _data.StoryComments.Add(comment);
                     await _data.SaveChangesAsync();
                 }
-                return await GetStoryById(comment.storyId);
+                return await GetStoryById(comment.storyId, false);
             });
         }
 
@@ -580,7 +581,7 @@ namespace Wheelerz.Services
                         await _data.SaveChangesAsync();
                     }
                 }
-                var s = await GetStoryById(storyId);
+                var s = await GetStoryById(storyId, false);
                 return s.userComments;
             });
         }
