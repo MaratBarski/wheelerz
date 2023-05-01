@@ -220,6 +220,9 @@ go
 alter table stories add approved int not null default(0)
 go
 alter table stories add gmap ntext
+go
+alter table stories alter column [address] nvarchar(500)
+go
 
 
 

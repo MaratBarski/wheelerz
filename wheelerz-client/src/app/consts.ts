@@ -3,7 +3,7 @@
 //ng build --base-href=http://localhost:5005/Client/
 
 
-//export const SERVER_URL = 'http://localhost:5005'
+//export const SERVER_URL = 'http://localhost:7777'
 export const SERVER_URL = 'https://localhost:7059'
 //export const SERVER_URL = 'https://manager.ct-dent.co.il/booking-api'
 

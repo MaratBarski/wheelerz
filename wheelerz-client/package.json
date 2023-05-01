@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "p": "ng build --base-href=/ --output-path=C:\\PROJECTS\\wheelerz\\Wheelerz\\Wheelerz\\wwwroot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

@@ -61,7 +61,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseRewriter(new RewriteOptions().Add(RewriteClient.RewriteClientRequests));
+//app.UseRewriter(new RewriteOptions().Add(RewriteClient.RewriteClientRequests));
 
 app.MapControllerRoute(
     name: "default",
@@ -77,21 +77,20 @@ app.UseCors(builder => builder
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Upload")),
-    RequestPath = new PathString("/Upload")
-});
 
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Client")),
-    RequestPath = new PathString("/Client")
-});
+//app.UseStaticFiles(new StaticFileOptions()
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Upload")),
+//    RequestPath = new PathString("/Upload")
+//});
+
+//app.UseStaticFiles(new StaticFileOptions()
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Client")),
+//    RequestPath = new PathString("/Client")
+//});
 
 app.UseDefaultFiles();
-
-app.UseHttpsRedirection();
 
 app.UseRouting();
 
