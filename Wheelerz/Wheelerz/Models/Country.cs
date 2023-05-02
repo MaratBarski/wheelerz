@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Wheelerz.Models
 {
@@ -8,12 +9,15 @@ namespace Wheelerz.Models
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        [Column("name")]
 
+        [Column("name")]
         [Required]
         public string? name { get; set; }
 
         public List<State>? states { get; set; }
+
+        [Column("deleted")]
+        public int deleted { get; set; }
     }
 
     public class State
@@ -26,8 +30,14 @@ namespace Wheelerz.Models
         [Required]
         public int countryId { get; set; }
 
+        [JsonIgnore]
+        public Country? country { get; set; }
+
         [Column("name")]
         [Required]
         public string? name { get; set; }
+
+        [Column("deleted")]
+        public int deleted { get; set; }
     }
 }

@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\init-data.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Upload\pno.no">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

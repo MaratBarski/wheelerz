@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Wheelerz.Models
 {
@@ -22,6 +23,9 @@ namespace Wheelerz.Models
 
         [Column("text")]
         public string? text { get; set; }
+
+        [JsonIgnore]
+        public Story? story { get; set; }
 
         public User? user { get; set; }
 

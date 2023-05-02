@@ -15,7 +15,8 @@ var services = builder.Services;
 services.AddCors();
 
 services.AddMvc(options => options.EnableEndpointRouting = false)
-    .AddJsonOptions(options => { 
+    .AddJsonOptions(options =>
+    {
         options.JsonSerializerOptions.IgnoreNullValues = true;
     });
 
@@ -28,6 +29,18 @@ services.Configure<FormOptions>(o =>
 
 services.AddSignalR();
 
+services.AddDbContext<DataContext>(db =>
+{
+    var server = Environment.GetEnvironmentVariable("server");
+    var port = Environment.GetEnvironmentVariable("port");
+    var user = Environment.GetEnvironmentVariable("user");
+    var password = Environment.GetEnvironmentVariable("password");
+    if (server != null)
+        db.UseSqlServer($"Server={server};Database=wheelerz;User Id={user};Password={password};TrustServerCertificate=true");
+    else
+        db.UseSqlServer(builder.Configuration["connectionStrings:DbConnectionString"]);
+});
+
 services.AddSingleton<IChatService, ChatService>();
 services.AddSingleton<IPermissionsService, PermissionsService>();
 
@@ -38,13 +51,7 @@ services.AddTransient<IAuthService, AuthService>();
 services.AddTransient<IUploadService, UploadService>();
 services.AddTransient<ITranslationService, TranslationService>();
 
-services.AddDbContext<DataContext>(db =>
-{
-    db.UseSqlServer(builder.Configuration["connectionStrings:DbConnectionString"]);
-});
-
 services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
 
 services.AddControllers();
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Wheelerz.Models;
 
 #pragma warning disable CS8618
@@ -9,7 +11,37 @@ namespace Wheelerz
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+            init();
         }
+
+        private void init()
+        {
+            try
+            {
+                var service = Database.GetService<IRelationalDatabaseCreator>();
+                if (service == null) return;
+                if (!service.CanConnect()) service.Create();
+                if (!service.HasTables())
+                {
+                    service.CreateTables();
+                    //FillTables();
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+            }
+        }
+
+        private void FillTables()
+        {
+            using (var sr = new StreamReader(Path.Combine(Directory.GetCurrentDirectory(), "Data", "init-data.txt")))
+            {
+                var str = sr.ReadToEnd();
+                Database.ExecuteSqlRaw(str);
+            }
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
@@ -29,15 +61,24 @@ namespace Wheelerz
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            //modelBuilder.Entity<TBL_STATUS>()
-            // .HasMany(e => e.TBL_TEST)
-            // .WithRequired(e => e.TBL_STATUS)
-            // .HasForeignKey(e => e.STATUS_ID)
-            // .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Country>().HasMany(x=>x.id).HasForeignKey(x=>x.CountryId);
-            // modelBuilder.Entity<User>().HasMany(x => x.id);
+            modelBuilder.Entity<Country>()
+                .HasMany(x => x.states)
+                .WithOne(x => x.country)
+                .HasForeignKey(x => x.countryId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.stories)
+                .WithOne(x => x.user)
+                .HasForeignKey(x => x.userId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Story>()
+                .HasMany(x => x.userComments)
+                .WithOne(x => x.story)
+                .HasForeignKey(x => x.storyId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
         }
     }

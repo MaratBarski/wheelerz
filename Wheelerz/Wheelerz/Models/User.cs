@@ -65,10 +65,8 @@ namespace Wheelerz.Models
         [Column("avatar")]
         public string? avatar { get; set; }
 
-        [ForeignKey("countryId")]
         public Country? country { get; set; }
 
-        [ForeignKey("stateId")]
         public State? state { get; set; }
 
         [Column("mobilityNumber")]

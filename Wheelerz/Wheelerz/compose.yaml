@@ -1,5 +1,33 @@
-﻿services:
-  web:
-    build: .
+﻿version: '3.2'
+
+networks:
+  weelerz:
+
+services:
+  db:
+    container_name: wheelerz-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=1qaz@@wsx159
+      - ACCEPT_EULA=Y
     ports:
-      - 80:80
+      - "7000:1433"
+    networks:
+      - weelerz
+  app:
+    container_name: wheelerz-app
+    image: wheelerz-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7001:80"
+    networks:
+      - weelerz
+    depends_on:
+      - db
+    environment:
+      - password=1qaz@@wsx159
+      - user=SA
+      - server=db
+      
