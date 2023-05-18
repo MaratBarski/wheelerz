@@ -58,7 +58,7 @@ export class StorySelectorComponent implements OnInit {
 
   changeCountry(event: Country): void {
     this.storySelector = { ...this.storySelector, countryId: event.id }
-    this.aplly()
+    //this.aplly()
   }
 
   changeCity(event: State): void {

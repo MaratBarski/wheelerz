@@ -17,22 +17,16 @@
             </ng-container>
         </div>
 
-        <div *ngIf="isHotel" class="map-address">
-            <div class="map">
-                <app-map [gmap]="story.gmap" [mapFile]="story.map"></app-map>
-            </div>
-            <div style="width: 6px;"></div>
-            <div>
-                <app-address [name]="story.name||story.title" [phone]="story.phone" [mail]="story.mail"
-                    [link]="story.link"></app-address>
-            </div>
+        <div *ngIf="isHotel" class="map">
+            <app-map [gmap]="story.gmap" [mapFile]="story.map"></app-map>
         </div>
 
         <div>
             <div>
                 <div class="profile">{{'Reviewer’s Accessibility Profile'|translate}}</div>
                 <div class="main-shadow profile-view" *ngIf="story.user">
-                    <app-top-profile [isShowChairInfo]="false" [chairInfo]="story.chairInfo" [mobilityTypes]="story.mobilities" [user]="story.user"></app-top-profile>
+                    <app-top-profile [isShowChairInfo]="false" [chairInfo]="story.chairInfo"
+                        [mobilityTypes]="story.mobilities" [user]="story.user"></app-top-profile>
                 </div>
             </div>
         </div>
@@ -50,8 +44,8 @@
 
             <div class="comment-title">{{'comments'|translate}}</div>
             <div class="editor">
-                <app-input-comment [isForceAddPhotoDisable]="true" commentPlaceholder="your_comment" [areaHeight]="150" [isTitle]="false"
-                    [isFooter]="false" [form]="form" [isEditor]="false">
+                <app-input-comment [isForceAddPhotoDisable]="true" commentPlaceholder="your_comment" [areaHeight]="150"
+                    [isTitle]="false" [isFooter]="false" [form]="form" [isEditor]="false">
                     <div class="add-commentsd">
                         <button class="main-btn" (click)="addComment()">{{'publish'|translate}}</button>
                     </div>
@@ -77,5 +71,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="isHotel" class="addressa">
+        <app-address [name]="story.name||story.title" [phone]="story.phone" [mail]="story.mail"
+            [link]="story.link"></app-address>
     </div>
 </div>

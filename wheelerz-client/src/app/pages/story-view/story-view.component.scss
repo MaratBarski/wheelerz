@@ -18,7 +18,7 @@
 .flex {
     align-items: center;
 }
-.profile-view{
+.profile-view {
     min-width: 900px;
 }
 .user {
@@ -48,13 +48,9 @@
 .photos {
     margin-top: 10px;
 }
-.map-address {
-    display: flex;
-    margin-top: 10px;
-}
-.map {
 
-    border: 2px solid #ccc;
+.map {
+    margin-top: 10px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -118,4 +114,11 @@
     display: flex;
     justify-content: end;
     cursor: pointer;
+}
+.addressa {
+    background-color: #fff;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
 }

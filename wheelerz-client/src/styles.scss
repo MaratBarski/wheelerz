@@ -2,6 +2,16 @@ body {
     margin: 0;
     padding: 0;
 }
+
+span,
+div,
+td,
+td,
+a,
+input {
+    font-family: Rubik;
+}
+
 .reverse {
     direction: ltr !important;
     -webkit-transform: scaleX(-1);

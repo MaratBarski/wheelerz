@@ -86,22 +86,24 @@ export class AppComponent implements OnInit, OnDestroy {
       this.loaderService.onShowTopMenu,
       this.loaderService.loading
     ])
-    .pipe( delay(10),takeUntil(this.destroy))
-    .subscribe(() => {
-      this.changeDetectorRef.markForCheck()
-    })
+      .pipe(delay(10), takeUntil(this.destroy))
+      .subscribe(() => {
+        this.changeDetectorRef.markForCheck()
+      })
 
     this.loginService.onLogin.pipe(
       takeUntil(this.destroy)
     ).subscribe(res => {
-      if (res)
-        this.socketService.subscribe(Rooms.addStory)
-          .pipe(takeUntil(this.destroy))
-          .subscribe(res => {
-            console.log(res)
-          })
-      else
-        this.socketService.unsubscribe(Rooms.addStory)
+      try {
+        if (res)
+          this.socketService.subscribe(Rooms.addStory)
+            .pipe(takeUntil(this.destroy))
+            .subscribe(res => {
+              console.log(res)
+            })
+        else
+          this.socketService.unsubscribe(Rooms.addStory)
+      } catch (e) { }
     })
   }
 }
