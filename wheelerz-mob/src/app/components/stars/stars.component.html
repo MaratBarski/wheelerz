@@ -1,0 +1,10 @@
+<ion-grid>
+    <ion-row>
+        <ion-col appReverse *ngFor="let im of stars">
+            <img src="./assets/img/{{im}}.svg">
+        </ion-col>
+        <ion-col>
+            {{title|translate}}
+        </ion-col>
+    </ion-row>
+</ion-grid>

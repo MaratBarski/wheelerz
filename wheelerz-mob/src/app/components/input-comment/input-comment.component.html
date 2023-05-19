@@ -1,0 +1,44 @@
+<div [formGroup]="form">
+    <ng-container *ngIf="userService.isAdmin && isFooter">
+        <div class="admin-inputs">
+            <div>
+                Phone:<br><input class="main-input" formControlName="phone">
+            </div>
+            <div>
+                Address:<br><input class="main-input" formControlName="address">
+            </div>
+            <div>
+                Email:<br><input class="main-input" formControlName="mail">
+            </div>
+            <div>
+                Url:<br><input style="width:500px" class="main-input" formControlName="link">
+            </div>
+        </div>
+    </ng-container>
+    <div class="main">
+        <div class="comments">
+            <div *ngIf="isTitle"><input [placeholder]="titlePlaceholder|translate" class="title" type="text"
+                    formControlName="title"></div>
+            <div>
+                <textarea *ngIf="!isEditor" [style.height.px]="areaHeight" [placeholder]="commentPlaceholder|translate"
+                    class="area" formControlName="comments"></textarea>
+                <angular-editor *ngIf="isEditor" [config]="editorConfig" [placeholder]="'Enter text here...'"
+                    formControlName="comments"></angular-editor>
+            </div>
+        </div>
+        <div class="footer">
+            <img *ngIf="!isForceAddPhotoDisable && ((isAddPhotoEnable && !isFilesOverSize) || userService.isAdmin)"
+                (click)="openAttachment()" src="./assets/img/camera-white.svg">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <div class="images" *ngIf="files">
+        <div class="image" *ngFor="let a of files;let i = index">
+            <div (click)="deleteImage(a)" class="delete">
+                <img src="./assets/img/delete.svg">
+            </div>
+            <app-file-image [small]="a.small" [fileName]="a.fileName || ''"></app-file-image>
+        </div>
+    </div>
+    <input type="file" multiple (change)="changeFile($event)" #file style="display: none;">
+</div>

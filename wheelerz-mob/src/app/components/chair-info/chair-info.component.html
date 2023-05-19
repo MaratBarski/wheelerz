@@ -1,0 +1,30 @@
+<div class="cnt1">
+    <div class="title1">{{'chair_size'|translate}}</div>
+    <div>{{'no_skip_note'|translate}}</div>
+    <div class="img1"><app-image [lang]="true" src="chair-dimensions.svg"></app-image></div>
+    <div class="radio1">
+        <div class="inputs">
+            <div class="inp">
+                <div>{{'length'|translate}}</div>
+                <div>
+                    <input class="main-input" type="number" [(ngModel)]="chairInfo.length">
+                </div>
+            </div>
+            <div class="inp">
+                <div>{{'width'|translate}}</div>
+                <div>
+                    <input class="main-input" type="number" [(ngModel)]="chairInfo.width">
+                </div>
+            </div>
+            <div class="inp">
+                <div>{{'length'|translate}}</div>
+                <div>
+                    <input class="main-input" type="number" [(ngModel)]="chairInfo.seatHeight">
+                </div>
+            </div>
+        </div>
+        <div class="main-center">
+            <app-radio (change)="changeCm($event)" [selectedKey]="selectedKey" [values]="chairInfo.values"></app-radio>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+.item {
+    margin-right: 6px;
+    margin-left: 6px;
+}
+:host ::ng-deep .item img {
+    height: 30px;
+}

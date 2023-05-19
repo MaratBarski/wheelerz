@@ -1,0 +1,20 @@
+.cnt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar {
+    background-color: #ccc;
+    overflow: hidden;
+}
+.edit-avatar {
+    background-color: #733381;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}

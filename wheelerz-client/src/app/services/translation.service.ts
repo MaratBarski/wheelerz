@@ -58,7 +58,7 @@ export class TranslationService {
     this._loaded = false;
     localStorage.setItem('lang', lang);
     //this.http.get(`./assets/translations/${lang}.json`)
-    this.http.get(`${SERVER_URL}/translation/get/`)
+    this.http.get(`${SERVER_URL}/translation/get/?lang=${lang}`)
       .pipe(first())
       .subscribe(res => {
         this.translation = res;

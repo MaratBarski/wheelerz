@@ -1,0 +1,30 @@
+<svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="21" height="26" rx="4.5" stroke="white"/>
+<rect x="14.9453" y="19.8096" width="9.33767" height="4" transform="rotate(-41.9164 14.9453 19.8096)" fill="white"/>
+<path d="M22.1836 13.3115L23.0115 12.5683C23.8334 11.8304 25.0979 11.8985 25.8358 12.7204C26.5737 13.5424 26.5056 14.8069 25.6837 15.5448L24.8558 16.288L22.1836 13.3115Z" fill="white"/>
+<path d="M14.55 22.8607L14.9468 19.8096L17.6275 22.7994L14.55 22.8607Z" fill="white"/>
+<line x1="5" y1="4.5" x2="10" y2="4.5" stroke="white"/>
+<line x1="12" y1="4.5" x2="17" y2="4.5" stroke="white"/>
+<line x1="12" y1="10.5" x2="17" y2="10.5" stroke="white"/>
+<line x1="5" y1="7.5" x2="10" y2="7.5" stroke="white"/>
+<line x1="5" y1="10.5" x2="10" y2="10.5" stroke="white"/>
+<line x1="12" y1="7.5" x2="17" y2="7.5" stroke="white"/>
+<line x1="12" y1="16.5" x2="17" y2="16.5" stroke="white"/>
+<line x1="5" y1="13.5" x2="10" y2="13.5" stroke="white"/>
+<line x1="5" y1="16.5" x2="10" y2="16.5" stroke="white"/>
+<line x1="5" y1="19.5" x2="10" y2="19.5" stroke="white"/>
+<line x1="12" y1="13.5" x2="17" y2="13.5" stroke="white"/>
+<rect x="0.5" y="0.5" width="21" height="26" rx="4.5" stroke="#E55C7A"/>
+<rect x="14.9453" y="19.8096" width="9.33767" height="4" transform="rotate(-41.9164 14.9453 19.8096)" fill="#E55C7A"/>
+<path d="M22.1836 13.3115L23.0115 12.5683C23.8334 11.8304 25.0979 11.8985 25.8358 12.7204C26.5737 13.5424 26.5056 14.8069 25.6837 15.5448L24.8558 16.288L22.1836 13.3115Z" fill="#E55C7A"/>
+<path d="M14.55 22.8607L14.9468 19.8096L17.6275 22.7994L14.55 22.8607Z" fill="#E55C7A"/>
+<line x1="12" y1="10.5" x2="17" y2="10.5" stroke="#E55C7A"/>
+<line x1="5" y1="7.5" x2="10" y2="7.5" stroke="#E55C7A"/>
+<line x1="5" y1="10.5" x2="10" y2="10.5" stroke="#E55C7A"/>
+<line x1="12" y1="7.5" x2="17" y2="7.5" stroke="#E55C7A"/>
+<line x1="12" y1="16.5" x2="17" y2="16.5" stroke="#E55C7A"/>
+<line x1="5" y1="13.5" x2="10" y2="13.5" stroke="#E55C7A"/>
+<line x1="5" y1="16.5" x2="10" y2="16.5" stroke="#E55C7A"/>
+<line x1="5" y1="19.5" x2="10" y2="19.5" stroke="#E55C7A"/>
+<line x1="12" y1="13.5" x2="17" y2="13.5" stroke="#E55C7A"/>
+</svg>

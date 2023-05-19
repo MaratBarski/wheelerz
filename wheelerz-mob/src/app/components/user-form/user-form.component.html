@@ -1,0 +1,99 @@
+<div [formGroup]="form">
+    <div>{{'my_profile'|translate}}</div>
+    <div class="line">
+        <div>
+            <app-input-line name="first_name">
+                <input formControlName="firstName" class="main-input" type="text">
+                <div *ngIf="this.form.get('firstName')?.touched && !this.form.get('firstName')?.valid"
+                    class="main-error">{{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+        <div>
+            <app-input-line name="last_name">
+                <input formControlName="lastName" class="main-input" type="text">
+                <div *ngIf="this.form.get('lastName')?.touched && !this.form.get('lastName')?.valid" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+    </div>
+    <div class="line">
+        <div>
+            <app-input-line name="birth_year">
+                <input type="number" class="main-input" style="width:100px" formControlName="birthYear">
+            </app-input-line>
+        </div>
+        <div>
+            <app-input-line name="phone_number">
+                <div class="ltr">
+                    <ngx-intl-tel-input [cssClass]="'main-input'" [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[
+                    SearchCountryField.Iso2,
+                    SearchCountryField.Name
+                    ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Israel" [phoneValidation]="false"
+                        [separateDialCode]="separateDialCode" [numberFormat]="PhoneNumberFormat.National" name="phone"
+                        formControlName="phone">
+                    </ngx-intl-tel-input>
+                </div>
+                <div *ngIf="this.form.get('phone')?.touched && !phone" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+    </div>
+    <div class="line">
+        <div>
+            <app-input-line name="country">
+                <select class="main-input" (change)="loadStates()" formControlName="countryId">
+                    <option [value]="c.id" *ngFor="let c of countries$|async">{{c.name}}</option>
+                </select>
+                <div *ngIf="this.form.get('countryId')?.touched && !isCountrySelected" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+        <div style="width: 300px;">
+            <app-input-line name="state">
+                <select class="main-input" formControlName="stateId">
+                    <option [value]="c.id" *ngFor="let c of states$|async">{{c.name}}</option>
+                </select>
+                <div *ngIf="this.form.get('stateId')?.touched && !isStateSelected" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+    </div>
+    <div class="line">
+        <div>
+            <app-input-line name="email">
+                <input formControlName="email" class="main-input" type="text">
+                <div *ngIf="this.form.get('email')?.touched && !this.form.get('email')?.valid" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+    </div>
+    <div *ngIf="!update" class="line">
+        <div>
+            <app-input-line name="password">
+                <input formControlName="password" class="main-input" type="password">
+                <div *ngIf="this.form.get('password')?.touched && !this.form.get('password')?.valid" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+        <div>
+            <app-input-line name="confirm_password">
+                <input formControlName="confirmPassword" class="main-input" type="password">
+                <div *ngIf="this.form.get('confirmPassword')?.touched && !isPasswordEq" class="main-error">
+                    {{'required'|translate}}</div>
+            </app-input-line>
+        </div>
+    </div>
+    <div class="line">
+        <div>
+            <app-input-line name="how_would_you_like_us_to_address_you">
+                <app-radio [selectedKey]="user.sex" (change)="updateSex($event)" [values]="sexes"></app-radio>
+            </app-input-line>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="main-btn" *ngIf="delete" (click)="deleteUser()">{{'delete_profile'|translate}}</button>
+        <button [disabled]="!isValid" class="main-btn" (click)="next()">{{btnText|translate}}</button>
+    </div>
+</div>

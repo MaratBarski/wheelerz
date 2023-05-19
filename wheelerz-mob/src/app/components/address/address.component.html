@@ -1,0 +1,14 @@
+<div class="main-shadow">
+    <div class="title">{{name}}</div>
+    <div *ngIf="phone" class="elm">
+        <app-image src="phone.svg"></app-image>&nbsp;{{phone}}
+    </div>
+    <div *ngIf="mail" class="elm">
+        <app-image src="mail.svg"></app-image>&nbsp;{{mail}}
+    </div>
+    <div *ngIf="link" class="elm">
+        <button (click)="order()" class="order-btn">
+            {{'book_room_at_the_hotel'|translate}}
+        </button>
+    </div>
+</div>

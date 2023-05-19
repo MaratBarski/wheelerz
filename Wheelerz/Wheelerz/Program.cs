@@ -78,6 +78,7 @@ app.MapFallbackToFile("index.html");
 
 app.UseCors(builder => builder
         .WithOrigins("http://localhost:4200")
+        .WithOrigins("http://localhost:8100")
         .AllowAnyHeader()
         .WithMethods("GET", "POST", "PUT", "DELETE")
         .AllowCredentials());

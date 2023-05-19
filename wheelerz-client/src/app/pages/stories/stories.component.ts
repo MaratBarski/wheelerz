@@ -18,4 +18,5 @@ export class StoriesComponent implements OnInit {
   ngOnInit(): void {
     this.loader.setShareUrl('story')
   }
+  
 }

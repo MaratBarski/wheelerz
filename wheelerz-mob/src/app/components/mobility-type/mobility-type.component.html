@@ -1,0 +1,12 @@
+<div class="cnt">
+    <div class="item"  [class.selected-cnt]="isSelected(t)" (click)="update(t)" *ngFor="let t of types">
+        <div class="img">
+            <img src="./assets/img/{{t.name}}.svg">
+        </div>
+        <div>
+            <button class="btn-cancel" [class.selected]="isSelected(t)">
+                {{t.name|translate}}
+            </button>
+        </div>
+    </div>
+</div>

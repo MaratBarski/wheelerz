@@ -1,0 +1,17 @@
+<div class="cnt">
+    <div class="side main-marg-10">
+        <div class="smal" (click)="setImg(index,0)" *ngFor="let p of photos|storyImageList:0:2;let index = index">
+            <app-file-image [fileName]="p.fileName">
+            </app-file-image>
+        </div>
+    </div>
+    <div class="big">
+        <app-file-image [isBig]="true" [fileName]="currentPhoto.fileName"></app-file-image>
+    </div>
+    <div class="side main-marg-10">
+        <div class="smal" (click)="setImg(index,2)" *ngFor="let p of photos|storyImageList:2:4;let index = index">
+            <app-file-image [fileName]="p.fileName">
+            </app-file-image>
+        </div>
+    </div>
+</div>

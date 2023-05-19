@@ -1,0 +1,48 @@
+<ion-card class="ion-padding">
+    <ion-card-title>{{story.name || story.title}}</ion-card-title>
+    <ion-card-content>
+        <app-stars [estimation]="story.estimation || 0"></app-stars>
+        <app-avatar *ngIf="isShowAvatar" [raduius]="raduius" [avatar]="story.mainImage"></app-avatar>
+        <ion-label>{{story.dateAdd|date:'dd/MM/yyyy'}}</ion-label>
+        <ion-label>
+            <ion-label
+                *ngIf="story.address">{{story.address}},</ion-label>{{story.city?.name}},&nbsp;{{story.country?.name}}
+        </ion-label>
+    </ion-card-content>
+</ion-card>
+<!-- 
+<div class="cnt">
+
+    <div class="card pointer" routerLink="/story-info/{{story.id}}">
+        <div class="main-flex">
+            <div *ngIf="isShowAvatar" class="image">
+            </div>
+        </div>
+        <div class="comment-stars">
+            <div class="info-stars">
+                <div class="info">
+                    <div class="title"></div>
+                    <div class="address">
+                        <div class="add-image"><app-image src="address.svg"></app-image></div>
+                        <span
+                            *ngIf="story.address">{{story.address}},&nbsp;</span>{{story.city?.name}},&nbsp;{{story.country?.name}}
+                    </div>
+                </div>
+                <div>
+                    <app-stars [estimation]="story.estimation || 0"></app-stars>
+                    <div class="date">
+                        <div>
+                            {{story.dateAdd|date:'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="comments">
+                <div [innerHTML]="story.comments">
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-edit-delete [editable]="editable" [post]="story" editUrl="/my-profile/story/{{story.id}}"
+        (onDelete)="onDelete.emit($event)"></app-edit-delete>
+</div> -->

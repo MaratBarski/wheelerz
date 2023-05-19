@@ -1,0 +1,7 @@
+{
+  "name": "wheelerz-mob",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

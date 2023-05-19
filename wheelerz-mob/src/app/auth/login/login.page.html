@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'sign_in'|ta|async}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [formGroup]="form" class="auth-form">
+  <ion-grid class="grid">
+    <ion-row class="m-centaer">
+      <img src="./assets/img/logologin.jpeg">
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input formControlName="email" [label]="'email'|ta|async"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input formControlName="password" type="password" [label]="'password'|ta|async"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col align-self-center>
+        <ion-button [disabled]="!isValid" (click)="login()" expand="block"
+          color="primary">{{'sign_in'|ta|async}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col align-self-center>
+        <ion-button expand="block" color="success" [routerLink]="['/registration']">{{'sign_up'|ta|async}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-alert [isOpen]="isAlertOpen" header="{{'error'|ta|async}}"
+  message=" {{'invalid_login'|ta|async}}" [buttons]="alertButtons" (didDismiss)="setOpen(false)"></ion-alert>

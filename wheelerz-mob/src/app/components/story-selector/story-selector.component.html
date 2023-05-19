@@ -1,0 +1,15 @@
+<ng-container *ngIf="userMobility$|async as userMobility">
+    <div>
+        <div class="mob flex">
+            <div class="flex radio">
+                <div class="item">
+                    <app-country-state-selector [storyType]="storySelector.type" [exists]="true"
+                        (onCountry)="changeCountry($event)" (onCity)="changeCity($event)"></app-country-state-selector>
+                </div>
+            </div>
+            <!-- <div (click)="aplly()" class="pointer">
+                <app-image src="searchbtn.svg" [lang]="true"></app-image>
+            </div> -->
+        </div>
+    </div>
+</ng-container>
