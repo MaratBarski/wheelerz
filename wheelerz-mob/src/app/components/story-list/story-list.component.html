@@ -1,20 +1,25 @@
-<ion-list>
-    <ion-item>
-        <app-story-selector (onApply)="onApplySelector($event)" [storySelector]="storySelector"></app-story-selector>
-    </ion-item>
-    <ion-item *ngIf="stories">
-        <ion-list>
-            <ion-item *ngFor="let story of stories">
-                <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)"
-                    [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
-            </ion-item>
-        </ion-list>
-    </ion-item>
-    <ion-item *ngIf="isNoData">
-        <app-no-data [src]="noDataSrc" [nodata]="nodataText"></app-no-data>
-    </ion-item>
-</ion-list>
-
+<ion-content>
+    <ion-list [inset]="true">
+        <ion-item>
+            <app-story-selector (onApply)="onApplySelector($event)"
+                [storySelector]="storySelector"></app-story-selector>
+        </ion-item>
+        <ion-item *ngIf="stories">
+            <ion-list>
+                <ion-item *ngFor="let story of stories">
+                    <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)"
+                        [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
+                </ion-item>
+            </ion-list>
+        </ion-item>
+        <ion-item *ngIf="isNoData">
+            <app-no-data [src]="noDataSrc" [nodata]="nodataText"></app-no-data>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
 
 <ng-template #hotelTemplate let-story>
     <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
@@ -22,6 +27,8 @@
 </ng-template>
 
 <ng-template #cityTemplate let-story>
-    <app-post-view [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
-        [story]="story"></app-post-view>
+    <!-- <app-post-view [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
+        [story]="story"></app-post-view> -->
+    <app-story-card [isShowAvatar]="isShowAvatar" [editable]="editable" (onDelete)="onDelete($event)"
+        [story]="story"></app-story-card>
 </ng-template>

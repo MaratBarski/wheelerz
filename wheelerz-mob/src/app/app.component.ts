@@ -11,6 +11,8 @@ import { UserService } from './services/user.service';
 import { Rooms } from './models/topic';
 import { TranslateAsyncPipe } from './pipes/translate.pipe';
 import { titles } from './consts';
+import { Camera, CameraResultType } from '@capacitor/camera';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -104,4 +106,13 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() { }
+
+  async testCamera() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    alert(image.webPath)
+  }
 }

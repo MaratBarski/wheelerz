@@ -4,7 +4,7 @@ import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { DataService } from 'src/app/services/data.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Story } from 'src/app/models/story'
-import {  Subject, first, map, tap } from 'rxjs'
+import { Subject, first, map, tap } from 'rxjs'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StoryUrls } from 'src/app/consts'
 import { StorySelector } from 'src/app/models/story-selector'
@@ -13,7 +13,7 @@ import { NoDataComponent } from '../no-data/no-data.component'
 import { PostViewComponent } from '../post-view/post-view.component'
 import { StoryCardComponent } from '../story-card/story-card.component'
 import { StorySelectorComponent } from '../story-selector/story-selector.component'
-import { IonicModule } from '@ionic/angular'
+import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-story-list',
@@ -48,13 +48,13 @@ export class StoryListComponent implements OnInit {
   @Input() editable = false
   @Input() isShowAvatar = true
   @Input() searchByUser = false
-  @Input() pageSize = 50
+  @Input() pageSize = 20
 
   storySelector!: StorySelector
   isNoData = false
 
   total = 0
-  stories!: Story[]
+  stories: Story[] = []
 
   get url(): string {
     return StoryUrls[this.type].view
@@ -111,8 +111,8 @@ export class StoryListComponent implements OnInit {
       map(res => res.result),
       first()
     ).subscribe(res => {
-      this.stories = res
-      this.isNoData = res.length === 0
+      this.stories = [...this.stories, ...res]
+      this.isNoData = this.stories.length === 0
       this.changeDetectorRef.markForCheck()
     })
   }
@@ -133,5 +133,13 @@ export class StoryListComponent implements OnInit {
         this.select()
       }
     })
+  }
+
+  onIonInfinite(ev: any) {
+    this.onPageChange(this.storySelector.page.current + 1)
+    ev.target.complete()
+    // setTimeout(() => {
+    //   (ev as InfiniteScrollCustomEvent).target.complete();
+    // }, 500);
   }
 }

@@ -8,6 +8,7 @@
         </ion-list>
         <ion-list *ngIf="userService.isLogedIn" id="inbox-list">
           <ion-button size="small" (click)="logout()">{{'logout'|ta|async}}</ion-button>
+          <ion-button size="small" (click)="testCamera">Camera</ion-button>
           <ion-list-header>Inbox</ion-list-header>
           <ion-note>hi@ionicframework.com</ion-note>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">

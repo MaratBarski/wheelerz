@@ -1,4 +1,36 @@
-<ion-card class="ion-padding">
+<ion-item class="ion-padding">
+    <ion-grid class="grid">
+        <ion-row>
+            <ion-col>
+                {{story.name || story.title}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-stars [estimation]="story.estimation || 0"></app-stars>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-avatar *ngIf="isShowAvatar" [raduius]="raduius" [avatar]="story.mainImage"></app-avatar>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>{{story.dateAdd|date:'dd/MM/yyyy'}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>
+                    <ion-label
+                        *ngIf="story.address">{{story.address}},</ion-label>{{story.city?.name}},&nbsp;{{story.country?.name}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-item>
+<!-- <ion-card class="ion-padding">
     <ion-card-title>{{story.name || story.title}}</ion-card-title>
     <ion-card-content>
         <app-stars [estimation]="story.estimation || 0"></app-stars>
@@ -9,8 +41,8 @@
                 *ngIf="story.address">{{story.address}},</ion-label>{{story.city?.name}},&nbsp;{{story.country?.name}}
         </ion-label>
     </ion-card-content>
-</ion-card>
-<!-- 
+</ion-card> -->
+<!--
 <div class="cnt">
 
     <div class="card pointer" routerLink="/story-info/{{story.id}}">
