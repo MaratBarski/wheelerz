@@ -28,4 +28,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/stories/stories.page').then(m => m.StoriesPage),
     canActivate: [UserService]
   },
+  {
+    path: 'story-info/:id',
+    loadComponent: () => import('./pages/story-view/story-view.component').then(m => m.StoryViewComponent),
+    canActivate: [UserService]
+  },  
 ];

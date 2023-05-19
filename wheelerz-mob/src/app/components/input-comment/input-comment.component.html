@@ -20,10 +20,8 @@
             <div *ngIf="isTitle"><input [placeholder]="titlePlaceholder|translate" class="title" type="text"
                     formControlName="title"></div>
             <div>
-                <textarea *ngIf="!isEditor" [style.height.px]="areaHeight" [placeholder]="commentPlaceholder|translate"
-                    class="area" formControlName="comments"></textarea>
-                <angular-editor *ngIf="isEditor" [config]="editorConfig" [placeholder]="'Enter text here...'"
-                    formControlName="comments"></angular-editor>
+                <textarea [style.height.px]="areaHeight" [placeholder]="commentPlaceholder|translate" class="area"
+                    formControlName="comments"></textarea>
             </div>
         </div>
         <div class="footer">
