@@ -1,21 +1,27 @@
 <ion-content>
-    <ion-list [inset]="true">
-        <ion-item>
+    <ion-grid>
+        <ion-row>
             <app-story-selector (onApply)="onApplySelector($event)"
                 [storySelector]="storySelector"></app-story-selector>
-        </ion-item>
-        <ion-item *ngIf="stories">
-            <ion-list>
-                <ion-item *ngFor="let story of stories">
-                    <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)"
-                        [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
-                </ion-item>
-            </ion-list>
-        </ion-item>
-        <ion-item *ngIf="isNoData">
-            <app-no-data [src]="noDataSrc" [nodata]="nodataText"></app-no-data>
-        </ion-item>
-    </ion-list>
+        </ion-row>
+        <ion-row *ngIf="stories?.length">
+            <ion-col>
+                <ion-grid>
+                    <ion-row *ngFor="let story of stories">
+                        <ion-col>
+                            <ng-container [ngTemplateOutlet]="getCurrentTemplate(story.storyType || 0)"
+                                [ngTemplateOutletContext]="{$implicit: story}"></ng-container>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isNoData">
+            <ion-col>
+                <app-no-data [src]="noDataSrc" [nodata]="nodataText"></app-no-data>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>

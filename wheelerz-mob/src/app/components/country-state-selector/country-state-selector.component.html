@@ -1,14 +1,18 @@
-<ion-list *ngIf="countries$|async as coutnries">
-    <ion-item>
-        <select style="width: 100%;" (change)="changeCountry()" [disabled]="coutnries.length===1"
-            [(ngModel)]="selectedCountry" aria-label="fruit">
-            <option [value]="c.id" *ngFor="let c of coutnries">{{c.name}}</option>
-        </select>
-    </ion-item>
-    <ion-item *ngIf="states$|async as cities">
-        <select style="width: 100%;" (change)="changeCity()" [(ngModel)]="selectedCity"
-            [disabled]="!selectedCountry||coutnries.length===1||cities.length===1" class="main-input city">
-            <option [value]="c.id" *ngFor="let c of cities">{{c.name}}</option>
-        </select>
-    </ion-item>
-</ion-list>
+<ion-grid *ngIf="countries$|async as coutnries">
+    <ion-row>
+        <ion-col>
+            <select style="width: 100%;" (change)="changeCountry()" [disabled]="coutnries.length===1"
+                [(ngModel)]="selectedCountry" aria-label="fruit">
+                <option [value]="c.id" *ngFor="let c of coutnries">{{c.name}}</option>
+            </select>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="states$|async as cities">
+        <ion-col>
+            <select style="width: 100%;" (change)="changeCity()" [(ngModel)]="selectedCity"
+                [disabled]="!selectedCountry||coutnries.length===1||cities.length===1" class="main-input city">
+                <option [value]="c.id" *ngFor="let c of cities">{{c.name}}</option>
+            </select>
+        </ion-col>
+    </ion-row>
+</ion-grid>

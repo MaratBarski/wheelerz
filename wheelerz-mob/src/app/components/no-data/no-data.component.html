@@ -1,8 +1,12 @@
-<div class="nodata">
-    <div class="txt">
-        {{nodata|translate}}
-    </div>
-    <div>
-        <app-image [src]="src"></app-image>
-    </div>
-</div>
+<ion-grid>
+    <ion-row>
+        <ion-col>
+            {{nodata|translate}}
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <app-image [src]="src"></app-image>
+        </ion-col>
+    </ion-row>
+</ion-grid>
