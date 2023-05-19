@@ -95,6 +95,7 @@ export class StoryListComponent implements OnInit {
   }
 
   onPageChange(value: number): void {
+    this.stories = []
     this.storySelector.page.current = value
     this.select()
   }

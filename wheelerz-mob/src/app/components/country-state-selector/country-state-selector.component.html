@@ -1,15 +1,14 @@
 <ion-list *ngIf="countries$|async as coutnries">
     <ion-item>
-        <ion-select interface="popover" placeholder="{{'country'|ta|async}}" (ionChange)="changeCountry()"
-            [disabled]="coutnries.length===1" [(ngModel)]="selectedCountry" aria-label="fruit">
-            <ion-select-option [value]="c.id" *ngFor="let c of coutnries">{{c.name}}</ion-select-option>
-        </ion-select>
+        <select style="width: 100%;" (change)="changeCountry()" [disabled]="coutnries.length===1"
+            [(ngModel)]="selectedCountry" aria-label="fruit">
+            <option [value]="c.id" *ngFor="let c of coutnries">{{c.name}}</option>
+        </select>
     </ion-item>
     <ion-item *ngIf="states$|async as cities">
-        <ion-select interface="popover" placeholder="{{'state'|ta|async}}" (ionChange)="changeCity()"
-            [(ngModel)]="selectedCity" [disabled]="!selectedCountry||coutnries.length===1||cities.length===1"
-            class="main-input city">
-            <ion-select-option [value]="c.id" *ngFor="let c of cities">{{c.name}}</ion-select-option>
-        </ion-select>
+        <select style="width: 100%;" (change)="changeCity()" [(ngModel)]="selectedCity"
+            [disabled]="!selectedCountry||coutnries.length===1||cities.length===1" class="main-input city">
+            <option [value]="c.id" *ngFor="let c of cities">{{c.name}}</option>
+        </select>
     </ion-item>
 </ion-list>

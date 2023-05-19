@@ -1,23 +1,24 @@
-<ion-app *ngIf="isLoaded"  [style.direction]="direction">
+<ion-app *ngIf="isLoaded" [style.direction]="direction">
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list>
-          <ion-item (click)="setLeng('en')"><ion-label>English</ion-label></ion-item>
-          <ion-item  (click)="setLeng('he')"><ion-label>עִברִית</ion-label></ion-item>
-        </ion-list>
-        <ion-list *ngIf="userService.isLogedIn" id="inbox-list">
-          <ion-button size="small" (click)="logout()">{{'logout'|ta|async}}</ion-button>
-          <ion-button size="small" (click)="testCamera">Camera</ion-button>
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+        <ion-menu-toggle>
+          <ion-grid>
+            <ion-row>
+              <ion-col><ion-item (click)="setLeng('en')"><ion-label>English</ion-label></ion-item></ion-col>
+              <ion-col><ion-item class="ion-text-end"
+                  (click)="setLeng('he')"><ion-label>עִברִית</ion-label></ion-item></ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-list *ngIf="userService.isLogedIn">
+            <ion-button size="small" (click)="logout()">{{'logout'|ta|async}}</ion-button>
+            <ion-button size="small" (click)="testCamera">Camera</ion-button>
+            <ion-item *ngFor="let p of appPages" routerDirection="root" [routerLink]="[p.url]"
+              lines="none" detail="false" routerLinkActive="selected">
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+          </ion-list>
+        </ion-menu-toggle>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
