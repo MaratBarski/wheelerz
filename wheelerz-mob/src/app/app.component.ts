@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, Platform } from '@ionic/angular';
 import { Subject, combineLatest, delay, filter, takeUntil } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { LoginService } from './services/login.service';
@@ -30,6 +30,13 @@ export class AppComponent implements OnInit, OnDestroy {
   socketService = inject(SocketService)
   loginService = inject(LoginService)
   isLoaded = false
+
+  constructor(public platform: Platform) {
+  }
+
+  isMobileBrowser() {
+    return this.platform.is('mobileweb');
+  }
 
   get direction(): string {
     return this.translationService.direction
@@ -99,7 +106,6 @@ export class AppComponent implements OnInit, OnDestroy {
     { title: 'Login', url: '/login', icon: 'archive' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() { }
 
   async testCamera() {
     const image = await Camera.getPhoto({
