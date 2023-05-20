@@ -39,11 +39,13 @@ export class HotelReviewsComponent implements OnDestroy, OnInit {
     this.loaderService.load(true)
     this.dataService.addStory(this.story).pipe(first()).subscribe({
       next: () => {
-        this.router.navigateByUrl('/hotel-reviews')
+        this.router.navigateByUrl('/stories/hotel')
         this.loaderService.load(false)
+        this.loaderService.reload()
       }, error: (er) => {
-        this.router.navigateByUrl('/hotel-reviews')
+        this.router.navigateByUrl('/stories/hotel')
         this.loaderService.load(false)
+        this.loaderService.reload()
       }
     })
   }

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, Input, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { DataService } from 'src/app/services/data.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Story } from 'src/app/models/story'
-import { Subject, first, map, tap } from 'rxjs'
+import { Subject, first, map, takeUntil, tap } from 'rxjs'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StoryUrls } from 'src/app/consts'
 import { StorySelector } from 'src/app/models/story-selector'
@@ -13,7 +13,7 @@ import { NoDataComponent } from '../no-data/no-data.component'
 import { PostViewComponent } from '../post-view/post-view.component'
 import { StoryCardComponent } from '../story-card/story-card.component'
 import { StorySelectorComponent } from '../story-selector/story-selector.component'
-import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-story-list',
@@ -32,7 +32,10 @@ import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular'
   styleUrls: ['./story-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StoryListComponent implements OnInit {
+export class StoryListComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    this.destroy.next()
+  }
 
   dataService = inject(DataService)
   loader = inject(LoaderService)
@@ -52,6 +55,8 @@ export class StoryListComponent implements OnInit {
 
   storySelector!: StorySelector
   isNoData = false
+
+  private destroy = new Subject<void>()
 
   total = 0
   stories: Story[] = []
@@ -81,6 +86,10 @@ export class StoryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loader.onReload.pipe(takeUntil(this.destroy)).subscribe(() => {
+      this.ngOnInit()
+    })
+    this.stories = []
     this.storySelector = {
       cityId: 0,
       countryId: 0,

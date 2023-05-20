@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoaderService {
+
+  get onReload(): Observable<void> {
+    return this._onReload.asObservable()
+  }
+  private _onReload = new Subject<void>()
+
+  reload(): void {
+    this._onReload.next()
+  }
 
   get loading(): Observable<boolean> {
     return this._loading.asObservable()
