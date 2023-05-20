@@ -107,7 +107,9 @@
                 <ion-toolbar>
                     <ion-title>{{currentAccItem?.name|translate}}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button (click)="isModalOpen=false">{{'close'|translate}}</ion-button>
+                        <ion-button (click)="isModalOpen=false">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                        </ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>

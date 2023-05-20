@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'sign_in'|ta|async}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-user-form (onSave)="save($event)"></app-user-form>
+</ion-content>
+
+<ion-alert [isOpen]="isAlertOpen" header="{{'error'|ta|async}}" message=" {{'invalid_login'|ta|async}}"
+  [buttons]="alertButtons" (didDismiss)="isAlertOpen=false"></ion-alert>

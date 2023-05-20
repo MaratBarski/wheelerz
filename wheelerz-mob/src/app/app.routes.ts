@@ -17,7 +17,7 @@ export const routes: Routes = [
     path: 'hotel-reviews',
     pathMatch: 'full',
     redirectTo: 'stories/hotel'
-  },  
+  },
   {
     path: 'stories',
     pathMatch: 'full',
@@ -26,6 +26,11 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./auth/login/login.page').then(m => m.LoginPage),
+    canActivate: [LoginService]
+  },
+  {
+    path: 'registration',
+    loadComponent: () => import('./auth/registration/registration.page').then(m => m.RegistrationPage),
     canActivate: [LoginService]
   },
   {
@@ -57,5 +62,9 @@ export const routes: Routes = [
     path: 'share/fellow-travelers',
     loadComponent: () => import('./pages/share/pages/fellow-travelers/fellow-travelers.component').then(c => c.FellowTravelersComponent),
     canActivate: [UserService]
+  },
+  {
+    path: 'registration',
+    loadComponent: () => import('./auth/registration/registration.page').then(m => m.RegistrationPage)
   }
 ];

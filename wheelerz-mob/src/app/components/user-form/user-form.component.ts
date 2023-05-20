@@ -15,6 +15,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { CountryStateSelectorComponent } from '../country-state-selector/country-state-selector.component'
 import { DateSelectorComponent } from '../date-selector/date-selector.component'
 import { DateTimeService } from 'src/app/services/date-time.service'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-user-form',
@@ -25,10 +26,11 @@ import { DateTimeService } from 'src/app/services/date-time.service'
     TranslatePipe,
     InputLineComponent,
     RadioComponent,
-    NgxIntlTelInputModule,
+    //NgxIntlTelInputModule,
     TooltipModule,
     CountryStateSelectorComponent,
-    DateSelectorComponent
+    DateSelectorComponent,
+    IonicModule
   ],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
@@ -53,15 +55,15 @@ export class UserFormComponent implements OnInit {
   @Output() onDelete = new EventEmitter<void>()
 
   separateDialCode = true
-  SearchCountryField = SearchCountryField
-  CountryISO = CountryISO
-  PhoneNumberFormat = PhoneNumberFormat
+  // SearchCountryField = SearchCountryField
+  // CountryISO = CountryISO
+  // PhoneNumberFormat = PhoneNumberFormat
   isFirstTimeLoaded = true
 
-  preferredCountries: CountryISO[] = [
-    CountryISO.Israel,
-    CountryISO.UnitedStates
-  ]
+  // preferredCountries: CountryISO[] = [
+  //   CountryISO.Israel,
+  //   CountryISO.UnitedStates
+  // ]
 
   get isValid(): boolean {
     if (!this.birthYear) return false
@@ -91,8 +93,12 @@ export class UserFormComponent implements OnInit {
   }
 
   get phone(): string {
-    return this.form.get('phone')?.value?.number
+    return this.form.get('phone')?.value
   }
+
+  // get phone(): string {
+  //   return this.form.get('phone')?.value?.number
+  // }
 
   countries$ = this.dataService.getCoutries().pipe(map(res => ([{ name: 'Select Country', id: 0 }, ...res])))
   states$?: Observable<State[]>

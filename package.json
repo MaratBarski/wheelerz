@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@angular/animations": "^16.0.2",
+    "ngx-bootstrap": "^10.2.0",
+    "ngx-intl-tel-input": "^3.2.0"
+  }
+}
