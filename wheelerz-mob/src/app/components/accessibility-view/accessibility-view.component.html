@@ -1,4 +1,4 @@
-<ion-card class="main-shadow view-over">
+<ion-card>
     <ion-grid>
         <ion-row>
             <ion-col>
@@ -11,7 +11,12 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid *ngIf="accessibility.accessibilityItems?.length">
+    <ion-list *ngIf="accessibility.accessibilityItems?.length">
+        <ion-item class="item {{it.selectedValue}}" *ngFor="let it of accessibility.accessibilityItems">
+            {{getText(it)|translate}}
+        </ion-item>
+    </ion-list>
+    <!-- <ion-grid *ngIf="accessibility.accessibilityItems?.length">
         <ion-row *ngFor="let it of accessibility.accessibilityItems">
             <ion-col>
                 <div class="item {{it.selectedValue}}">
@@ -19,5 +24,5 @@
                 </div>
             </ion-col>
         </ion-row>
-    </ion-grid>
+    </ion-grid> -->
 </ion-card>
