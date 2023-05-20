@@ -3,14 +3,6 @@ $border-radius: 10px;
 $border-width: 1px;
 $height: 30px;
 
-.estimation {
-    cursor: pointer;
-    height: $height;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border-collapse: collapse;
-}
 .selected {
     background-color: $selected-color !important;
     cursor: default;

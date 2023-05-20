@@ -1,7 +1,6 @@
 .wizard {
     display: flex;
     justify-content: space-around;
-    height: calc(100vh - 400px);
 }
 .next{
     margin-top: 100px;
@@ -23,14 +22,12 @@
 .wizard-title{
     margin-top: 20px;
     margin-bottom: 10px;
-    font-size: 2rem;
 }
 textarea{
     height: 100px;
 }
 .progress{
     margin-top: 10px;
-    width: 500px;
     text-align: center;
 }
 .radio-item{

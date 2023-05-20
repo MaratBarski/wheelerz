@@ -12,9 +12,9 @@
             <app-user-input-form [story]="story" css="hotel" [isShowMap]="true" [isShowName]="true"
                 formTitle="new_hotel_review" (onPublish)="onPublish($event)"></app-user-input-form>
         </div>
-        <!-- <div [class.hide]="step===0">
+         <ion-card [class.hide]="step===0">
             <app-accessibility-wizard [showPrev]="true" (onInit)="onInit()" (onDone)="onDone($event)" [wizard]="wizard">
             </app-accessibility-wizard>
-        </div> -->
+        </ion-card>
     </ng-container>
 </ion-content>

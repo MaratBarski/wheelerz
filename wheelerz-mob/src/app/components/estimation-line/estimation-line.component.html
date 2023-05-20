@@ -1,9 +1,3 @@
-<ion-grid>
-    <ion-row>
-        <ion-col *ngFor="let e of estimations;let i = index">
-            <div (click)="estimation=e;change.emit(e)" [class.selected]="e===estimation" class="estimation">
-                {{e}}
-            </div>
-        </ion-col>
-    </ion-row>
-</ion-grid>
+<ion-badge *ngFor="let e of estimations;let i = index" (click)="estimation=e;change.emit(e)" [class.selected]="e===estimation" >
+    {{e}}
+</ion-badge>

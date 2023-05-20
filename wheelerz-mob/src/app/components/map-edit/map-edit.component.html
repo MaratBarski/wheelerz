@@ -3,24 +3,16 @@
         <ion-row>
             <ion-col>
                 <div>
-                    {{'lat'|translate}}
-                    <br>
-                    <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lat">
+                    <ion-input label="{{'lat'|translate}}" class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lat"></ion-input>
                 </div>
                 <div>
-                    {{'lng'|translate}}
-                    <br>
-                    <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lng">
+                    <ion-input label="{{'lng'|translate}}" class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lng"></ion-input>
                 </div>
                 <div>
-                    {{'zoom'|translate}}
-                    <br>
-                    <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.zoom">
+                    <ion-input label="{{'zoom'|translate}}" class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.zoom"></ion-input>
                 </div>
                 <div>
-                    {{'marker'|translate}}
-                    <br>
-                    <input class="main-input" (change)="viewMap()" type="text" [(ngModel)]="map.marker">
+                    <ion-input label="{{'marker'|translate}}" class="main-input" (change)="viewMap()" type="text" [(ngModel)]="map.marker"></ion-input>
                 </div>
             </ion-col>
         </ion-row>

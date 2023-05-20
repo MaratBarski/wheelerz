@@ -1,31 +1,42 @@
-<div class="wizard">
-    <div class="next" [class.unvisible]="current===0 && !showPrev"><img appReverse class="prev-btn" (click)="next(-1)" src="./assets/img/prev.svg">
-    </div>
-    <div class="wzr">
-        <div class="wizard-title">{{currentWizard.name|translate}}</div>
-        <div><img src="./assets/img/{{currentWizard.img}}"></div>
-        <div appDirection class="cnt">
+<ion-grid>
+    <ion-row>
+        <ion-col>
+            <div class="next" [class.unvisible]="current===0 && !showPrev"><img appReverse class="prev-btn"
+                    (click)="next(-1)" src="./assets/img/prev.svg">
+            </div>
+        </ion-col>
+        <ion-col>
             <div>
-                <div class="radio-item" *ngFor="let item of currentWizard.accessibilityItems">
-                    <div style="margin-top: 10px;">{{item.name|translate}}</div>
-                    <div *ngIf="item.items"><app-radio [selectedKey]="item.selectedKey" (change)="change($event,item)"
-                            [values]="item.items"></app-radio></div>
+                <ion-title>{{currentWizard.name|translate}}</ion-title>
+                <div><img src="./assets/img/{{currentWizard.img}}"></div>
+                <div appDirection class="cnt">
+                    <div>
+                        <div class="radio-item" *ngFor="let item of currentWizard.accessibilityItems">
+                            <div style="margin-top: 10px;">{{item.name|translate}}</div>
+                            <div *ngIf="item.items"><app-radio [selectedKey]="item.selectedKey"
+                                    (change)="change($event,item)" [values]="item.items"></app-radio></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <textarea placeholder="{{'comments'|translate}}..." class="main-input"
+                            [(ngModel)]="currentWizard.comments"></textarea>
+                    </div>
+                    <div>
+                        <app-upload [files]="currentWizard.photos || []" (onChange)="updateFiles($event)"></app-upload>
+                    </div>
+                </div>
+                <div class="progress">
+                    <button (click)="done()" *ngIf="current===wizard.length-1"
+                        class="main-btn">{{'done'|translate}}</button>
+                    <app-progress-bar *ngIf="current<wizard.length-1" [current]="current"
+                        [total]="wizard.length"></app-progress-bar>
                 </div>
             </div>
-            <div style="margin-top: 10px;">
-                <textarea placeholder="{{'comments'|translate}}..." class="main-input"
-                    [(ngModel)]="currentWizard.comments"></textarea>
+        </ion-col>
+        <ion-col>
+            <div class="next" [class.unvisible]="current===wizard.length-1"><img appReverse class="next-btn"
+                    (click)="next(1)" src="./assets/img/next.svg">
             </div>
-            <div>
-                <app-upload [files]="currentWizard.photos || []" (onChange)="updateFiles($event)"></app-upload>
-            </div>
-        </div>
-        <div class="progress">
-            <button (click)="done()" *ngIf="current===wizard.length-1" class="main-btn">{{'done'|translate}}</button>
-            <app-progress-bar *ngIf="current<wizard.length-1" [current]="current"
-                [total]="wizard.length"></app-progress-bar>
-        </div>
-    </div>
-    <div class="next" [class.unvisible]="current===wizard.length-1"><img appReverse class="next-btn" (click)="next(1)" src="./assets/img/next.svg">
-    </div>
-</div>
+        </ion-col>
+    </ion-row>
+</ion-grid>

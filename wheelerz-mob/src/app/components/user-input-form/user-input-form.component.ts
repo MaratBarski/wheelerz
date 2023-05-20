@@ -120,14 +120,12 @@ export class UserInputFormComponent implements OnInit {
     this.story.cityId = +value.id
   }
 
-  startDateSelected(date: Date): void {
-    this.story.startDate = date
-    this.story.startDateDisplay = this.dateTimeService.dateToString(date)
+  startDateSelected(date: any): void {
+    this.story.startDateDisplay = this.dateTimeService.dateToString(this.story.startDate)
   }
 
-  endDateSelected(date: Date): void {
-    this.story.endDate = date
-    this.story.endDateDisplay = this.dateTimeService.dateToString(date)
+  endDateSelected(date: any): void {
+    this.story.endDateDisplay = this.dateTimeService.dateToString(this.story.endDate)
   }
 
   updateMap(files: FileImage[]): void {
