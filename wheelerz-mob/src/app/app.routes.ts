@@ -14,6 +14,11 @@ export const routes: Routes = [
     redirectTo: 'stories/road'
   },
   {
+    path: 'hotel-reviews',
+    pathMatch: 'full',
+    redirectTo: 'stories/hotel'
+  },  
+  {
     path: 'stories',
     pathMatch: 'full',
     redirectTo: 'stories/road'

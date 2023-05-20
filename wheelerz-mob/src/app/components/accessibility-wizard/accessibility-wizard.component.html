@@ -1,22 +1,30 @@
 <ion-grid>
     <ion-row>
         <ion-col>
-            <div class="next" [class.unvisible]="current===0 && !showPrev"><img appReverse class="prev-btn"
-                    (click)="next(-1)" src="./assets/img/prev.svg">
-            </div>
-        </ion-col>
-        <ion-col>
-            <div><img src="./assets/img/{{currentWizard.img}}"></div>
-            <ion-label>{{currentWizard.name|translate}}</ion-label>
-        </ion-col>
-        <ion-col>
-            <div class="next" [class.unvisible]="current===wizard.length-1"><img appReverse class="next-btn"
-                    (click)="next(1)" src="./assets/img/next.svg">
-            </div>
+            <ion-grid>
+                <ion-row>
+                    <ion-col class="main-center">
+                        <div [class.unvisible]="current===0 && !showPrev"><img appReverse class="prev-btn"
+                                (click)="next(-1)" src="./assets/img/prev.svg">
+                        </div>
+                    </ion-col>
+                    <ion-col class="main-center">
+                        <div>
+                            <div class="main-center"><img src="./assets/img/{{currentWizard.img}}"></div>
+                            <div class="main-center">{{currentWizard.name|translate}}</div>
+                        </div>
+                    </ion-col>
+                    <ion-col class="main-center">
+                        <div [class.unvisible]="current===wizard.length-1"><img appReverse class="next-btn"
+                                (click)="next(1)" src="./assets/img/next.svg">
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-col>
     </ion-row>
     <ion-row>
-        <ion-col col-3>
+        <ion-col>
             <div>
                 <div appDirection class="cnt">
                     <div>

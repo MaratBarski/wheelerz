@@ -16,7 +16,8 @@
         </ion-row>
         <ion-row *ngIf="isShowName">
             <ion-col>
-                <app-input-line name="hotel_name"><ion-input formControlName="name" class="main-input" type="text"></ion-input>
+                <app-input-line name="hotel_name"><ion-input formControlName="name" class="main-input"
+                        type="text"></ion-input>
                 </app-input-line>
             </ion-col>
         </ion-row>
@@ -26,9 +27,11 @@
                     <ion-datetime-button datetime="datetime"></ion-datetime-button>
                     <ion-modal [keepContentsMounted]="true">
                         <ng-template>
-                          <ion-datetime (ionChange)="startDateSelected($event)" presentation="date"  [ngModelOptions]="{standalone: true}" [(ngModel)]="story.startDate" id="datetime"></ion-datetime>
+                            <ion-datetime (ionChange)="startDateSelected($event)" presentation="date"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="story.startDate"
+                                id="datetime"></ion-datetime>
                         </ng-template>
-                      </ion-modal>
+                    </ion-modal>
                 </app-input-line>
             </ion-col>
         </ion-row>
@@ -38,9 +41,11 @@
                     <ion-datetime-button datetime="datetime1"></ion-datetime-button>
                     <ion-modal [keepContentsMounted]="true">
                         <ng-template>
-                          <ion-datetime (ionChange)="endDateSelected($event)" presentation="date"  [ngModelOptions]="{standalone: true}" [(ngModel)]="story.endDate" id="datetime1"></ion-datetime>
+                            <ion-datetime (ionChange)="endDateSelected($event)" presentation="date"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="story.endDate"
+                                id="datetime1"></ion-datetime>
                         </ng-template>
-                      </ion-modal>
+                    </ion-modal>
                 </app-input-line>
             </ion-col>
         </ion-row>
@@ -64,9 +69,7 @@
         </ion-row>
         <ion-row *ngIf="userService.isAdmin && isShowMap">
             <ion-col>
-                <div class="map flex">
-                    <app-map-edit (onChange)="changeGmap($event)" [gmap]="story.gmap"></app-map-edit>
-                </div>
+                <app-map-edit (onChange)="changeGmap($event)" [gmap]="story.gmap"></app-map-edit>
             </ion-col>
         </ion-row>
         <ion-row>
