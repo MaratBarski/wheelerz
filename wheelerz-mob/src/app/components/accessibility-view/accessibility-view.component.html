@@ -1,17 +1,23 @@
-<div class="main-shadow view-over">
-    <div class="title-cnt">
-        <div>
-            <div class="img-div">
-                <app-image src="ac-{{accessibility.name}}.svg"></app-image>
-            </div>
-        </div>
-        <div class="title main-marg-10">
-            {{accessibility.name|translate}}
-        </div>
-    </div>
-    <div class="items" *ngIf="accessibility.accessibilityItems?.length">
-        <div class="item {{it.selectedValue}}" *ngFor="let it of accessibility.accessibilityItems">
-            {{getText(it)|translate}}
-        </div>
-    </div>
-</div>
+<ion-card class="main-shadow view-over">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="m-center">
+                    <app-image src="ac-{{accessibility.name}}.svg"></app-image>
+                    <div>
+                        {{accessibility.name|translate}}
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="accessibility.accessibilityItems?.length">
+        <ion-row *ngFor="let it of accessibility.accessibilityItems">
+            <ion-col>
+                <div class="item {{it.selectedValue}}">
+                    {{getText(it)|translate}}
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-card>

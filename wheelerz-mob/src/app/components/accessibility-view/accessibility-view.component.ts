@@ -5,11 +5,12 @@ import { FileImageComponent } from '../file-image/file-image.component'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { BigImageComponent } from '../big-image/big-image.component'
 import { ImageComponent } from '../image/image.component'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-accessibility-view',
   standalone: true,
-  imports: [CommonModule, FileImageComponent, TranslatePipe, BigImageComponent, ImageComponent],
+  imports: [CommonModule, FileImageComponent,IonicModule, TranslatePipe, BigImageComponent, ImageComponent],
   templateUrl: './accessibility-view.component.html',
   styleUrls: ['./accessibility-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

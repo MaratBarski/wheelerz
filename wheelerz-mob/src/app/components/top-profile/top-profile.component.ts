@@ -6,11 +6,12 @@ import { User } from 'src/app/models/user'
 import { MobilityType } from 'src/app/models/user-accessibility'
 import { Chair } from 'src/app/models/chair'
 import { ChairOptionsViewComponent } from '../chair-options-view/chair-options-view.component'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-top-profile',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, AvatarComponent, ChairOptionsViewComponent],
+  imports: [CommonModule, TranslatePipe, AvatarComponent, ChairOptionsViewComponent, IonicModule],
   templateUrl: './top-profile.component.html',
   styleUrls: ['./top-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

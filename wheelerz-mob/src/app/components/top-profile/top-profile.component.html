@@ -1,61 +1,70 @@
-<div class="cnt">
-    <div *ngIf="isNameOnTop" class="title">
-        <div class="name">
-            {{user.firstName}}&nbsp;{{user.lastName}}
+<ion-card class="cnt">
+    <ion-grid>
+        <ion-row *ngIf="isNameOnTop">
+            <ion-col>
+                {{user.firstName}}&nbsp;{{user.lastName}}
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="user.state?.name">
+            <ion-col>
+                {{user.state?.name}},&nbsp;{{user.country?.name}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-avatar (onChange)="onAvatarChanged.emit($event)" [userId]="user?.id || 0" [isEditable]="isEditable"
+                    [avatar]="user.avatar"></app-avatar>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="mobilities">
+            <ion-col>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col *ngFor="let m of mobilities">
+                            <div>
+                                <img src="./assets/img/{{m.name}}small.svg">
+                            </div>
+                            <div>
+                                {{m.name|translate}}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-card>
+
+<!-- <div class="avatar">
+    <div class="acc">
+        <div class="chair-number">
+            <app-chair-options-view [value]="chairNumber"></app-chair-options-view>
         </div>
-        <div class="country">
-            {{user.state?.name}},&nbsp;{{user.country?.name}}
+        <div class="mob flex" *ngIf="chair && noWalk">
+            <div class="flex mob-item" *ngIf="chair.length > 0">
+                <div class="mob-img">
+                    <img src="./assets/img/chair_length.svg">
+                </div>
+                <div class="mob-name">
+                    {{'chair_length'|translate}}:&nbsp;{{chair.length}}&nbsp;{{chair.messure|translate}}
+                </div>
+            </div>
+            <div class="flex mob-item" *ngIf="chair.width > 0">
+                <div class="mob-img">
+                    <img src="./assets/img/chair_width.svg">
+                </div>
+                <div class="mob-name">
+                    {{'chair_width'|translate}}:&nbsp;{{chair.width}}&nbsp;{{chair.messure|translate}}
+                </div>
+            </div>
+            <div class="flex mob-item" *ngIf="chair.seatHeight > 0">
+                <div class="mob-img">
+                    <img src="./assets/img/chair_height.svg">
+                </div>
+                <div class="mob-name">
+                    {{'seat_height'|translate}}:&nbsp;{{chair.seatHeight}}&nbsp;{{chair.messure|translate}}
+                </div>
+            </div>
         </div>
     </div>
-    <div class="avatar">
-        <div>
-            <app-avatar (onChange)="onAvatarChanged.emit($event)" [userId]="user?.id || 0" [isEditable]="isEditable" [avatar]="user.avatar"></app-avatar>
-        </div>
-        <div class="acc">
-            <div  *ngIf="!isNameOnTop" class="title title-side">
-                <div class="name">
-                    {{user.firstName}}&nbsp;{{user.lastName}}
-                </div>
-            </div>
-            <div class="mob flex" *ngIf="mobilities">
-                <div class="flex mob-item" *ngFor="let m of mobilities">
-                    <div class="mob-img">
-                        <img src="./assets/img/{{m.name}}small.svg">
-                    </div>
-                    <div class="mob-name">
-                        {{m.name|translate}}
-                    </div>
-                </div>
-            </div>
-            <div class="chair-number">
-                <app-chair-options-view [value]="chairNumber"></app-chair-options-view>
-            </div>
-            <div class="mob flex" *ngIf="chair && noWalk">
-                <div class="flex mob-item" *ngIf="chair.length > 0">
-                    <div class="mob-img">
-                        <img src="./assets/img/chair_length.svg">
-                    </div>
-                    <div class="mob-name">
-                        {{'chair_length'|translate}}:&nbsp;{{chair.length}}&nbsp;{{chair.messure|translate}}
-                    </div>
-                </div>
-                <div class="flex mob-item" *ngIf="chair.width > 0">
-                    <div class="mob-img">
-                        <img src="./assets/img/chair_width.svg">
-                    </div>
-                    <div class="mob-name">
-                        {{'chair_width'|translate}}:&nbsp;{{chair.width}}&nbsp;{{chair.messure|translate}}
-                    </div>
-                </div>
-                <div class="flex mob-item" *ngIf="chair.seatHeight > 0">
-                    <div class="mob-img">
-                        <img src="./assets/img/chair_height.svg">
-                    </div>
-                    <div class="mob-name">
-                        {{'seat_height'|translate}}:&nbsp;{{chair.seatHeight}}&nbsp;{{chair.messure|translate}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</div> -->

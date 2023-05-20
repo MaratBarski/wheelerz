@@ -9,11 +9,12 @@ import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import { DirectionDirective } from 'src/app/directives/direction.directive';
 import { FileImage } from 'src/app/models/fileImage';
 import { ReverseDirective } from 'src/app/directives/reverse.directive';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-accessibility-wizard',
   standalone: true,
-  imports: [CommonModule, RadioComponent, FormsModule, TranslatePipe, ReverseDirective, UploadComponent, ProgressBarComponent, DirectionDirective],
+  imports: [CommonModule, RadioComponent, FormsModule, TranslatePipe, IonicModule, ReverseDirective, UploadComponent, ProgressBarComponent, DirectionDirective],
   templateUrl: './accessibility-wizard.component.html',
   styleUrls: ['./accessibility-wizard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
