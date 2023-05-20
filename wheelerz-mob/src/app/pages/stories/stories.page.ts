@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject }
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StoryListComponent } from 'src/app/components/story-list/story-list.component';
 import { TranslateAsyncPipe } from 'src/app/pipes/translate.pipe';
 import { titles } from 'src/app/consts';
@@ -12,7 +12,7 @@ import { titles } from 'src/app/consts';
   templateUrl: './stories.page.html',
   styleUrls: ['./stories.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, StoryListComponent, TranslateAsyncPipe],
+  imports: [IonicModule, CommonModule, FormsModule, StoryListComponent, RouterModule, TranslateAsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StoriesPage implements OnInit {
@@ -26,6 +26,10 @@ export class StoriesPage implements OnInit {
 
   get pageTitle(): string {
     return titles[this.type - 1]
+  }
+
+  get addLink(): string {
+    return '/share/hotel-review'
   }
 
   ngOnInit() {

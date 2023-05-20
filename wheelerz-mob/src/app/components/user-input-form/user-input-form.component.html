@@ -1,44 +1,71 @@
-<div [class]="css" [formGroup]="form">
-    <div class="form-name">{{formTitle|translate}}</div>
-    <div class="cnt">
-        <div class="input-line">
-            <app-country-state-selector [selectedCountry]="story.countryId || 0" [selectedCity]="story.cityId || 0"
-                (onCountry)="onCountry($event)" (onCity)="onCity($event)"></app-country-state-selector>
-            <app-input-line *ngIf="isShowName" name="hotel_name"><input formControlName="name" class="main-input"
-                    type="text">
-            </app-input-line>
-            <div class="main-flex">
+<ion-card [class]="css" [formGroup]="form">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="form-name">{{formTitle|translate}}</div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <app-country-state-selector [selectedCountry]="story.countryId || 0"
+                        [selectedCity]="story.cityId || 0" (onCountry)="onCountry($event)"
+                        (onCity)="onCity($event)"></app-country-state-selector>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isShowName">
+            <ion-col>
+                <app-input-line name="hotel_name"><input formControlName="name" class="main-input" type="text">
+                </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <app-input-line name="arrival">
-                    <app-date-selector (dateSelected)="startDateSelected($event)"
-                        [selectedDate]="story.startDate"></app-date-selector>
+                    <!-- <app-date-selector (dateSelected)="startDateSelected($event)"
+                        [selectedDate]="story.startDate"></app-date-selector> -->
                 </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <app-input-line name="departure">
-                    <app-date-selector (dateSelected)="endDateSelected($event)"
-                        [selectedDate]="story.endDate"></app-date-selector>
+                    <!-- <app-date-selector (dateSelected)="endDateSelected($event)"
+                        [selectedDate]="story.endDate"></app-date-selector> -->
                 </app-input-line>
-            </div>
-        </div>
-        <div class="form-input">
-            <div class="form-title">{{'rank_your_experience'|translate}}</div>
-            <div>
-                <app-estimation-line (change)="changeEstimation($event)"
-                    [estimation]="story.estimation||0"></app-estimation-line>
-            </div>
-        </div>
-        <div class="form-input">
-            <app-input-comment [isAddPhotoEnable]="isAddPhotoEnable" [files]="files"
-                (onImageUpdates)="onImageUpdates($event)" [form]="form">
-            </app-input-comment>
-        </div>
-        <div class="map flex" *ngIf="userService.isAdmin && isShowMap">
-            <!-- {{'map'|translate}}&nbsp;
-            <app-file-image *ngIf="story.map" [isBig]="true" [fileName]="story.map"></app-file-image>
-            <app-upload (onChange)="updateMap($event)" [multiple]="false"></app-upload> -->
-            <app-map-edit (onChange)="changeGmap($event)" [gmap]="story.gmap"></app-map-edit>
-        </div>
-        <div class="buttons">
-            <button (click)="cancel()" class="btn-cancel">{{'cancel'|translate}}</button>
-            <button [disabled]="!isValid" class="btn-save" (click)="publish()">{{'publish'|translate}}</button>
-        </div>
-    </div>
-</div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card class="card">
+                    <div class="form-title">{{'rank_your_experience'|translate}}</div>
+                    <div>
+                        <app-estimation-line (change)="changeEstimation($event)"
+                            [estimation]="story.estimation||0"></app-estimation-line>
+                    </div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-input-comment [isAddPhotoEnable]="isAddPhotoEnable" [files]="files"
+                    (onImageUpdates)="onImageUpdates($event)" [form]="form">
+                </app-input-comment>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="userService.isAdmin && isShowMap">
+            <ion-col>
+                <div class="map flex">
+                    <app-map-edit (onChange)="changeGmap($event)" [gmap]="story.gmap"></app-map-edit>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button color="warning" (click)="cancel()">{{'cancel'|translate}}</ion-button>
+                <ion-button [disabled]="!isValid" (click)="publish()">{{'publish'|translate}}</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-card>

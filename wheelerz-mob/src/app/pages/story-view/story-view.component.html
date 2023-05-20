@@ -29,13 +29,13 @@
                 <app-story-img [photos]="story.storyPhotos||[]"></app-story-img>
             </ion-col>
         </ion-row>
-        <!-- <ion-row *ngIf="isHotel">
+        <ion-row *ngIf="isHotel">
             <ion-col>
                 <div class="map">
                     <app-map [gmap]="story.gmap" [mapFile]="story.map"></app-map>
                 </div>
             </ion-col>
-        </ion-row> -->
+        </ion-row>
         <ion-row>
             <ion-col>
                 {{'Reviewer’s Accessibility Profile'|translate}}
@@ -81,20 +81,24 @@
             <ion-col>
                 <ion-list *ngIf="comments">
                     <ion-item *ngFor="let com of comments">
-                        <div class="com-item flex">
-                            <div class="avatar">
-                                <app-avatar [width]="120" [avatar]="com.user?.avatar"></app-avatar>
-                            </div>
-                            <div>
-                                <div class="user-name">{{com.user?.firstName}}&nbsp;{{com.user?.lastName}}</div>
-                                <div class="comment-text">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col> <app-avatar [width]="120" [avatar]="com.user?.avatar"></app-avatar></ion-col>
+                                <ion-col>
+                                    {{com.user?.firstName}}&nbsp;{{com.user?.lastName}}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col col-2>
                                     {{com.text}}
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="isDeleteEnable(com)" class="clear">
-                            <app-image (click)="deleteComment(com)" src="clear.svg"></app-image>
-                        </div>
+                                    <div *ngIf="isDeleteEnable(com)" class="clear">
+                                        <app-image (click)="deleteComment(com)" src="clear.svg"></app-image>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+
                     </ion-item>
                 </ion-list>
             </ion-col>

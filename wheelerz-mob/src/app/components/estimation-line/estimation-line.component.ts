@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-estimation-line',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,IonicModule],
   templateUrl: './estimation-line.component.html',
   styleUrls: ['./estimation-line.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

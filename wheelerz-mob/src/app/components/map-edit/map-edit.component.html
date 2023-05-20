@@ -1,27 +1,29 @@
-<div class="map-main" *ngIf="map">
-    <div class="cnt">
-        <div>
-            {{'lat'|translate}}
-            <br>
-            <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lat">
-        </div>
-        <div>
-            {{'lng'|translate}}
-            <br>
-            <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lng">
-        </div>
-        <div>
-            {{'zoom'|translate}}
-            <br>
-            <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.zoom">
-        </div>
-        <div>
-            {{'marker'|translate}}
-            <br>
-            <input class="main-input" (change)="viewMap()" type="text" [(ngModel)]="map.marker">
-        </div>
-    </div>
-    <div>
-        <div #divmap class="map"></div>
-    </div>
+<div *ngIf="map">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div>
+                    {{'lat'|translate}}
+                    <br>
+                    <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lat">
+                </div>
+                <div>
+                    {{'lng'|translate}}
+                    <br>
+                    <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.center.lng">
+                </div>
+                <div>
+                    {{'zoom'|translate}}
+                    <br>
+                    <input class="main-input" (change)="viewMap()" type="number" [(ngModel)]="map.zoom">
+                </div>
+                <div>
+                    {{'marker'|translate}}
+                    <br>
+                    <input class="main-input" (change)="viewMap()" type="text" [(ngModel)]="map.marker">
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div #divmap class="map"></div>
 </div>

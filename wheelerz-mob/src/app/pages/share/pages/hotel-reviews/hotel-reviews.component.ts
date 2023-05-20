@@ -9,29 +9,30 @@ import { DataService } from 'src/app/services/data.service'
 import { first } from 'rxjs'
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
-import { ShareWizardService } from '../../share-wizard.service'
+import { IonicModule } from '@ionic/angular'
+import { TranslateAsyncPipe } from 'src/app/pipes/translate.pipe'
 
 @Component({
   selector: 'app-hotel-reviews',
   standalone: true,
-  imports: [CommonModule, AccessibilityWizardComponent, UserInputFormComponent],
+  imports: [CommonModule, AccessibilityWizardComponent, TranslateAsyncPipe, UserInputFormComponent, IonicModule],
   templateUrl: './hotel-reviews.component.html',
   styleUrls: ['./hotel-reviews.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HotelReviewsComponent implements OnDestroy , OnInit{
+export class HotelReviewsComponent implements OnDestroy, OnInit {
 
   accessibilityWizardService = inject(AccessibilityWizardService)
   dataService = inject(DataService)
   loaderService = inject(LoaderService)
   router = inject(Router)
-  shareWizardService = inject(ShareWizardService)
 
   wizard$ = this.accessibilityWizardService.getWizard()
   story: Story = {
     storyType: StoryType.hotel
   }
   step = 0
+  pageTitle = ''
 
   onDone(wizard: WizardItem[]): void {
     this.story.accessibility = wizard
@@ -50,21 +51,15 @@ export class HotelReviewsComponent implements OnDestroy , OnInit{
   onPublish(story: Story): void {
     this.story = story
     this.step = 1
-    this.loaderService.showTopMenu(false)
-    this.shareWizardService.showTabs(false)
   }
 
   onInit(): void {
     this.step = 0
-    this.loaderService.showTopMenu(true)
-    this.shareWizardService.showTabs(true)
   }
 
   ngOnInit(): void {
-    this.loaderService.setShareUrl('hotel-review')
   }
 
   ngOnDestroy(): void {
-    this.loaderService.showTopMenu(true)
   }
 }

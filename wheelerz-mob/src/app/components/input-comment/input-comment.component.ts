@@ -8,6 +8,7 @@ import { FileImage } from 'src/app/models/fileImage'
 import { FileImageComponent } from '../file-image/file-image.component'
 import { HttpClientModule } from '@angular/common/http'
 import { UserService } from 'src/app/services/user.service'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-input-comment',
@@ -19,6 +20,7 @@ import { UserService } from 'src/app/services/user.service'
     HttpClientModule,
     TranslatePipe,
     FileImageComponent,
+    IonicModule
   ],
   templateUrl: './input-comment.component.html',
   styleUrls: ['./input-comment.component.scss'],

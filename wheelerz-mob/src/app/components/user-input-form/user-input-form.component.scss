@@ -1,9 +1,9 @@
 .form-name {
-    font-size: 2rem;
+    color: #000;
     margin-top: 20px;
 }
 .form-title {
-    font-size: 1.6rem;
+    color: #000;
     margin-bottom: 10px;
 }
 .form-input {
@@ -15,29 +15,32 @@
     flex-wrap: wrap;
 }
 
-.buttons{
+.buttons {
     display: flex;
     justify-content: end;
 }
-.buttons button{
+.buttons button {
     margin-left: 6px;
     margin-right: 6px;
 }
-.btn-save{
+.btn-save {
     margin-left: 4px;
 }
-.story{
+.story {
     background-color: #fff;
 }
-.cnt{
+.cnt {
     width: 1200px;
 }
 .syory .cnt,
-.hotel .cnt{
+.hotel .cnt {
     padding: 12px;
     margin-top: 12px;
 }
-.hotel .cnt{
-    background-color: #F1EAF2;
+.hotel .cnt {
+    background-color: #f1eaf2;
     border-radius: 10px;
+}
+.card{
+    padding: 6px;
 }

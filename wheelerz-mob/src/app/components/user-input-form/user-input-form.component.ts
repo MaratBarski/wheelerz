@@ -17,6 +17,7 @@ import { UserService } from 'src/app/services/user.service'
 import { UploadComponent } from '../upload/upload.component'
 import { FileImageComponent } from '../file-image/file-image.component'
 import { MapEditComponent } from '../map-edit/map-edit.component'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-user-input-form',
@@ -35,7 +36,8 @@ import { MapEditComponent } from '../map-edit/map-edit.component'
     DateSelectorComponent,
     UploadComponent,
     FileImageComponent,
-    MapEditComponent
+    MapEditComponent,
+    IonicModule
   ],
   templateUrl: './user-input-form.component.html',
   styleUrls: ['./user-input-form.component.scss'],

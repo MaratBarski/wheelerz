@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { GetDefaultGmap, Gmap } from 'src/app/models/gmap'
 import { GmapService } from 'src/app/services/gmap.service'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-map-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslatePipe],
+  imports: [CommonModule, FormsModule, TranslatePipe, IonicModule],
   templateUrl: './map-edit.component.html',
   styleUrls: ['./map-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
