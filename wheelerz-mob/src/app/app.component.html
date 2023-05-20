@@ -10,6 +10,10 @@
                   (click)="setLeng('he')"><ion-label>עִברִית</ion-label></ion-item></ion-col>
             </ion-row>
           </ion-grid>
+          <ion-list *ngIf="!userService.isLogedIn">
+            <ion-button size="small" routerLink="login">{{'sign_in'|ta|async}}</ion-button>
+            <ion-button size="small" color="success" routerLink="registration">{{'sign_up'|ta|async}}</ion-button>            
+          </ion-list>
           <ion-list *ngIf="userService.isLogedIn">
             <ion-button size="small" (click)="logout()">{{'logout'|ta|async}}</ion-button>
             <ion-item *ngFor="let p of appPages" routerDirection="root" [routerLink]="[p.url]" lines="none"
