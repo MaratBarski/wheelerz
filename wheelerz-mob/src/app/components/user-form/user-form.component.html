@@ -1,31 +1,37 @@
 <ion-card class="ion-padding" [formGroup]="form">
     <ion-label>{{'my_profile'|translate}}</ion-label>
-    <ion-list>
-        <ion-item>
-            <app-input-line name="first_name">
-                <ion-input formControlName="firstName" class="main-input" type="text"></ion-input>
-                <div *ngIf="this.form.get('firstName')?.touched && !this.form.get('firstName')?.valid"
-                    class="main-error">{{'required'|translate}}</div>
-            </app-input-line>
-        </ion-item>
-        <ion-item>
-            <app-input-line name="last_name">
-                <ion-input formControlName="lastName" class="main-input" type="text"></ion-input>
-                <div *ngIf="this.form.get('lastName')?.touched && !this.form.get('lastName')?.valid" class="main-error">
-                    {{'required'|translate}}</div>
-            </app-input-line>
-        </ion-item>
-        <ion-item>
-            <div>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <app-input-line name="first_name">
+                    <ion-input formControlName="firstName" class="main-input" type="text"></ion-input>
+                    <div *ngIf="this.form.get('firstName')?.touched && !this.form.get('firstName')?.valid"
+                        class="main-error">{{'required'|translate}}</div>
+                </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-input-line name="last_name">
+                    <ion-input formControlName="lastName" class="main-input" type="text"></ion-input>
+                    <div *ngIf="this.form.get('lastName')?.touched && !this.form.get('lastName')?.valid"
+                        class="main-error">
+                        {{'required'|translate}}</div>
+                </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <app-input-line name="birth_year">
                     <ion-input type="number" class="main-input" style="width:100px"
                         formControlName="birthYear"></ion-input>
                 </app-input-line>
-            </div>
-        </ion-item>
-        <ion-item>
-            <app-input-line name="phone_number">
-                <!-- <div class="ltr">
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-input-line name="phone_number">
+                    <!-- <div class="ltr">
                     <ngx-intl-tel-input [cssClass]="'main-input'" [preferredCountries]="preferredCountries"
                         [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
                         [searchCountryField]="[
@@ -36,13 +42,14 @@
                         formControlName="phone">
                     </ngx-intl-tel-input>
                 </div> -->
-                <ion-input formControlName="phone" class="main-input" type="text"></ion-input>
-                <div *ngIf="this.form.get('phone')?.touched && !phone" class="main-error">
-                    {{'required'|translate}}</div>
-            </app-input-line>
-        </ion-item>
-        <ion-item>
-            <div>
+                    <ion-input formControlName="phone" class="main-input" type="text"></ion-input>
+                    <div *ngIf="this.form.get('phone')?.touched && !phone" class="main-error">
+                        {{'required'|translate}}</div>
+                </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <app-input-line name="country">
                     <select style="width:200px" class="main-input" (change)="loadStates()" formControlName="countryId">
                         <option [value]="c.id" *ngFor="let c of countries$|async">{{c.name}}</option>
@@ -50,10 +57,10 @@
                     <div *ngIf="this.form.get('countryId')?.touched && !isCountrySelected" class="main-error">
                         {{'required'|translate}}</div>
                 </app-input-line>
-            </div>
-        </ion-item>
-        <ion-item>
-            <div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <app-input-line name="state">
                     <select class="main-input" formControlName="stateId">
                         <option [value]="c.id" *ngFor="let c of states$|async">{{c.name}}</option>
@@ -61,43 +68,44 @@
                     <div *ngIf="this.form.get('stateId')?.touched && !isStateSelected" class="main-error">
                         {{'required'|translate}}</div>
                 </app-input-line>
-            </div>
-        </ion-item>
-        <ion-item>
-            <div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <app-input-line name="email">
                     <ion-input formControlName="email" class="main-input" type="text"></ion-input>
                     <div *ngIf="this.form.get('email')?.touched && !this.form.get('email')?.valid" class="main-error">
                         {{'required'|translate}}</div>
                 </app-input-line>
-            </div>
-        </ion-item>
-        <ion-item>
-            <div *ngIf="!update">
-                <div>
-                    <app-input-line name="password">
-                        <ion-input formControlName="password" class="main-input" type="password"></ion-input>
-                        <div *ngIf="this.form.get('password')?.touched && !this.form.get('password')?.valid"
-                            class="main-error">
-                            {{'required'|translate}}</div>
-                    </app-input-line>
-                </div>
-                <div>
-                    <app-input-line name="confirm_password">
-                        <ion-input formControlName="confirmPassword" class="main-input" type="password"></ion-input>
-                        <div *ngIf="this.form.get('confirmPassword')?.touched && !isPasswordEq" class="main-error">
-                            {{'required'|translate}}</div>
-                    </app-input-line>
-                </div>
-            </div>
-        </ion-item>
-        <ion-item>
-            <ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!update">
+            <ion-col>
+                <app-input-line name="password">
+                    <ion-input formControlName="password" class="main-input" type="password"></ion-input>
+                    <div *ngIf="this.form.get('password')?.touched && !this.form.get('password')?.valid"
+                        class="main-error">
+                        {{'required'|translate}}</div>
+                </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!update">
+            <ion-col>
+                <app-input-line name="confirm_password">
+                    <ion-input formControlName="confirmPassword" class="main-input" type="password"></ion-input>
+                    <div *ngIf="this.form.get('confirmPassword')?.touched && !isPasswordEq" class="main-error">
+                        {{'required'|translate}}</div>
+                </app-input-line>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 {{'how_would_you_like_us_to_address_you'|translate}}
+                <br/>
                 <app-radio [selectedKey]="user.sex" (change)="updateSex($event)" [values]="sexes"></app-radio>
-            </ion-item>
-        </ion-item>
-    </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <div>
         <ion-button color="primary" *ngIf="delete" (click)="deleteUser()">{{'delete_profile'|translate}}</ion-button>
         <ion-button [disabled]="!isValid" color="primary" (click)="next()">{{btnText|translate}}</ion-button>
