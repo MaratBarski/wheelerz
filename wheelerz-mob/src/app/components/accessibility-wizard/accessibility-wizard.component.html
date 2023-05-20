@@ -6,9 +6,18 @@
             </div>
         </ion-col>
         <ion-col>
+            <div><img src="./assets/img/{{currentWizard.img}}"></div>
+            <ion-label>{{currentWizard.name|translate}}</ion-label>
+        </ion-col>
+        <ion-col>
+            <div class="next" [class.unvisible]="current===wizard.length-1"><img appReverse class="next-btn"
+                    (click)="next(1)" src="./assets/img/next.svg">
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-3>
             <div>
-                <ion-title>{{currentWizard.name|translate}}</ion-title>
-                <div><img src="./assets/img/{{currentWizard.img}}"></div>
                 <div appDirection class="cnt">
                     <div>
                         <div class="radio-item" *ngFor="let item of currentWizard.accessibilityItems">
@@ -31,11 +40,6 @@
                     <app-progress-bar *ngIf="current<wizard.length-1" [current]="current"
                         [total]="wizard.length"></app-progress-bar>
                 </div>
-            </div>
-        </ion-col>
-        <ion-col>
-            <div class="next" [class.unvisible]="current===wizard.length-1"><img appReverse class="next-btn"
-                    (click)="next(1)" src="./assets/img/next.svg">
             </div>
         </ion-col>
     </ion-row>
