@@ -4,11 +4,12 @@ import { FileImageComponent } from '../file-image/file-image.component'
 
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { ImageComponent } from '../image/image.component'
+import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-photo-gallery',
   standalone: true,
-  imports: [CommonModule, FileImageComponent, TranslatePipe, ImageComponent],
+  imports: [CommonModule, FileImageComponent, TranslatePipe, IonicModule, ImageComponent],
   templateUrl: './photo-gallery.component.html',
   styleUrls: ['./photo-gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,6 +33,6 @@ export class PhotoGalleryComponent {
   }
 
   close(): void {
-   
+
   }
 }

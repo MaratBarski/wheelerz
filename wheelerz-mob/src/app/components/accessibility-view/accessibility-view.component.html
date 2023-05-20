@@ -1,4 +1,4 @@
-<ion-card>
+<ion-card class="acc">
     <ion-grid>
         <ion-row>
             <ion-col>
@@ -11,18 +11,9 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-list *ngIf="accessibility.accessibilityItems?.length">
+    <ion-list class="acc-iner" *ngIf="accessibility.accessibilityItems?.length">
         <ion-item class="item {{it.selectedValue}}" *ngFor="let it of accessibility.accessibilityItems">
             {{getText(it)|translate}}
         </ion-item>
     </ion-list>
-    <!-- <ion-grid *ngIf="accessibility.accessibilityItems?.length">
-        <ion-row *ngFor="let it of accessibility.accessibilityItems">
-            <ion-col>
-                <div class="item {{it.selectedValue}}">
-                    {{getText(it)|translate}}
-                </div>
-            </ion-col>
-        </ion-row>
-    </ion-grid> -->
 </ion-card>

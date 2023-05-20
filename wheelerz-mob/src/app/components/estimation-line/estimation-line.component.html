@@ -1,3 +1,3 @@
-<ion-badge *ngFor="let e of estimations;let i = index" (click)="estimation=e;change.emit(e)" [class.selected]="e===estimation" >
+<ion-badge class="est" *ngFor="let e of estimations;let i = index" (click)="estimation=e;change.emit(e)" [class.selected]="e===estimation" >
     {{e}}
 </ion-badge>

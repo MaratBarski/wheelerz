@@ -57,7 +57,8 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   cd = inject(ChangeDetectorRef)
   userService = inject(UserService)
   socket = inject(SocketService)
-
+  isModalOpen = false
+  currentAccItem: any | undefined
 
   private destroy = new Subject<void>()
 
@@ -155,13 +156,10 @@ export class StoryViewComponent implements OnInit, OnDestroy {
       )
       .subscribe(res => {
         item = { ...item, files: res }
-        // this.dialog.open(PhotoGalleryComponent, {
-        //   data: {
-        //     files: item.files,
-        //     name: item.name,
-        //     text: item.comments
-        //   }
-        // })
+        this.isModalOpen = true
+        this.currentAccItem = {
+          ...item, files: item.files?.map(x => x.fileName)
+        }
         this.cd.markForCheck()
       })
   }
