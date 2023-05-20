@@ -60,7 +60,7 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   isModalOpen = false
   currentAccItem: any | undefined
 
-  constructor(private modalController: ModalController){}
+  constructor(private modalController: ModalController) { }
 
   private destroy = new Subject<void>()
 
@@ -110,7 +110,8 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.modalController.dismiss()
+    if (this.isModalOpen)
+      this.modalController.dismiss()
     this.isModalOpen = false
     this.loader.showTopMenu(true)
     this.destroy.next()

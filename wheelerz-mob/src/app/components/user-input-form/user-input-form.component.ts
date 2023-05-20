@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { EstimationLineComponent } from '../estimation-line/estimation-line.component'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/user.service'
 import { UploadComponent } from '../upload/upload.component'
 import { FileImageComponent } from '../file-image/file-image.component'
 import { MapEditComponent } from '../map-edit/map-edit.component'
-import { IonicModule } from '@ionic/angular'
+import { IonDatetime, IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-user-input-form',
@@ -45,7 +45,8 @@ import { IonicModule } from '@ionic/angular'
 })
 export class UserInputFormComponent implements OnInit {
   userService = inject(UserService)
-
+  @ViewChild('startDate') startDate!: IonDatetime
+  @ViewChild('endDate') endDate!: IonDatetime
   @Input() formTitle = 'share_your_story_with_the_community'
   @Input() css = 'story'
   @Input() isShowName = false
@@ -122,10 +123,12 @@ export class UserInputFormComponent implements OnInit {
 
   startDateSelected(date: any): void {
     this.story.startDateDisplay = this.dateTimeService.dateToString(this.story.startDate)
+    this.startDate.cancel(true)
   }
 
   endDateSelected(date: any): void {
     this.story.endDateDisplay = this.dateTimeService.dateToString(this.story.endDate)
+    this.endDate.cancel(true)
   }
 
   updateMap(files: FileImage[]): void {

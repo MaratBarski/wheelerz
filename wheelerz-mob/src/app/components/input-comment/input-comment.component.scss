@@ -32,6 +32,7 @@
 }
 .images {
     display: flex;
+    flex-wrap: wrap;
 }
 .image {
     margin: 6px;
@@ -46,6 +47,7 @@
     margin-left: 70px;
     padding: 0 !important;
     cursor: pointer;
+    z-index: 5;
 }
 .delete img {
     width: 100%;

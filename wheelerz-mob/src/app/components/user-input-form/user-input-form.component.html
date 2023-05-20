@@ -27,7 +27,7 @@
                     <ion-datetime-button datetime="datetime"></ion-datetime-button>
                     <ion-modal [keepContentsMounted]="true">
                         <ng-template>
-                            <ion-datetime (ionChange)="startDateSelected($event)" presentation="date"
+                            <ion-datetime #startDate (ionChange)="startDateSelected($event)" presentation="date"
                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="story.startDate"
                                 id="datetime"></ion-datetime>
                         </ng-template>
@@ -41,7 +41,7 @@
                     <ion-datetime-button datetime="datetime1"></ion-datetime-button>
                     <ion-modal [keepContentsMounted]="true">
                         <ng-template>
-                            <ion-datetime (ionChange)="endDateSelected($event)" presentation="date"
+                            <ion-datetime #endDate (ionChange)="endDateSelected($event)" presentation="date"
                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="story.endDate"
                                 id="datetime1"></ion-datetime>
                         </ng-template>
