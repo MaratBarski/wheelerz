@@ -24,7 +24,7 @@ import { PhotoGalleryComponent } from 'src/app/components/photo-gallery/photo-ga
 import { SocketService } from 'src/app/services/socket.service'
 import { Rooms } from 'src/app/models/topic'
 import { MapComponent } from 'src/app/components/map/map.component'
-import { IonicModule } from '@ionic/angular'
+import { IonicModule, ModalController } from '@ionic/angular'
 
 @Component({
   selector: 'app-story-view',
@@ -59,6 +59,8 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   socket = inject(SocketService)
   isModalOpen = false
   currentAccItem: any | undefined
+
+  constructor(private modalController: ModalController){}
 
   private destroy = new Subject<void>()
 
@@ -108,6 +110,8 @@ export class StoryViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.modalController.dismiss()
+    this.isModalOpen = false
     this.loader.showTopMenu(true)
     this.destroy.next()
     this.socket.unsubscribe(`${Rooms.deleteComment}-${this.id}`)
