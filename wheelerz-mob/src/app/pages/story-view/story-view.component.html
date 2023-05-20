@@ -1,0 +1,108 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title></ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="story$|async as story">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-label>{{story.name || story.title}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-stars [estimation]="story.estimation || 0"></app-stars>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="story.address">
+            <ion-col>
+                <app-image src="address.svg"></app-image>&nbsp;{{story.address}}
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="story?.storyPhotos?.length">
+            <ion-col>
+                <app-story-img [photos]="story.storyPhotos||[]"></app-story-img>
+            </ion-col>
+        </ion-row>
+        <!-- <ion-row *ngIf="isHotel">
+            <ion-col>
+                <div class="map">
+                    <app-map [gmap]="story.gmap" [mapFile]="story.map"></app-map>
+                </div>
+            </ion-col>
+        </ion-row> -->
+        <ion-row>
+            <ion-col>
+                {{'Reviewer’s Accessibility Profile'|translate}}
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="story.user">
+            <ion-col>
+                <app-top-profile [isShowChairInfo]="false" [chairInfo]="story.chairInfo"
+                    [mobilityTypes]="story.mobilities" [user]="story.user"></app-top-profile>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="story?.accessibility?.length">
+            <ion-col>
+                <ion-list>
+                    <ion-item (click)="openAcc(a)" *ngFor="let a of story.accessibility" class="acc">
+                        <app-accessibility-view [accessibility]="a"></app-accessibility-view>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <div [innerHTML]="story.comments"></div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                {{'comments'|translate}}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-input-comment [isForceAddPhotoDisable]="true" commentPlaceholder="your_comment" [areaHeight]="150"
+                    [isTitle]="false" [isFooter]="false" [form]="form" [isEditor]="false">
+                    <div class="add-commentsd">
+                        <ion-button size="small" expand="block" color="success"
+                            (click)="addComment()">{{'publish'|translate}}</ion-button>
+                    </div>
+                </app-input-comment>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-list *ngIf="comments">
+                    <ion-item *ngFor="let com of comments">
+                        <div class="com-item flex">
+                            <div class="avatar">
+                                <app-avatar [width]="120" [avatar]="com.user?.avatar"></app-avatar>
+                            </div>
+                            <div>
+                                <div class="user-name">{{com.user?.firstName}}&nbsp;{{com.user?.lastName}}</div>
+                                <div class="comment-text">
+                                    {{com.text}}
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="isDeleteEnable(com)" class="clear">
+                            <app-image (click)="deleteComment(com)" src="clear.svg"></app-image>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<!-- <div *ngIf="isHotel" class="addressa">
+    <app-address [name]="story.name||story.title" [phone]="story.phone" [mail]="story.mail"
+        [link]="story.link"></app-address>
+</div> -->

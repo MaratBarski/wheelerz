@@ -1,0 +1,124 @@
+.cnt {
+    padding-top: 20px;
+    display: table;
+    margin: 0px auto;
+}
+.main-cnt {
+    display: table;
+}
+.name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.add-view {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+.flex {
+    align-items: center;
+}
+.profile-view {
+    min-width: 900px;
+}
+.user {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 4px 4px #ccc;
+}
+.accs {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 900px;
+}
+.acc {
+    margin-top: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
+    width: 400px;
+    cursor: pointer;
+}
+.photo {
+    margin: 4px;
+}
+.photos {
+    margin-top: 10px;
+}
+
+.map {
+    margin-top: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+.profile {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+.main-shadow {
+    display: inline-flex;
+    margin-top: 10px;
+}
+.comments {
+    max-width: 1000px;
+    overflow: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.editor {
+    width: 900px;
+    margin-bottom: 50px;
+}
+.add-commentsd {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+.coment-line {
+    margin-top: 10px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.com-item {
+    align-items: start;
+    width: 900px;
+}
+.avatar {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.user-name {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+.comment-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+.comment-title {
+    font-size: 2rem;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.clear {
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+}
+.addressa {
+    background-color: #fff;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+}

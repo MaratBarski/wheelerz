@@ -1,0 +1,6 @@
+<div class="share">
+    <div class="tabs" *ngIf="shareWizardService.isShowTabs|async">
+        <app-tabulator [tabs]="tabs"></app-tabulator>
+    </div>
+    <router-outlet></router-outlet>
+</div>

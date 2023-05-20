@@ -1,0 +1,10 @@
+<ng-container *ngIf="user$|async as user">
+    <div class="main-center">
+        <app-user-form btnText="save" (onDelete)="onDelete()" [update]="true" [delete]="true" [user]="user"
+            (onSave)="save($event)"></app-user-form>
+        <div *ngIf="id">
+            <app-user-permissions *appPermission="changePermissions" (onChanged)="updatePermissions($event)"
+                [permission]="permission"></app-user-permissions>
+        </div>
+    </div>
+</ng-container>

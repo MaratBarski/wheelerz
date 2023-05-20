@@ -1,0 +1,41 @@
+<ng-container *ngIf="data$|async as data">
+    <div class="search">
+        <app-search-box [text]="request.q||''" (onSearch)="onSearch($event)"></app-search-box>
+        <app-online-users *appPermission="0"></app-online-users>
+    </div>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>{{'first_name'|translate}}</th>
+            <th>{{'last_name'|translate}}</th>
+            <th>{{'email'|translate}}</th>
+            <th>{{'country'|translate}}</th>
+            <th>{{'state'|translate}}</th>
+            <th>{{'phone_number'|translate}}</th>
+            <th>{{'reg_date'|translate}}</th>
+            <th>{{'last_visit'|translate}}</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let u of data.result">
+            <td class="c"><app-avatar [width]="50" [avatar]="u.avatar"></app-avatar></td>
+            <td>{{u.firstName}}</td>
+            <td>{{u.lastName}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.country?.name}}</td>
+            <td>{{u.state?.name}}</td>
+            <td>{{u.phone}}</td>
+            <td class="c">{{u.registrDate|date:'dd/MM/yyyy'}}</td>
+            <td class="c">{{u.lastVisit|date:'dd/MM/yyyy HH:mm'}}</td>
+            <td>
+                <a routerLink="/my-profile/general/{{u.id}}">Posts</a>&nbsp;
+                <a routerLink="/my-profile/edit-profile/{{u.id}}">Profile</a>
+            </td>
+        </tr>
+    </table>
+    <div class="main-pager">
+        <div>
+            <app-paginator (onPageChange)="onPageChange($event)" [total]="total" [size]="request.page.size"
+                [current]="request.page.current"></app-paginator>
+        </div>
+    </div>
+</ng-container>
