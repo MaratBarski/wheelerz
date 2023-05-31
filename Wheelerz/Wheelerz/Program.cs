@@ -59,6 +59,12 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+//using (var scope = app.Services.CreateScope())
+//{
+//    scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
+//}
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();

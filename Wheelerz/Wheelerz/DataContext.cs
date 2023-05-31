@@ -16,21 +16,21 @@ namespace Wheelerz
 
         private void init()
         {
-            try
-            {
-                var service = Database.GetService<IRelationalDatabaseCreator>();
-                if (service == null) return;
-                if (!service.CanConnect()) service.Create();
-                if (!service.HasTables())
-                {
-                    service.CreateTables();
-                    //FillTables();
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.Error.WriteLine(ex);
-            }
+            //try
+            //{
+            //    var service = Database.GetService<IRelationalDatabaseCreator>();
+            //    if (service == null) return;
+            //    if (!service.CanConnect()) service.Create();
+            //    if (!service.HasTables())
+            //    {
+            //        service.CreateTables();
+            //        //FillTables();
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    Console.Error.WriteLine(ex);
+            //}
         }
 
         private void FillTables()
@@ -79,6 +79,8 @@ namespace Wheelerz
                 .WithOne(x => x.story)
                 .HasForeignKey(x => x.storyId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<UserMobility>().HasIndex(x => x.userId);
 
         }
     }
