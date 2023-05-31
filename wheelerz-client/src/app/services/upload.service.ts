@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { SERVER_URL } from '../consts';
 import { BehaviorSubject, Observable, first } from 'rxjs';
-import { WizardFile } from '../models/accesability';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class UploadService {
     return this.http.delete(`${SERVER_URL}/upload/${name}`).pipe(first())
   }
 
-  async upload(file: any): Promise<WizardFile> {
+  async upload(file: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('file', file);

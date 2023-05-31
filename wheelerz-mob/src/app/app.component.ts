@@ -31,10 +31,9 @@ export class AppComponent implements OnInit, OnDestroy {
   loginService = inject(LoginService)
   isLoaded = false
 
-  constructor(public platform: Platform) {
-  }
+  constructor(public platform: Platform) { }
 
-  isMobileBrowser() {
+  isMobileBrowser(): boolean {
     return this.platform.is('mobileweb');
   }
 

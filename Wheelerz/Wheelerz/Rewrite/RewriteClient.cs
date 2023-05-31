@@ -7,6 +7,7 @@ namespace Wheelerz.Rewrite
         public static void RewriteClientRequests(RewriteContext context)
         {
             var request = context.HttpContext.Request;
+
             if (request.Path.Value == null) return;
 
             if (request.Path.Value == "/" || request.Path.Value.Contains("client", StringComparison.OrdinalIgnoreCase))
