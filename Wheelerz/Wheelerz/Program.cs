@@ -86,7 +86,8 @@ app.UseCors(builder => builder
         .WithOrigins("http://localhost:4200")
         .WithOrigins("http://localhost:8100")
         .AllowAnyHeader()
-        .WithMethods("GET", "POST", "PUT", "DELETE")
+        .AllowAnyMethod()
+        //.WithMethods("GET", "POST", "PUT", "DELETE")
         .AllowCredentials());
 
 app.UseDefaultFiles();

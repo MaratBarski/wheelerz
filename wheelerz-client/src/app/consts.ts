@@ -2,12 +2,12 @@
 //ng build --base-href=/client/ --output-path C:\PROJECTS\wheelerz\Wheelerz\Wheelerz\bin\Release\net6.0\Client
 //ng build --base-href=http://localhost:5005/Client/
 
-export const SERVER_URL = 'https://wheelerzbe.azurewebsites.net'
+//export const SERVER_URL = 'https://wheelerzbe.azurewebsites.net'
 //export const SERVER_URL = 'http://localhost:7001'
-//export const SERVER_URL = 'https://localhost:7059'
+export const SERVER_URL = 'https://localhost:7059'
 //export const SERVER_URL = 'https://manager.ct-dent.co.il/booking-api'
 
-export const IS_SOCKET_DISABLE = false
+export const IS_SOCKET_DISABLE = true
 export const langs = ['en', 'he'];
 export const deflang = 'en';
 
