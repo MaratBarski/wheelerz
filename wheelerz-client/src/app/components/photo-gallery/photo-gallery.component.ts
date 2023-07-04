@@ -4,11 +4,12 @@ import { FileImageComponent } from '../file-image/file-image.component'
 import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { ImageComponent } from '../image/image.component'
+import { DirectionDirective } from 'src/app/directives/direction.directive'
 
 @Component({
   selector: 'app-photo-gallery',
   standalone: true,
-  imports: [CommonModule, FileImageComponent, MatDialogModule, TranslatePipe, ImageComponent],
+  imports: [CommonModule, FileImageComponent, MatDialogModule, TranslatePipe, ImageComponent, DirectionDirective],
   templateUrl: './photo-gallery.component.html',
   styleUrls: ['./photo-gallery.component.scss'],
   providers: [MatDialogConfig],
