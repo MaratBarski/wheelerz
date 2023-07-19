@@ -1,6 +1,6 @@
 <div class="cnt">
-    <div [style.borderRadius.px]="raduius" [style.width.px]="width" [style.height.px]="width" class="avatar">
-        <img *ngIf="avatar" [style.width.px]="width" src="{{avatar}}">
+    <div [style.width.px]="width" class="avatar">
+        <img [style.borderRadius.px]="raduius" *ngIf="avatar" [style.width.px]="width" src="{{avatar}}">
     </div>
     <div *ngIf="isEditable" (click)="openFile()" class="edit-avatar">
         <img src="./assets/img/edit-image.svg">
