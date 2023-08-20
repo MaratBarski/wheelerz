@@ -20,9 +20,9 @@
     align-items: flex-end;
 }
 .top-menu {
-    position: absolute;
+    position: fixed;
     background-color: white;
-    z-index: 1;
+    z-index: 20000;
     border-radius: 4px;
     box-shadow: 4px 4px #888888;
     display: none;

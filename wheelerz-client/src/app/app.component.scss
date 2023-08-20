@@ -8,9 +8,9 @@
 }
 .nav-bar {
     background-color: #fff;
-    position: sticky;
+    //position: sticky;
     width: 1200px;
-    z-index: 105;
+    z-index: 1;
     top: 20px;
     border-radius: 100px 100px 0px 0px;
     padding-left: 40px;
@@ -54,4 +54,3 @@
 .cnt {
     margin-bottom: 50px;
 }
-
