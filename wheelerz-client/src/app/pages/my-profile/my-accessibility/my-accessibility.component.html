@@ -18,12 +18,18 @@
             <div [class.no-display]="!isChairInfo">
                 <app-chair-info [selectedKey]="selectedCm" (onChangeCm)="onChangeCm($event)"
                     [chairInfo]="chairInfo"></app-chair-info>
+                <div style="margin-top: 20px;">
+                    <label [class.unvisible]="!noWalk || !nextDisable">
+                        <input type="checkbox" [(ngModel)]="agree">
+                        {{'i_confirm'|translate}}
+                    </label>
+                </div>
             </div>
         </div>
         <div>
             <img appReverse [class.unvisible]="!noWalk || nextDisable" class="pointer next-btn" (click)="next(1)"
                 src="./assets/img/next.svg">
-            <button [class.unvisible]="!noWalk || !nextDisable" class="main-btn"
+            <button [disabled]="!agree" [class.unvisible]="!noWalk || !nextDisable" class="main-btn"
                 (click)="save()">{{'done'|translate}}</button>
         </div>
     </div>

@@ -11,11 +11,12 @@ import { ProgressBarComponent } from 'src/app/components/progress-bar/progress-b
 import { LoaderService } from 'src/app/services/loader.service'
 import { Router } from '@angular/router'
 import { ReverseDirective } from 'src/app/directives/reverse.directive'
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-my-accessibility',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, ReverseDirective, MobilityTypeComponent, ChairOptionsComponent, ChairInfoComponent, ProgressBarComponent],
+  imports: [CommonModule, TranslatePipe, FormsModule, ReverseDirective, MobilityTypeComponent, ChairOptionsComponent, ChairInfoComponent, ProgressBarComponent],
   templateUrl: './my-accessibility.component.html',
   styleUrls: ['./my-accessibility.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,6 +33,7 @@ export class MyAccessibilityComponent {
   step = 0
   currentIndex = -1
   selectedCm = 'cm'
+  agree = false
 
   get nextDisable(): boolean {
     return this.currentIndex === this.chairOptions.length
