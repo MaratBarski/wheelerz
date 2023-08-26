@@ -34,6 +34,12 @@
         </div>
     </div>
     <div class="save" *ngIf="!noWalk">
-        <button class="main-btn" (click)="save()">{{'done'|translate}}</button>
+        <label>
+            <input type="checkbox" [(ngModel)]="agree">
+            {{'i_confirm'|translate}}
+        </label>
+        <div class="save">
+            <button class="main-btn" [disabled]="!agree" (click)="save()">{{'done'|translate}}</button>
+        </div>
     </div>
 </div>
