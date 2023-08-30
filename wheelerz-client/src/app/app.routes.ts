@@ -10,17 +10,17 @@ export const APP_ROUTES: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'stories'
+        redirectTo: 'home'
     },
-    // {
-    //     path: 'home',
-    //     loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
-    //     canActivate: [UserService]
-    // },
+    {
+        path: 'home',
+        loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
+        canActivate: [UserService]
+    },
     {
         path: 'home',
         pathMatch: 'full',
-        redirectTo: 'stories'
+        redirectTo: 'home'
     },
     {
         path: 'stories',

@@ -3,7 +3,7 @@
         <div class="mob flex">
             <div class="flex radio">
                 <div class="item">
-                    <app-country-state-selector [storyType]="storySelector.type" [exists]="true"
+                    <app-country-state-selector [selectedCountry]="storySelector.countryId || 0" [selectedCity]="storySelector.cityId || 0" [storyType]="storySelector.type" [exists]="true"
                         (onCountry)="changeCountry($event)" (onCity)="changeCity($event)"></app-country-state-selector>
                 </div>
             </div>

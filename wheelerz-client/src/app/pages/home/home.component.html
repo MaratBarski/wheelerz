@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div class="container">
+    <div class="main" style="background-image: url('../assets/img/home.svg');">
+        <div class="page-title">{{'home_page'|translate}}</div>
+        <div class="seletor">
+            <app-country-state-selector (onCity)="onCity($event)" (onCountry)="onCountry($event)"></app-country-state-selector>
+            <button (click)="search()">{{'search'|translate}}</button>
+        </div>
+    </div>
+</div>

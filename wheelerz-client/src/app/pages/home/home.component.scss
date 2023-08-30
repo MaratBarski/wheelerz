@@ -1,0 +1,39 @@
+.main {
+    width: calc(100vw - 200px);
+    height: calc(100vh - 200px);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin-top: -20px;
+}
+.page-title {
+    color: #594088;
+    font-weight: 800;
+    font-size: 50px;
+    margin-top: 200px;
+    width: 800px;
+    line-height: 50px;
+    text-align: center;
+}
+.seletor {
+    margin-top: 50px;
+    display: flex;
+    align-items: end;
+}
+.seletor button {
+    border-radius: 20px;
+    background-color: #594088;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    border-color: transparent;
+}

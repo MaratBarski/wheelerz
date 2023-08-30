@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { StoryCardComponent } from '../story-card/story-card.component'
 import { DataService } from 'src/app/services/data.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Story } from 'src/app/models/story'
-import { first, map, tap } from 'rxjs'
+import { Subject, first, map, takeUntil, tap } from 'rxjs'
 import { PaginatorComponent } from '../paginator/paginator.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StoryUrls } from 'src/app/consts'
@@ -32,8 +32,12 @@ import { PostViewComponent } from '../post-view/post-view.component'
   styleUrls: ['./story-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StoryListComponent implements OnInit {
+export class StoryListComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    this.destroy.next()
+  }
 
+  destroy = new Subject<void>()
   dataService = inject(DataService)
   loader = inject(LoaderService)
   router = inject(Router)
@@ -49,6 +53,9 @@ export class StoryListComponent implements OnInit {
   @Input() isShowAvatar = true
   @Input() searchByUser = false
   @Input() pageSize = 50
+
+  cityId = 0
+  countryId = 0
 
   storySelector!: StorySelector
   isNoData = false
@@ -81,9 +88,13 @@ export class StoryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParamMap.pipe(takeUntil(this.destroy)).subscribe(res => {
+      this.cityId = +(res.get('city') || 0)
+      this.countryId = +(res.get('country') || 0)
+    })
     this.storySelector = {
-      cityId: 0,
-      countryId: 0,
+      cityId: this.cityId,
+      countryId: this.countryId,
       mobilities: {},
       type: this.type,
       page: { current: 0, size: this.pageSize },
