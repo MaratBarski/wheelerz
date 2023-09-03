@@ -19,9 +19,13 @@
                 <app-chair-info [selectedKey]="selectedCm" (onChangeCm)="onChangeCm($event)"
                     [chairInfo]="chairInfo"></app-chair-info>
                 <div style="margin-top: 20px;">
-                    <label [class.unvisible]="!noWalk || !nextDisable">
+                    <label *ngIf="isRtl" [class.unvisible]="!noWalk || !nextDisable">
                         <input type="checkbox" [(ngModel)]="agree">
-                        {{'i_confirm'|translate}}
+                        I confirm that I have read the site's <span (click)="openLink('terms',$event)" class="link">Terms of Use</span> and <span (click)="openLink('policy',$event)" class="link">Privacy Policy</span> and agree to their terms
+                    </label>
+                    <label *ngIf="!isRtl" [class.unvisible]="!noWalk || !nextDisable">
+                        <input type="checkbox" [(ngModel)]="agree">
+                        I confirm that I have read the site's <span (click)="openLink('terms',$event)" class="link">Terms of Use</span> and <span (click)="openLink('policy',$event)" class="link">Privacy Policy</span> and agree to their terms
                     </label>
                 </div>
             </div>
@@ -36,7 +40,12 @@
     <div class="save" *ngIf="!noWalk">
         <label>
             <input type="checkbox" [(ngModel)]="agree">
-            {{'i_confirm'|translate}}
+            <ng-container *ngIf="isRtl">
+                I confirm that I have read the site's <span (click)="openLink('terms',$event)" class="link">Terms of Use</span> and <span (click)="openLink('policy',$event)" class="link">Privacy Policy</span> and agree to their terms
+            </ng-container>
+            <ng-container *ngIf="!isRtl">
+                I confirm that I have read the site's <span (click)="openLink('terms',$event)" class="link">Terms of Use</span> and <span (click)="openLink('policy',$event)" class="link">Privacy Policy</span> and agree to their terms
+            </ng-container>
         </label>
         <div class="save">
             <button class="main-btn" [disabled]="!agree" (click)="save()">{{'done'|translate}}</button>

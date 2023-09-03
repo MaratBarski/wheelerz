@@ -12,11 +12,15 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { Router } from '@angular/router'
 import { ReverseDirective } from 'src/app/directives/reverse.directive'
 import { FormsModule } from '@angular/forms'
+import { TranslationService } from 'src/app/services/translation.service'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { TermsComponent } from 'src/app/policy/terms/terms.component'
+import { PolicyComponent } from 'src/app/policy/policy/policy.component'
 
 @Component({
   selector: 'app-my-accessibility',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, FormsModule, ReverseDirective, MobilityTypeComponent, ChairOptionsComponent, ChairInfoComponent, ProgressBarComponent],
+  imports: [CommonModule, MatDialogModule, TranslatePipe, FormsModule, ReverseDirective, MobilityTypeComponent, ChairOptionsComponent, ChairInfoComponent, ProgressBarComponent, TermsComponent, PolicyComponent],
   templateUrl: './my-accessibility.component.html',
   styleUrls: ['./my-accessibility.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,6 +28,7 @@ import { FormsModule } from '@angular/forms'
 export class MyAccessibilityComponent {
   router = inject(Router)
   loaderService = inject(LoaderService)
+  trans = inject(TranslationService)
   dataService = inject(DataService)
   types!: MobilityType[]
   chairOptions!: ChairOption[]
@@ -34,6 +39,11 @@ export class MyAccessibilityComponent {
   currentIndex = -1
   selectedCm = 'cm'
   agree = false
+  constructor(public dialog: MatDialog) { }
+
+  get isRtl(): boolean {
+    return this.trans.isRtl
+  }
 
   get nextDisable(): boolean {
     return this.currentIndex === this.chairOptions.length
@@ -110,5 +120,14 @@ export class MyAccessibilityComponent {
 
   onChangeCm(value: string): void {
     this.selectedCm = value
+  }
+
+  openLink(dlg: string, event: any): void {
+    event.stopPropagation()
+    event.preventDefault()
+    if (dlg === 'terms')
+      this.dialog.open(TermsComponent)
+    else
+      this.dialog.open(PolicyComponent)
   }
 }
