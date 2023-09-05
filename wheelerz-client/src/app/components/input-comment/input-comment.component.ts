@@ -29,7 +29,7 @@ import { UserService } from 'src/app/services/user.service'
 export class InputCommentComponent {
   userService = inject(UserService)
 
-  @Input() maxFileCount = 4
+  @Input() maxFileCount = 40
   @Input() form!: FormGroup
   @Input() controlName = 'comments'
   @Input() titlePlaceholder = 'title'

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderService } from 'src/app/services/loader.service';
 import { TranslatePipe } from 'src/app/pipes/translate.pipe';
@@ -14,11 +14,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
   loaderService = inject(LoaderService)
   router = inject(Router)
+  
   constructor() {
     this.loaderService.showTopMenu(false)
+  }
+
+  ngOnDestroy(): void {
+    this.loaderService.showTopMenu(true)
   }
 
   countryId = 0

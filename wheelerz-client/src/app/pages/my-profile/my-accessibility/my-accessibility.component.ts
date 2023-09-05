@@ -38,7 +38,7 @@ export class MyAccessibilityComponent {
   step = 0
   currentIndex = -1
   selectedCm = 'cm'
-  agree = false
+  agree = true
   constructor(public dialog: MatDialog) { }
 
   get isRtl(): boolean {

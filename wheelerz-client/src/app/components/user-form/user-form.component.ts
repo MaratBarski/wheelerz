@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core'
 import { CommonModule, KeyValue } from '@angular/common'
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms'
+import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms'
 import { TranslatePipe } from 'src/app/pipes/translate.pipe'
 import { User } from 'src/app/models/user'
 import { InputLineComponent } from '../input-line/input-line.component'
@@ -15,6 +15,10 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { CountryStateSelectorComponent } from '../country-state-selector/country-state-selector.component'
 import { DateSelectorComponent } from '../date-selector/date-selector.component'
 import { DateTimeService } from 'src/app/services/date-time.service'
+import { PolicyComponent } from 'src/app/policy/policy/policy.component'
+import { TermsComponent } from 'src/app/policy/terms/terms.component'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { TranslationService } from 'src/app/services/translation.service'
 
 @Component({
   selector: 'app-user-form',
@@ -28,18 +32,26 @@ import { DateTimeService } from 'src/app/services/date-time.service'
     NgxIntlTelInputModule,
     TooltipModule,
     CountryStateSelectorComponent,
-    DateSelectorComponent
+    DateSelectorComponent,
+    TermsComponent,
+    PolicyComponent,
+    MatDialogModule,
+    FormsModule
   ],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserFormComponent implements OnInit {
-  sexes = SEXES
-
+  trans = inject(TranslationService)
   dataService = inject(DataService)
   dateTimeService = inject(DateTimeService)
   cd = inject(ChangeDetectorRef)
+  agree = false
+  sexes = SEXES
+  get isRtl(): boolean {
+    return this.trans.isRtl
+  }
 
   @Input() user: User = {
     countryId: 0,
@@ -67,6 +79,7 @@ export class UserFormComponent implements OnInit {
     if (!this.birthYear) return false
     if (this.birthYear < new Date().getFullYear() - 100) return false
     if (this.birthYear > new Date().getFullYear() - 10) return false
+    if (!this.agree) return false
     return this.form.valid && this.isPasswordEq && this.isCountrySelected && this.isStateSelected
   }
 
@@ -110,6 +123,8 @@ export class UserFormComponent implements OnInit {
     birthYear: new FormControl('', [Validators.required])
   })
 
+  constructor(public dialog: MatDialog) { }
+
   updateSex(sex: KeyValue<any, any>): void {
     this.form.get('sex')?.setValue(sex.key)
     this.user.sex = sex.key
@@ -149,5 +164,14 @@ export class UserFormComponent implements OnInit {
     if (confirm('Are you sure')) {
       this.onDelete.next()
     }
+  }
+
+  openLink(dlg: string, event: any): void {
+    event.stopPropagation()
+    event.preventDefault()
+    if (dlg === 'terms')
+      this.dialog.open(TermsComponent)
+    else
+      this.dialog.open(PolicyComponent)
   }
 }
