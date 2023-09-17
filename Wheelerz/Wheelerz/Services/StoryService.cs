@@ -245,7 +245,8 @@ namespace Wheelerz.Services
                 ));
             return Task.Run(async () =>
             {
-                var total = await linq.AsSplitQuery().CountAsync();
+                // var total = await linq.AsSplitQuery().CountAsync();
+                var total = await linq.CountAsync();
                 var list = await linq
                     .OrderByDescending(x => x.dateAdd).ThenByDescending(x => x.endDate)
                     .Skip(request.page.current * request.page.size)
@@ -453,7 +454,7 @@ namespace Wheelerz.Services
                    || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
                ));
 
-                var total = await linq.AsSplitQuery().CountAsync();
+                var total = await linq.CountAsync();
                 var list = await linq
                     .OrderByDescending(x => x.dateAdd).ThenByDescending(x => x.endDate)
                     .Skip(request.page.current * request.page.size)
@@ -511,7 +512,7 @@ namespace Wheelerz.Services
                    || (x.city != null && x.city.name != null && x.city.name.Contains(request.q))
                ));
 
-                var total = await linq.AsSplitQuery().CountAsync();
+                var total = await linq.CountAsync();
                 var ci = await _userService.GetCharInfoToCm(_userService.CurrentUser.id);
                 var list = await linq
                     .OrderBy(x => ci.width > x.width ? 1 : -1)
