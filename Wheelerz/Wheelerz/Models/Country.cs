@@ -14,6 +14,10 @@ namespace Wheelerz.Models
         [Required]
         public string? name { get; set; }
 
+        [Column("hebname")]
+        [Required]
+        public string? hebname { get; set; }
+
         public List<State>? states { get; set; }
 
         [Column("deleted")]

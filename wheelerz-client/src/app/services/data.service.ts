@@ -176,4 +176,16 @@ export class DataService {
         })
       })
   }
+
+  updateCountry(country: Country): Observable<any> {
+    return this.put('Country/countries', country)
+  }
+
+  addCountry(country: Country): Observable<any> {
+    return this.post('Country/countries', country)
+  }
+
+  deleteCountry(id: number): Observable<any> {
+    return this.delete(`Country/countries/${id}`)
+  }
 }

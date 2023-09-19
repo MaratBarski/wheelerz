@@ -1,0 +1,29 @@
+<ng-container *ngIf="countries$|async as countries">
+    <table class="table">
+        <tr>
+            <th>N</th>
+            <th>Key</th>
+            <th>English</th>
+            <th>Hebrew</th>
+            <th></th>
+        </tr>
+        <!-- <tr>
+            <td></td>
+            <td><input class="ltr" type="text" [(ngModel)]="key"></td>
+            <td><textarea class="ltr" type="text" [(ngModel)]="eng"></textarea></td>
+            <td><textarea class="rtl" type="text" [(ngModel)]="heb"></textarea></td>
+            <td>
+                <button class="main-btn" (click)="add()">Add</button>
+            </td>
+        </tr> -->
+        <tr *ngFor="let t of countries;let i = index">
+            <td>{{i+1}}</td>
+            <td>{{t.id}}</td>
+            <td><textarea (blur)="update(t)" class="ltr" type="text" [(ngModel)]="t.name"></textarea></td>
+            <td><textarea (blur)="update(t)" class="rtl" type="text" [(ngModel)]="t.hebname"></textarea></td>
+            <!-- <td>
+                <button class="main-btn" (click)="delete(t.id)">Delete</button>
+            </td> -->
+        </tr>
+    </table>
+</ng-container>

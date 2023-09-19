@@ -2,7 +2,7 @@
     <app-input-line name="country">
         <select [disabled]="coutnries.length===1" class="main-input country" [(ngModel)]="selectedCountry"
             (change)="changeCountry()">
-            <option [value]="c.id" *ngFor="let c of coutnries">{{c.name}}</option>
+            <option [value]="c.id" *ngFor="let c of coutnries">{{c|country}}</option>
         </select>
     </app-input-line>
     <app-input-line name="state" *ngIf="states$|async as cities">

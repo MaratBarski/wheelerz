@@ -35,6 +35,18 @@ namespace Wheelerz.Controllers
             return await _countryService.GetStates(countryId, exists, type);
         }
 
+        [HttpPost("countries")]
+        public void AddCountry(Country country)
+        {
+            _countryService.AddCountry(country);
+        }
+
+        [HttpPut("countries")]
+        public async Task UpdateCountry(Country country)
+        {
+            await _countryService.UpdateCountry(country);
+        }
+
         [HttpPost]
         public void AddAll(List<Country> c)
         {

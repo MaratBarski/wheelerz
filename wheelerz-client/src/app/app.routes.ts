@@ -83,5 +83,10 @@ export const APP_ROUTES: Routes = [
         path: 'translations',
         loadComponent: () => import('./pages/translation/translation.component').then(c => c.TranslationComponent),
         canActivate: [AdminService]
+    },
+    {
+        path: 'countries',
+        loadComponent: () => import('./pages/countries/countries.component').then(c => c.CountriesComponent),
+        canActivate: [AdminService]
     }
 ];

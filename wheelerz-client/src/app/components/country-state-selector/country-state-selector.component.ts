@@ -6,11 +6,12 @@ import { map, Observable, tap } from 'rxjs'
 import { Country, State } from 'src/app/models/country'
 import { DataService } from 'src/app/services/data.service'
 import { FormsModule } from '@angular/forms'
+import { CountryPipe } from 'src/app/pipes/country.pipe'
 
 @Component({
   selector: 'app-country-state-selector',
   standalone: true,
-  imports: [CommonModule, TranslatePipe, InputLineComponent, FormsModule],
+  imports: [CommonModule, TranslatePipe, InputLineComponent, FormsModule, CountryPipe],
   templateUrl: './country-state-selector.component.html',
   styleUrls: ['./country-state-selector.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

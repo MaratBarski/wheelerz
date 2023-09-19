@@ -223,7 +223,8 @@ alter table stories add gmap ntext
 go
 alter table stories alter column [address] nvarchar(500)
 go
-
+alter table [dbo].[countries] add hebname nvarchar(100) not null default ''
+go
 
 
 

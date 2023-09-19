@@ -8,6 +8,7 @@
         <div class="admin-links" *ngIf="userService.isAdmin">
             <a style="color: white;" routerLink="/users" class="pointer">Users</a>
             <a style="color: white;" routerLink="/translations" class="pointer">Translations</a>
+            <a style="color: white;" routerLink="/countries" class="pointer">Countries</a>
         </div>
         <div *ngIf="userService.isLogedIn">
             <img  routerLink="/" class="pointer" src="./assets/img/chat.svg">
